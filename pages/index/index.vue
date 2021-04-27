@@ -1,50 +1,37 @@
 <template>
-	<view class="content">
-		<image class="logo" src="/static/uview/common/logo.png"></image>
-		<view class="text-area">
-			<text class="title">{{title}}</text>
-		</view>
-
-	</view>
+	<u-swiper :list="list" name="imagePath" img-mode="widthFix" :height="420" @click="click"></u-swiper>
 </template>
 
 <script>
 	export default {
 		data() {
 			return {
-				title: 'Hello uView',
+				list: [],
 			}
 		},
 		onLoad() {
-
+			this.getBanner()
+		},
+		methods: {
+			getBanner() {
+				this.$u.api.banner().then(res => {
+					console.log(res);
+					this.list = res
+				})
+			},
+			openPage() {
+				console.log("打开详细页面")
+				this.$u.route({
+					url: '/pages/web/index'
+				});
+			},
+			click(index) {
+				let url = this.list[index].url
+				console.log(url)
+			},
 		}
 	}
 </script>
 
 <style>
-	.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.logo {
-		height: 200rpx;
-		width: 200rpx;
-		margin-top: 200rpx;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 50rpx;
-	}
-
-	.text-area {
-		display: flex;
-		justify-content: center;
-	}
-
-	.title {
-		font-size: 36rpx;
-		color: #8f8f94;
-	}
 </style>
