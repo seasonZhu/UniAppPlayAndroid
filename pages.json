@@ -22,6 +22,14 @@
 			"style": {
 				"navigationBarTitleText": "我的"
 			}
+		},
+		{
+		    "path": "pages/web/index",
+		    "style": {
+				"navigationBarTitleText": "详细",
+				"navigationBarTextStyle":"white",
+				"navigationBarBackgroundColor":"#0a5fff"
+			}
 		}
 	],
 	"globalStyle": {
