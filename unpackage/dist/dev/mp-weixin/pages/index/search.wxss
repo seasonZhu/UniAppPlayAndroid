@@ -1,0 +1,20 @@
+.wrap.data-v-64d2b7fe {
+  padding: 24rpx;
+}
+.u-row.data-v-64d2b7fe {
+  margin: 40rpx 0;
+}
+.demo-layout.data-v-64d2b7fe {
+  height: 80rpx;
+  border-radius: 8rpx;
+}
+.bg-purple.data-v-64d2b7fe {
+  background: #d3dce6;
+}
+.bg-purple-light.data-v-64d2b7fe {
+  background: #e5e9f2;
+}
+.bg-purple-dark.data-v-64d2b7fe {
+  background: #99a9bf;
+}
+

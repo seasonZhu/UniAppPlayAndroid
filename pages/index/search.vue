@@ -36,10 +36,15 @@
 					console.log(res)
 				})
 			},
-			click(index) {
-				//let keyword = this.list[index]
-				console.log(index)
-			}
+			click(keyword) {
+				this.openPage(keyword)
+			},
+			openPage(keyword) {
+				console.log("打开详细页面")
+				this.$u.route('/pages/index/result', {
+					"keyword": keyword
+				});
+			},
 		}
 	}
 </script>

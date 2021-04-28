@@ -1,0 +1,20 @@
+{
+  "navigationBarTitleText": "首页",
+  "enablePullDownRefresh": true,
+  "titleNView": {
+    "buttons": [
+      {
+        "color": "#fff",
+        "colorPressed": "#fff",
+        "float": "right",
+        "fontSize": "14px",
+        "text": "搜索  "
+      }
+    ]
+  },
+  "usingComponents": {
+    "u-swiper": "/uview-ui/components/u-swiper/u-swiper",
+    "u-cell-item": "/uview-ui/components/u-cell-item/u-cell-item",
+    "u-loadmore": "/uview-ui/components/u-loadmore/u-loadmore"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "navigationBarTitleText": "搜索",
+  "titleNView": {
+    "searchInput": {
+      "align": "left",
+      "backgroundColor": "#eee",
+      "borderRadius": "5px",
+      "placeholder": "请输入内容",
+      "placeholderColor": "#ccc"
+    },
+    "buttons": [
+      {
+        "color": "#fff",
+        "colorPressed": "#fff",
+        "float": "right",
+        "fontSize": "14px",
+        "text": "  确定  "
+      }
+    ]
+  },
+  "usingComponents": {
+    "u-tag": "/uview-ui/components/u-tag/u-tag"
+  }
+}

@@ -1,0 +1,1 @@
+<view class="wrap data-v-64d2b7fe"><block wx:for="{{list}}" wx:for-item="item" wx:for-index="index" wx:key="index"><view class="data-v-64d2b7fe"><u-tag vue-id="{{'3584c8c8-1-'+index}}" text="{{item.name}}" index="{{item.name}}" data-event-opts="{{[['^click',[['click']]]]}}" bind:click="__e" class="data-v-64d2b7fe" bind:__l="__l"></u-tag></view></block></view>
