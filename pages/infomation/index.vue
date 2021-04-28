@@ -1,13 +1,13 @@
 <template>
 	<view>
 		<view>
-			<u-tabs-swiper ref="uTabs" :list="topics" @change="tabsChange" :is-scroll="true" swiperWidth="750"></u-tabs-swiper>
+			<u-tabs-swiper ref="uTabs" :list="topics" @change="tabsChange" :is-scroll="true"></u-tabs-swiper>
 		</view>
 		<swiper class="swiper-box" :current="swiperCurrent" @transition="transition" @animationfinish="animationfinish">
 			<swiper-item class="swiper-item" v-for="(item, index) in topics" :key="index">
 				<scroll-view scroll-y style="height: 100%;width: 100%;" @scrolltolower="onreachBottom">
 					<view v-for="(model,idx) in list" :key="idx">
-						<u-cell-item :title="model.title" :label="model.author" :index="index" @click=""></u-cell-item>
+						<u-cell-item :title="model.title" :label="model.author" :index="idx" @click="click"></u-cell-item>
 					</view>
 				</scroll-view>
 			</swiper-item>
@@ -65,6 +65,8 @@ export default {
 			this.$refs.uTabs.setFinishCurrent(current);
 			this.swiperCurrent = current;
 			this.current = current;
+			
+			this.changePage(current)
 		},
 		// scroll-view到底部加载更多
 		onreachBottom() {
@@ -75,7 +77,17 @@ export default {
 			this.list = []
 			let id = this.topics[index].id
 			this.getProjectList(id)
-		}
+		},
+		openPage(url) {
+			console.log("打开详细页面")
+			this.$u.route('/pages/web/index', {
+				"url": url
+			});
+		},
+		click(index) {
+			let url = this.list[index].link
+			this.openPage(url)
+		},
 	}
 };
 </script>
