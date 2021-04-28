@@ -7,9 +7,18 @@
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "首页",
-				"navigationBarTextStyle":"white",
-				"navigationBarBackgroundColor":"#0a5fff",
-				"enablePullDownRefresh": true
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#0a5fff",
+				"enablePullDownRefresh": true,
+				"titleNView": {
+					"buttons": [{
+						"color": "#fff",
+						"colorPressed": "#fff",
+						"float": "right",
+						"fontSize": "14px",
+						"text": "搜索  " // 字体图标\u 开头，加上字体图标unicode后面四位
+					}]
+				}
 			}
 		},
 		{
@@ -25,11 +34,35 @@
 			}
 		},
 		{
-		    "path": "pages/web/index",
-		    "style": {
+			"path": "pages/web/index",
+			"style": {
 				"navigationBarTitleText": "详细",
-				"navigationBarTextStyle":"white",
-				"navigationBarBackgroundColor":"#0a5fff"
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#0a5fff"
+			}
+		},
+		{
+			"path": "pages/index/search",
+			"style": {
+				"navigationBarTitleText": "搜索",
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#0a5fff",
+				"titleNView": {
+					"searchInput": {
+						"align": "left",
+						"backgroundColor": "#eee",
+						"borderRadius": "5px", // 只能用px作单位
+						"placeholder": "请输入内容",
+						"placeholderColor": "#ccc"
+					},
+					"buttons": [{
+						"color": "#fff",
+						"colorPressed": "#fff",
+						"float": "right",
+						"fontSize": "14px",
+						"text": "  确定  " // 字体图标\u 开头，加上字体图标unicode后面四位
+					}]
+				}
 			}
 		}
 	],

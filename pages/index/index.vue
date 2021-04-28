@@ -20,6 +20,7 @@
 				normals:[],
 				page:0,
 				status: 'loadmore',
+				background: {background: '#0a5fff'},
 			}
 		},
 		async onLoad() {
@@ -40,6 +41,10 @@
 			this.page++
 			this.status = 'loading'
 			this.getNormalArticle()
+		},
+		onNavigationBarButtonTap(e) {
+			console.log(e.float)
+			this.$u.route('/pages/index/search');
 		},
 		methods: {
 			getBanner() {
@@ -85,6 +90,7 @@
 			},
 			// 点击组件，触发加载更多事件(status为'loadmore'状态下才触发)
 			loadmore() {
+				// 这个感觉在App端基本上用不到
 				console.log("加载更多")
 			}
 		}
@@ -92,4 +98,56 @@
 </script>
 
 <style>
+	.u-demo {
+		//height: 200vh;
+		height: calc(100% - 44px);
+		height: calc(100% - 44px - constant(safe-area-inset-top));
+		height: calc(100% - 44px - env(safe-area-inset-top));
+	}
+	
+	.wrap {
+		padding: 24rpx;
+	}
+	
+	.navbar-right {
+		margin-right: 24rpx;
+		display: flex;
+	}
+	
+	.search-wrap {
+		margin: 0 20rpx;
+		flex: 1;
+	}
+	
+	.right-item {
+		margin: 0 12rpx;
+		position: relative;
+		color: #ffffff;
+		display: flex;
+	}
+	
+	.message-box {
+		
+	}
+	
+	.slot-wrap {
+		display: flex;
+		align-items: center;
+		flex: 1;
+	}
+	
+	.map-wrap {
+		display: flex;
+		align-items: center;
+		padding: 4px 6px;
+		background-color: rgba(240,240, 240, 0.35);
+		color: #fff;
+		font-size: 22rpx;
+		border-radius: 100rpx;
+		margin-left: 30rpx;
+	}
+	
+	.map-wrap-text {
+		padding: 0 6rpx;
+	}
 </style>
