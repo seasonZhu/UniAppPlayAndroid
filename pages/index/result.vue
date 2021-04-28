@@ -14,7 +14,7 @@
 			uni.setNavigationBarTitle({
 			　　title:option.keyword
 			})
-			this.searchResult(option)
+			//this.searchResult(option)
 		},
 		methods: {
 			/// 该接口异常，在postman中使用form-data可以调通
