@@ -2999,7 +2999,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 13);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, ".flex-wrap[data-v-6f900f64] {\n  display: -webkit-box;\n  display: flex;\n  display: -webkit-flex;\n  -webkit-flex-wrap: wrap;\n          flex-wrap: wrap;\n  width: auto;\n  height: 50px;\n  margin: 16;\n}\n.wrap[data-v-6f900f64] {\n  margin: 20;\n}\n", ""]);
+exports.push([module.i, ".flex-wrap[data-v-6f900f64] {\n  display: -webkit-box;\n  display: flex;\n  display: -webkit-flex;\n  -webkit-flex-wrap: wrap;\n          flex-wrap: wrap;\n  width: auto;\n  height: auto;\n  margin: 16rpx;\n}\n.wrap[data-v-6f900f64] {\n  margin: 10rpx;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
