@@ -1,5 +1,6 @@
 <template>
 	<view >
+		<!-- /// 接口都调成功了 但是就是界面没出来 -->
 		<scroll-view scroll-y style="height: 100%;width: 100%;" @scrolltolower="onreachBottom">
 			<view v-for="(model,index) in getProjectList(this.id)" :key="index">
 				<u-cell-item :title="model.title" :label="model.author" :index="index" @click="click"></u-cell-item>
@@ -29,13 +30,10 @@
 				return this.item.id
 			}
 		},
-		onLoad() {
-			// this.getProjectList(this.id);
-		},
 		methods: {
 			async getProjectList() {
 				let array = await this.$u.api.projectList({"cid": this.item.id.toString(),}, 0)
-				console.log(array)
+				//console.log(array)
 				this.list = this.list.concat(array)
 				return this.list
 			},
