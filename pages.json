@@ -54,6 +54,12 @@
 			}
 		},
 		{
+			"path": "pages/publicNum/index",
+			"style": {
+				"navigationBarTitleText": "公众号"
+			}
+		},
+		{
 			"path": "pages/my/index",
 			"style": {
 				"navigationBarTitleText": "我的"
@@ -88,6 +94,12 @@
 				"iconPath": "static/uview/example/js.png",
 				"selectedIconPath": "static/uview/example/js_select.png",
 				"text": "项目"
+			},
+			{
+				"pagePath": "pages/publicNum/index",
+				"iconPath": "static/uview/example/js_bak.png",
+				"selectedIconPath": "static/uview/example/js_select_bak.png",
+				"text": "公众号"
 			},
 			{
 				"pagePath": "pages/my/index",

@@ -5,22 +5,15 @@
 		</view>
 		<swiper class="swiper-box" :current="swiperCurrent" @transition="transition" @animationfinish="animationfinish">
 			<swiper-item class="swiper-item" v-for="(item, index) in topics" :key="index">
-<!-- 				<scroll-view scroll-y style="height: 100%;width: 100%;" @scrolltolower="onreachBottom">
-					<view v-for="(model,idx) in list" :key="idx">
-						<u-cell-item :title="model.title" :label="model.author" :index="idx" @click="click"></u-cell-item>
-					</view>
-				</scroll-view> -->
-				<single :item = "item"></single>
 			</swiper-item>
 		</swiper>
 	</view>
 </template>
 
 <script>
-import single from './single.vue'
 export default {
 	components: {
-	    'single': single 
+	    
 	},
 	data() {
 		return {
@@ -31,11 +24,11 @@ export default {
 		};
 	},
 	onLoad() {
-		this.getProjectTopic();
+		this.getPublicNumTopic();
 	},
 	methods: {
-		getProjectTopic() {
-			this.$u.api.projectTopic().then(res => {
+		getPublicNumTopic() {
+			this.$u.api.publicNumTopic().then(res => {
 				this.topics = res;
 			});
 		},
