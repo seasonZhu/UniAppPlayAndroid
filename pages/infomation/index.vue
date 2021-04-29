@@ -5,18 +5,23 @@
 		</view>
 		<swiper class="swiper-box" :current="swiperCurrent" @transition="transition" @animationfinish="animationfinish">
 			<swiper-item class="swiper-item" v-for="(item, index) in topics" :key="index">
-				<scroll-view scroll-y style="height: 100%;width: 100%;" @scrolltolower="onreachBottom">
+<!-- 				<scroll-view scroll-y style="height: 100%;width: 100%;" @scrolltolower="onreachBottom">
 					<view v-for="(model,idx) in list" :key="idx">
 						<u-cell-item :title="model.title" :label="model.author" :index="idx" @click="click"></u-cell-item>
 					</view>
-				</scroll-view>
+				</scroll-view> -->
+				<single :item = "item"></single>
 			</swiper-item>
 		</swiper>
 	</view>
 </template>
 
 <script>
+import single from './single.vue'
 export default {
+	components: {
+	    'single': single 
+	},
 	data() {
 		return {
 			topics: [],
@@ -33,25 +38,12 @@ export default {
 	methods: {
 		getProjectTopic() {
 			this.$u.api.projectTopic().then(res => {
-				console.log(res);
 				this.topics = res;
-				if (this.topics.length >= 1) {
-					let first = this.topics[0]
-					let id = first.id
-					this.getProjectList(id)
-				}
 			});
-		},
-		getProjectList(id) {
-			this.$u.api.projectList({"cid": id.toString(),}, 0).then(res => {
-				this.list = this.list.concat(res.datas)
-				console.log(res.datas)
-			})
 		},
 		// tabs通知swiper切换
 		tabsChange(index) {
 			this.swiperCurrent = index;
-			this.changePage(index)
 		},
 		// swiper-item左右移动，通知tabs的滑块跟随移动
 		transition(e) {
@@ -65,28 +57,10 @@ export default {
 			this.$refs.uTabs.setFinishCurrent(current);
 			this.swiperCurrent = current;
 			this.current = current;
-			
-			this.changePage(current)
 		},
 		// scroll-view到底部加载更多
 		onreachBottom() {
 			
-		},
-		changePage(index) {
-			this.page = 0
-			this.list = []
-			let id = this.topics[index].id
-			this.getProjectList(id)
-		},
-		openPage(url) {
-			console.log("打开详细页面")
-			this.$u.route('/pages/web/index', {
-				"url": url
-			});
-		},
-		click(index) {
-			let url = this.list[index].link
-			this.openPage(url)
 		},
 	}
 };
