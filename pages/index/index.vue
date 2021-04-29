@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<u-swiper :list="list" name="imagePath" img-mode="widthFix" height="420" border-radius="0" @click="click"></u-swiper>
+		<u-swiper :list="list" name="imagePath" img-mode="widthFix" height="450" border-radius="0" bg-color="#ffffff" @click="click"></u-swiper>
 		<view v-for="(item,index) in tops" :key="index">
 			<u-cell-item :title="item.title" :label="item.author" :value="item.zan" :index="index" @click="topCellClick"></u-cell-item>
 		</view>
@@ -20,7 +20,6 @@
 				normals:[],
 				page:0,
 				status: 'loadmore',
-				background: {background: '#0a5fff'},
 			}
 		},
 		async onLoad() {

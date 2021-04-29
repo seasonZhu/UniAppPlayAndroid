@@ -2426,7 +2426,11 @@ var render = function() {
       _vm._l(_vm._$g(1, "f"), function(item, index, $20, $30) {
         return _c(
           "v-uni-view",
-          { key: item, attrs: { _i: "1-" + $30 } },
+          {
+            key: item,
+            staticClass: _vm._$g("1-" + $30, "sc"),
+            attrs: { _i: "1-" + $30 }
+          },
           [
             _c("u-tag", {
               attrs: { _i: "2-" + $30 },
@@ -2995,7 +2999,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 13);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, ".wrap[data-v-6f900f64] {\n  padding: 24rpx;\n}\n.u-row[data-v-6f900f64] {\n  margin: 40rpx 0;\n}\n.demo-layout[data-v-6f900f64] {\n  height: 80rpx;\n  border-radius: 8rpx;\n}\n.bg-purple[data-v-6f900f64] {\n  background: #d3dce6;\n}\n.bg-purple-light[data-v-6f900f64] {\n  background: #e5e9f2;\n}\n.bg-purple-dark[data-v-6f900f64] {\n  background: #99a9bf;\n}\n", ""]);
+exports.push([module.i, ".flex-wrap[data-v-6f900f64] {\n  display: -webkit-box;\n  display: flex;\n  display: -webkit-flex;\n  -webkit-flex-wrap: wrap;\n          flex-wrap: wrap;\n  width: auto;\n  height: 50px;\n  margin: 16;\n}\n.wrap[data-v-6f900f64] {\n  margin: 20;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -3074,11 +3078,66 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components
+try {
+  components = {
+    uCellItem: __webpack_require__(/*! @/uview-ui/components/u-cell-item/u-cell-item.vue */ 17)
+      .default,
+    uLoadmore: __webpack_require__(/*! @/uview-ui/components/u-loadmore/u-loadmore.vue */ 33)
+      .default
+  }
+} catch (e) {
+  if (
+    e.message.indexOf("Cannot find module") !== -1 &&
+    e.message.indexOf(".vue") !== -1
+  ) {
+    console.error(e.message)
+    console.error("1. 排查组件名称拼写是否正确")
+    console.error(
+      "2. 排查组件是否符合 easycom 规范，文档：https://uniapp.dcloud.net.cn/collocation/pages?id=easycom"
+    )
+    console.error(
+      "3. 若组件不符合 easycom 规范，需手动引入，并在 components 中注册该组件"
+    )
+  } else {
+    throw e
+  }
+}
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c(
+    "v-uni-view",
+    { attrs: { _i: 0 } },
+    [
+      _vm._l(_vm._$g(1, "f"), function(item, index, $20, $30) {
+        return _c(
+          "v-uni-view",
+          { key: item, attrs: { _i: "1-" + $30 } },
+          [
+            _c("u-cell-item", {
+              attrs: { _i: "2-" + $30 },
+              on: {
+                click: function($event) {
+                  return _vm.$handleViewEvent($event)
+                }
+              }
+            })
+          ],
+          1
+        )
+      }),
+      _c("u-loadmore", {
+        attrs: { _i: 3 },
+        on: {
+          loadmore: function($event) {
+            return _vm.$handleViewEvent($event)
+          }
+        }
+      })
+    ],
+    2
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []

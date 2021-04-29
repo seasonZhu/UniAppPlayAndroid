@@ -1,6 +1,6 @@
 <template>
-	<view class="wrap">
-		<view v-for="(item, index) in list" :key="index"><u-tag :text="item.name" :index="item.name" @click="click" /></view>
+	<view class="flex-wrap">
+		<view class="wrap" v-for="(item, index) in list" :key="index"><u-tag :text="item.name" :index="item.name" @click="click" /></view>
 		<u-toast ref="uToast" />
 	</view>
 </template>
@@ -63,28 +63,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.wrap {
-	padding: 24rpx;
-}
+.flex-wrap{
+            display: flex;
+            display: -webkit-flex;
+            flex-wrap: wrap;
+            width: auto;
+            height: auto;
+            margin: 16rpx;
 
-.u-row {
-	margin: 40rpx 0;
-}
-
-.demo-layout {
-	height: 80rpx;
-	border-radius: 8rpx;
-}
-
-.bg-purple {
-	background: #d3dce6;
-}
-
-.bg-purple-light {
-	background: #e5e9f2;
-}
-
-.bg-purple-dark {
-	background: #99a9bf;
+        }
+.wrap{
+	margin: 10rpx;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
 	<view class="">
 		<view v-for="(item,index) in list" :key="index">
-			<u-cell-item :title="removeHtmlTag(item.title)" :label="item.author" :value="item.zan" :index="index" @click="normalCellClick"></u-cell-item>
+			<u-cell-item :title="removeHtmlTag(item.title)" :label="item.author" :value="item.zan" :index="index" @click="click"></u-cell-item>
 		</view>
 		<u-loadmore :status="status" @loadmore="loadmore"/>
 	</view>
@@ -34,7 +34,7 @@
 			this.searchResult(this.option)
 		},
 		methods: {
-			/// 该接口异常，在postman中使用form-data可以调通
+			// 该接口异常，在postman中使用form-data可以调通
 			searchResult(option) {
 				this.$u.api.queryKeyword(option.keyword, this.page).then(res => {
 					console.log(res)
@@ -47,12 +47,22 @@
 					}
 				})
 			},
+			// 去HTML标签
 			removeHtmlTag(title) {
 				var msg = title.replace(/<\/?[^>]*>/g, '') //去除HTML Tag
 				msg = msg.replace(/[|]*\n/, '')//去除行尾空格
 				msg = msg.replace(/&nbsp;/gi, '')
 				return msg
-			}
+			},
+			openPage(url) {
+				this.$u.route('/pages/web/index', {
+					"url": url
+				});
+			},
+			click(index) {
+				let url = this.list[index].link
+				this.openPage(url)
+			},
 		}
 	}
 </script>
