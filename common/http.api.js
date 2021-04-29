@@ -6,7 +6,6 @@ let normalArticle = 'article/list/'
 
 let getSearchHotKey = 'hotkey/json'
 
-/// 应该是post请求都有异常,需要跟踪调试
 let queryKey = 'article/query/'
 
 let getProjectClassify = 'project/tree/json';
@@ -29,8 +28,8 @@ const install = (Vue, vm) => {
 	// 热词
 	let hotKey = (params = {}) => vm.$u.get(getSearchHotKey, params);
 	
-	// 关键词搜索
-	let queryKeyword = (params = {}, page) => vm.$u.post(queryKey  + '0' + '/json', params);
+	// 关键词搜索（目前已经改好了）
+	let queryKeyword = (keyword, page) => vm.$u.post(queryKey  + page.toString() + '/json' + "?k=" + keyword);
 	
 	// 项目分类
 	let projectTopic = (params = {}) => vm.$u.get(getProjectClassify, params);
