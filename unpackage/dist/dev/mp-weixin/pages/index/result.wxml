@@ -1,1 +1,1 @@
-<view class="_div"></view>
+<view><block wx:for="{{$root.l0}}" wx:for-item="item" wx:for-index="index" wx:key="index"><view><u-cell-item vue-id="{{'35a5a773-1-'+index}}" title="{{item.m0}}" label="{{item.$orig.author}}" value="{{item.$orig.zan}}" index="{{index}}" data-event-opts="{{[['^click',[['click']]]]}}" bind:click="__e" bind:__l="__l"></u-cell-item></view></block><u-loadmore vue-id="35a5a773-2" status="{{status}}" data-event-opts="{{[['^loadmore',[['loadmore']]]]}}" bind:loadmore="__e" bind:__l="__l"></u-loadmore></view>

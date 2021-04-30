@@ -94,13 +94,13 @@ var components
 try {
   components = {
     uSwiper: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-swiper/u-swiper */ "uview-ui/components/u-swiper/u-swiper").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-swiper/u-swiper.vue */ 80))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-swiper/u-swiper */ "uview-ui/components/u-swiper/u-swiper").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-swiper/u-swiper.vue */ 112))
     },
     uCellItem: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-cell-item/u-cell-item */ "uview-ui/components/u-cell-item/u-cell-item").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-cell-item/u-cell-item.vue */ 87))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-cell-item/u-cell-item */ "uview-ui/components/u-cell-item/u-cell-item").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-cell-item/u-cell-item.vue */ 119))
     },
     uLoadmore: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-loadmore/u-loadmore */ "uview-ui/components/u-loadmore/u-loadmore").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-loadmore/u-loadmore.vue */ 94))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-loadmore/u-loadmore */ "uview-ui/components/u-loadmore/u-loadmore").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-loadmore/u-loadmore.vue */ 126))
     }
   }
 } catch (e) {
@@ -178,8 +178,7 @@ var _default =
       tops: [],
       normals: [],
       page: 0,
-      status: 'loadmore',
-      background: { background: '#0a5fff' } };
+      status: 'loadmore' };
 
   },
   onLoad: function onLoad() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:

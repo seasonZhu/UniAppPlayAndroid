@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "积分排名",
+  "usingComponents": {
+    "u-cell-item": "/uview-ui/components/u-cell-item/u-cell-item",
+    "u-loadmore": "/uview-ui/components/u-loadmore/u-loadmore"
+  }
+}

@@ -4,7 +4,11 @@
     "pages/index/search",
     "pages/index/result",
     "pages/infomation/index",
+    "pages/publicNum/index",
     "pages/my/index",
+    "pages/my/tree",
+    "pages/my/detail",
+    "pages/my/ranking",
     "pages/web/index"
   ],
   "subPackages": [],
@@ -33,6 +37,12 @@
         "text": "项目"
       },
       {
+        "pagePath": "pages/publicNum/index",
+        "iconPath": "static/uview/example/js_bak.png",
+        "selectedIconPath": "static/uview/example/js_select_bak.png",
+        "text": "公众号"
+      },
+      {
         "pagePath": "pages/my/index",
         "iconPath": "static/uview/example/template.png",
         "selectedIconPath": "static/uview/example/template_select.png",
@@ -40,5 +50,6 @@
       }
     ]
   },
-  "usingComponents": {}
+  "usingComponents": {},
+  "sitemapLocation": "sitemap91.json"
 }

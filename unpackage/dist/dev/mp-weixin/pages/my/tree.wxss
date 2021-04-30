@@ -1,0 +1,15 @@
+
+.flex-wrap{
+	display: -webkit-box;
+	display: flex;
+	display: -webkit-flex;
+	-webkit-flex-wrap: wrap;
+	        flex-wrap: wrap;
+	width: auto;
+	height: auto;
+	margin: 16rpx;
+}
+.wrap{
+	margin: 10rpx;
+}
+

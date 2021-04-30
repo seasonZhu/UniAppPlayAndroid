@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "我的",
-  "usingComponents": {}
+  "usingComponents": {
+    "u-cell-item": "/uview-ui/components/u-cell-item/u-cell-item"
+  }
 }

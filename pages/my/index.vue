@@ -1,11 +1,11 @@
 <template>
-	<view class="content">
-		<u-cell-item title="体系" index="0" @click="click"></u-cell-item>
-		<u-cell-item title="积分排行榜" index="1" @click="click"></u-cell-item>
-		<image class="logo" src="/static/uview/common/logo.png"></image>
+	<view class="">
+		<image class="logo content" src="/static/uview/common/logo.png"></image>
 		<view class="text-area">
 			<text class="title">{{title}}</text>
 		</view>
+		<u-cell-item title="体系" index="0" @click="click"></u-cell-item>
+		<u-cell-item title="积分排行榜" index="1" @click="click"></u-cell-item>
 	</view>
 </template>
 
@@ -47,7 +47,7 @@
 	.logo {
 		height: 200rpx;
 		width: 200rpx;
-		margin-top: 200rpx;
+		margin-top: 44rpx;
 		margin-left: auto;
 		margin-right: auto;
 		margin-bottom: 50rpx;

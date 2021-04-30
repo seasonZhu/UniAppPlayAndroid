@@ -19,6 +19,7 @@
     ]
   },
   "usingComponents": {
-    "u-tag": "/uview-ui/components/u-tag/u-tag"
+    "u-tag": "/uview-ui/components/u-tag/u-tag",
+    "u-toast": "/uview-ui/components/u-toast/u-toast"
   }
 }

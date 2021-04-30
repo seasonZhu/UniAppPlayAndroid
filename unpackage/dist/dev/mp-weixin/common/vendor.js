@@ -10563,8 +10563,6 @@ var install = function install(Vue, vm) {
   };
   // 响应拦截，判断状态码是否通过
   Vue.prototype.$u.http.interceptor.response = function (res) {
-    // 如果把originalData设置为了true，这里得到将会是服务器返回的所有的原始数据
-    // 判断可能变成了res.statueCode，或者res.data.code之类的，请打印查看结果
     console.log(res);
     if (res.errorCode == 0) {
       // 如果把originalData设置为了true，这里return回什么，this.$u.post的then回调中就会得到什么
@@ -10597,6 +10595,44 @@ var getSearchHotKey = 'hotkey/json';
 
 var queryKey = 'article/query/';
 
+var getProjectClassify = 'project/tree/json';
+
+var getProjectClassifyList = 'project/list/';
+
+var getPubilicNumber = 'wxarticle/chapters/json';
+
+var getPubilicNumberList = 'wxarticle/list/';
+
+// 登录
+var postLogin = 'user/login';
+
+// 注册
+var postRegister = 'user/register';
+
+// 登录退出
+var getLogout = 'user/logout/json';
+
+// 收藏站内文章 lg/collect/1165/json
+var postCollectArticle = 'lg/collect/';
+
+// 取消收藏站内文章 lg/uncollect_originId/1165/json
+var postUnCollectArticle = 'lg/uncollect_originId/';
+
+// 收藏文章列表
+var getCollectArticleList = 'lg/collect/list/';
+
+var getRankingList = 'coin/rank/';
+
+// 个人积分获取列表
+var getCoinList = 'lg/coin/list/';
+
+// 个人积分
+var getUserCoinInfo = 'lg/coin/userinfo/json';
+
+var getTree = "tree/json";
+
+var getTreeDetailList = "article/list/";
+
 // 此处第二个参数vm，就是我们在页面使用的this，你可以通过vm获取vuex等操作，更多内容详见uView对拦截器的介绍部分：
 // https://uviewui.com/js/http.html#%E4%BD%95%E8%B0%93%E8%AF%B7%E6%B1%82%E6%8B%A6%E6%88%AA%EF%BC%9F
 var install = function install(Vue, vm) {
@@ -10613,11 +10649,45 @@ var install = function install(Vue, vm) {
   // 热词
   var hotKey = function hotKey() {var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};return vm.$u.get(getSearchHotKey, params);};
 
-  // 关键词搜索
-  var queryKeyword = function queryKeyword() {var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { "k": "", "page": "0" };return vm.$u.post(queryKey + params.page + '/json', params);};
+  // 关键词搜索（目前已经改好了）
+  var queryKeyword = function queryKeyword(keyword, page) {return vm.$u.post(queryKey + page.toString() + '/json' + "?k=" + keyword);};
+
+  // 项目分类
+  var projectTopic = function projectTopic() {var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};return vm.$u.get(getProjectClassify, params);};
+
+  // 项目列表
+  var projectList = function projectList() {var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};var page = arguments.length > 1 ? arguments[1] : undefined;return vm.$u.get(getProjectClassifyList + page.toString() + "/json", params);};
+
+  // 公众号
+  var publicNumTopic = function publicNumTopic() {var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};return vm.$u.get(getPubilicNumber, params);};
+
+  // 公众号文章列表
+  var publicNumList = function publicNumList() {var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};var page = arguments.length > 1 ? arguments[1] : undefined;return vm.$u.get(getPubilicNumberList + page.toString() + "/json", params);};
+
+  // 体系
+  var tree = function tree() {var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};var page = arguments.length > 1 ? arguments[1] : undefined;return vm.$u.get(getTree, params);};
+
+  // 体系详细
+  var treeDetail = function treeDetail(id, page) {return vm.$u.get(getTreeDetailList + page.toString() + '/json' + "?cid=" + id);};
+
+  // 总积分排名
+  var totalRankingList = function totalRankingList(page) {return vm.$u.get(getRankingList + page.toString() + '/json');};
 
   // 将各个定义的接口名称，统一放进对象挂载到vm.$u.api(因为vm就是this，也即this.$u.api)下
-  vm.$u.api = { banner: banner, top: top, normal: normal, hotKey: hotKey, queryKeyword: queryKeyword };
+  vm.$u.api = {
+    banner: banner,
+    top: top,
+    normal: normal,
+    hotKey: hotKey,
+    queryKeyword: queryKeyword,
+    projectTopic: projectTopic,
+    projectList: projectList,
+    publicNumTopic: publicNumTopic,
+    publicNumList: publicNumList,
+    tree: tree,
+    treeDetail: treeDetail,
+    totalRankingList: totalRankingList };
+
 };var _default =
 
 {

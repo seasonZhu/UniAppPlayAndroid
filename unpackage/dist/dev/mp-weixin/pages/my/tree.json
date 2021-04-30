@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "体系",
+  "usingComponents": {
+    "u-cell-group": "/uview-ui/components/u-cell-group/u-cell-group",
+    "u-tag": "/uview-ui/components/u-tag/u-tag",
+    "u-divider": "/uview-ui/components/u-divider/u-divider"
+  }
+}
