@@ -1,6 +1,7 @@
 <template>
 	<view class="content">
 		<u-cell-item title="体系" index="0" @click="click"></u-cell-item>
+		<u-cell-item title="积分排行榜" index="1" @click="click"></u-cell-item>
 		<image class="logo" src="/static/uview/common/logo.png"></image>
 		<view class="text-area">
 			<text class="title">{{title}}</text>
@@ -12,8 +13,7 @@
 	export default {
 		data() {
 			return {
-				title: '我的',
-				tabbar: ''
+
 			}
 		},
 		onLoad() {
@@ -24,6 +24,9 @@
 				switch (index){
 					case "0":
 						this.$u.route('/pages/my/tree');
+						break;
+					case "1":
+						this.$u.route('/pages/my/ranking');
 						break;
 					default:
 						break;

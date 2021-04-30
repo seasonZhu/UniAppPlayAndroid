@@ -78,6 +78,12 @@
 			}
 		},
 		{
+			"path": "pages/my/ranking",
+			"style": {
+				"navigationBarTitleText": "积分排名"
+			}
+		},
+		{
 			"path": "pages/web/index",
 			"style": {
 				"navigationBarTitleText": "详细"

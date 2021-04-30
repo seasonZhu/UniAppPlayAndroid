@@ -6,60 +6,60 @@
 </template>
 
 <script>
-export default {
-	data() {
-		return {
-			searchWord: '',
-			list: []
-		};
-	},
-	onLoad() {
-		this.getHotKey();
-	},
-	onNavigationBarSearchInputChanged: function(e) {
-		console.log(e);
-		this.searchWord = e.text;
-	},
-	onNavigationBarSearchInputConfirmed: function(e) {
-		console.log(e.text);
-		this.openPage(e.text);
-		if (e.text.length == 0) {
-			this.showToast()
-			return
-		}
-		this.openPage(this.searchWord);
-	},
-	onNavigationBarButtonTap(e) {
-		console.log(e.float);
-		console.log(this.searchWord);
-		if (this.searchWord.length == 0) {
-			this.showToast()
-			return
-		}
-		this.openPage(this.searchWord);
-	},
-	methods: {
-		getHotKey() {
-			this.$u.api.hotKey().then(res => {
-				this.list = res;
-				console.log(res);
-			});
+	export default {
+		data() {
+			return {
+				searchWord: '',
+				list: []
+			};
 		},
-		click(keyword) {
-			this.openPage(keyword);
+		onLoad() {
+			this.getHotKey();
 		},
-		openPage(keyword) {
-			this.$u.route('/pages/index/result', {
-				"keyword": keyword
-			});
+		onNavigationBarSearchInputChanged: function(e) {
+			console.log(e);
+			this.searchWord = e.text;
 		},
-		showToast() {
-			this.$refs.uToast.show({
-				title: '请输入关键词',
-			});
+		onNavigationBarSearchInputConfirmed: function(e) {
+			console.log(e.text);
+			this.openPage(e.text);
+			if (e.text.length == 0) {
+				this.showToast()
+				return
+			}
+			this.openPage(this.searchWord);
+		},
+		onNavigationBarButtonTap(e) {
+			console.log(e.float);
+			console.log(this.searchWord);
+			if (this.searchWord.length == 0) {
+				this.showToast()
+				return
+			}
+			this.openPage(this.searchWord);
+		},
+		methods: {
+			getHotKey() {
+				this.$u.api.hotKey().then(res => {
+					this.list = res;
+					console.log(res);
+				});
+			},
+			click(keyword) {
+				this.openPage(keyword);
+			},
+			openPage(keyword) {
+				this.$u.route('/pages/index/result', {
+					"keyword": keyword
+				});
+			},
+			showToast() {
+				this.$refs.uToast.show({
+					title: '请输入关键词',
+				});
+			}
 		}
-	}
-};
+	};
 </script>
 
 <style scoped lang="scss">

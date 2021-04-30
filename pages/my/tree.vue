@@ -54,14 +54,14 @@
 
 <style>
 .flex-wrap{
-			display: flex;
-			display: -webkit-flex;
-			flex-wrap: wrap;
-			width: auto;
-			height: auto;
-			margin: 16rpx;
+	display: flex;
+	display: -webkit-flex;
+	flex-wrap: wrap;
+	width: auto;
+	height: auto;
+	margin: 16rpx;
 
-		}
+}
 .wrap{
 	margin: 10rpx;
 }

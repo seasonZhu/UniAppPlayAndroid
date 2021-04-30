@@ -34,7 +34,6 @@ let postUnCollectArticle = 'lg/uncollect_originId/';
 // 收藏文章列表
 let getCollectArticleList = 'lg/collect/list/';
 
-// 积分排行榜 lg/coin/list/1/json
 let getRankingList = 'coin/rank/';
 
 // 个人积分获取列表
@@ -43,10 +42,8 @@ let getCoinList = 'lg/coin/list/';
 // 个人积分
 let getUserCoinInfo = 'lg/coin/userinfo/json';
 
-// 体系
 let getTree = "tree/json";
 
-// 体系详细 article/list/0/json?cid=1 其实和getArticleList接口一样
 let getTreeDetailList = "article/list/";
 
 // 此处第二个参数vm，就是我们在页面使用的this，你可以通过vm获取vuex等操作，更多内容详见uView对拦截器的介绍部分：
@@ -86,6 +83,9 @@ const install = (Vue, vm) => {
 	// 体系详细
 	let treeDetail = (id, page) => vm.$u.get(getTreeDetailList  + page.toString() + '/json' + "?cid=" + id);
 	
+	// 总积分排名
+	let totalRankingList = (page) => vm.$u.get(getRankingList + page.toString() + '/json');
+	
 	// 将各个定义的接口名称，统一放进对象挂载到vm.$u.api(因为vm就是this，也即this.$u.api)下
 	vm.$u.api = {
 		banner, 
@@ -98,7 +98,8 @@ const install = (Vue, vm) => {
 		publicNumTopic, 
 		publicNumList, 
 		tree, 
-		treeDetail
+		treeDetail,
+		totalRankingList,
 	};
 }
 
