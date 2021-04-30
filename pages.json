@@ -66,6 +66,18 @@
 			}
 		},
 		{
+			"path": "pages/my/tree",
+			"style": {
+				"navigationBarTitleText": "体系"
+			}
+		},
+		{
+			"path": "pages/my/detail",
+			"style": {
+				"navigationBarTitleText": "体系详细"
+			}
+		},
+		{
 			"path": "pages/web/index",
 			"style": {
 				"navigationBarTitleText": "详细"

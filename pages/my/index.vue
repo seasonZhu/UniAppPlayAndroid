@@ -1,5 +1,6 @@
 <template>
 	<view class="content">
+		<u-cell-item title="体系" index="0" @click="click"></u-cell-item>
 		<image class="logo" src="/static/uview/common/logo.png"></image>
 		<view class="text-area">
 			<text class="title">{{title}}</text>
@@ -17,6 +18,17 @@
 		},
 		onLoad() {
 			
+		},
+		methods: {
+			click(index) {
+				switch (index){
+					case "0":
+						this.$u.route('/pages/my/tree');
+						break;
+					default:
+						break;
+				}
+			}
 		}
 	}
 </script>

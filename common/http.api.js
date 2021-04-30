@@ -80,8 +80,26 @@ const install = (Vue, vm) => {
 	// 公众号文章列表
 	let publicNumList = (params = {}, page) => vm.$u.get(getPubilicNumberList+ page.toString() + "/json", params);
 	
+	// 体系
+	let tree = (params = {}, page) => vm.$u.get(getTree, params);
+	
+	// 体系详细
+	let treeDetail = (id, page) => vm.$u.get(getTreeDetailList  + page.toString() + '/json' + "?cid=" + id);
+	
 	// 将各个定义的接口名称，统一放进对象挂载到vm.$u.api(因为vm就是this，也即this.$u.api)下
-	vm.$u.api = {banner, top, normal, hotKey, queryKeyword, projectTopic, projectList, publicNumTopic, publicNumList};
+	vm.$u.api = {
+		banner, 
+		top, 
+		normal, 
+		hotKey, 
+		queryKeyword, 
+		projectTopic, 
+		projectList, 
+		publicNumTopic, 
+		publicNumList, 
+		tree, 
+		treeDetail
+	};
 }
 
 export default {

@@ -50,7 +50,7 @@ export default {
 		},
 		openPage(keyword) {
 			this.$u.route('/pages/index/result', {
-				keyword: keyword
+				"keyword": keyword
 			});
 		},
 		showToast() {
