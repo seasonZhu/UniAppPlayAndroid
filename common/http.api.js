@@ -16,10 +16,8 @@ let getPubilicNumber = 'wxarticle/chapters/json';
 
 let getPubilicNumberList = 'wxarticle/list/';
 
-// 登录
 let postLogin = 'user/login';
 
-// 注册
 let postRegister = 'user/register';
 
 // 登录退出
@@ -86,6 +84,12 @@ const install = (Vue, vm) => {
 	// 总积分排名
 	let totalRankingList = (page) => vm.$u.get(getRankingList + page.toString() + '/json');
 	
+	// 登录
+	let login = (username, password) => vm.$u.post(postLogin + "?username=" + username + "&password=" + password);
+	
+	// 注册
+	let register = (username, password, repassword) => vm.$u.post(postRegister + "?username=" + username + "&password=" + password + "&repassword=" + repassword);
+	
 	// 将各个定义的接口名称，统一放进对象挂载到vm.$u.api(因为vm就是this，也即this.$u.api)下
 	vm.$u.api = {
 		banner, 
@@ -100,6 +104,8 @@ const install = (Vue, vm) => {
 		tree, 
 		treeDetail,
 		totalRankingList,
+		login,
+		register,
 	};
 }
 
