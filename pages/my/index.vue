@@ -6,6 +6,7 @@
 		<u-cell-item title="" :arrow="false" :border-bottom="false"></u-cell-item>
 		<u-cell-item :title="this.loginStatusText()" class="content" bgColor="#ccc" index="999" @click="click" :arrow="false" :border-bottom="false"></u-cell-item>
 		<u-modal v-model="show" content="是否登出？" :show-cancel-button=true @confirm="sureLogout" ref="uModal" :async-close=true></u-modal>
+		<u-toast ref="uToast" />
 	</view>
 </template>
 
@@ -20,9 +21,14 @@ export default {
 	computed: {
 		...mapState(['userInfo'])
 	},
-	onLoad() {},
+	onLoad() {
+		this.autoLogin()
+	},
+	onShow() {
+		
+	},
 	methods: {
-		...mapMutations(['storeLogout']),
+		...mapMutations(['storeLogout', 'storeLogin']),
 		loginStatusText() {
 			if (this.userInfo.hasLogin) {
 				return '退出登录';
@@ -64,6 +70,44 @@ export default {
 				}
 				this.storeLogout()
 			})
+		},
+		autoLogin() {
+			if(this.userInfo.hasLogin) {
+				return
+			}
+			
+			let mobile = uni.getStorageSync("username")
+			let code = uni.getStorageSync("password")
+			
+			if (mobile.length == 0 || code.length == 0) {
+				return
+			}
+			
+			console.log(mobile)
+			console.log(code)
+			this.$u.api.login(mobile, code).then(res => {
+				if (typeof res == 'string') {
+					let message = res;
+					this.$refs.uToast.show({
+						title: message
+					});
+					return;
+				}
+						
+				this.$refs.uToast.show({
+					title: '自动登录成功',
+				});
+						
+				const temp = {
+					cookie: 'loginUserName=' + mobile + ';' + 'loginUserPassword=' + code,
+					profile: res
+				};
+				
+				// 刷新操作
+				this.storeLogin(temp);
+				uni.setStorageSync('username', mobile)
+				uni.setStorageSync('password', code)
+			});
 		}
 	}
 };
