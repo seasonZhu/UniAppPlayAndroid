@@ -4,7 +4,8 @@
 		<u-cell-item title="体系" index="0" @click="click"></u-cell-item>
 		<u-cell-item title="积分排行榜" index="1" @click="click"></u-cell-item>
 		<u-cell-item title="" :arrow="false" :border-bottom="false"></u-cell-item>
-		<u-cell-item :title=this.loginStatusText() class="content" bgColor="#ccc" index="999" @click="click" :arrow="false" :border-bottom="false"></u-cell-item>
+		<u-cell-item :title="this.loginStatusText()" class="content" bgColor="#ccc" index="999" @click="click" :arrow="false" :border-bottom="false"></u-cell-item>
+		<u-modal v-model="show" content="是否登出？" :show-cancel-button=true @confirm="sureLogout" ref="uModal" :async-close=true></u-modal>
 	</view>
 </template>
 
@@ -12,7 +13,9 @@
 import { mapState, mapMutations } from 'vuex';
 export default {
 	data() {
-		return {};
+		return {
+			show: false
+		};
 	},
 	computed: {
 		...mapState(['userInfo'])
@@ -21,10 +24,10 @@ export default {
 	methods: {
 		...mapMutations(['storeLogout']),
 		loginStatusText() {
-			if(this.userInfo.hasLogin) {
-				return "退出登录"
-			}else {
-				return "登录"
+			if (this.userInfo.hasLogin) {
+				return '退出登录';
+			} else {
+				return '登录';
 			}
 		},
 		click(index) {
@@ -36,11 +39,31 @@ export default {
 					this.$u.route('/pages/my/ranking');
 					break;
 				case '999':
-					this.$u.route('/pages/login/index');
+					this.loginOrlogout();
 					break;
 				default:
 					break;
 			}
+		},
+		loginOrlogout() {
+			if (this.userInfo.hasLogin) {
+				this.show = true;
+			} else {
+				this.$u.route('/pages/login/index');
+			}
+		},
+		sureLogout() {
+			this.$u.api.logout().then(res => {
+				this.show = false
+				if (typeof res == 'string') {
+					let message = res;
+					this.$refs.uToast.show({
+						title: message
+					});
+					return;
+				}
+				this.storeLogout()
+			})
 		}
 	}
 };

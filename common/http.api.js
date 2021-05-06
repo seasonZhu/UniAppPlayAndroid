@@ -90,6 +90,9 @@ const install = (Vue, vm) => {
 	// 注册
 	let register = (username, password, repassword) => vm.$u.post(postRegister + "?username=" + username + "&password=" + password + "&repassword=" + repassword);
 	
+	// 登出
+	let logout = (params = {}) => vm.$u.get(getLogout, params);
+	
 	// 将各个定义的接口名称，统一放进对象挂载到vm.$u.api(因为vm就是this，也即this.$u.api)下
 	vm.$u.api = {
 		banner, 
@@ -106,6 +109,7 @@ const install = (Vue, vm) => {
 		totalRankingList,
 		login,
 		register,
+		logout,
 	};
 }
 
