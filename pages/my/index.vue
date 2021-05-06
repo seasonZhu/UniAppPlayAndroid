@@ -1,11 +1,10 @@
 <template>
 	<view class="">
 		<image class="logo content" src="/static/uview/common/logo.png"></image>
-		<view class="text-area">
-			<text class="title">{{title}}</text>
-		</view>
 		<u-cell-item title="体系" index="0" @click="click"></u-cell-item>
 		<u-cell-item title="积分排行榜" index="1" @click="click"></u-cell-item>
+		<u-cell-item title=""  :arrow="false" :border-bottom="false"></u-cell-item>
+		<u-cell-item title="登录" class="content" bgColor="#ccc" index="999" @click="click" :arrow="false" :border-bottom="false"></u-cell-item>
 	</view>
 </template>
 
@@ -23,10 +22,13 @@
 			click(index) {
 				switch (index){
 					case "0":
-						this.$u.route('/pages/my/tree');
+						this.$u.route('/pages/my/tree')
 						break;
 					case "1":
-						this.$u.route('/pages/my/ranking');
+						this.$u.route('/pages/my/ranking')
+						break;
+					case "999":
+						this.$u.route('/pages/login/index')
 						break;
 					default:
 						break;
