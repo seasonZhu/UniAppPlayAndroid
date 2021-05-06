@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 export default {
 	data() {
 		return {
@@ -19,51 +20,80 @@ export default {
 		};
 	},
 	methods: {
+		...mapMutations(['storeLogin']),
 		login() {
-			if(this.mobile.trim().length == 0) {
+			this.$u.route({
+				type: 'navigateBack',
+				url: 'pages/my/index'
+			});
+			return;
+
+			if (this.mobile.trim().length == 0) {
 				this.$refs.uToast.show({
 					title: '手机号不能为空'
-				})
+				});
 				return;
 			}
-			
-			if(this.code.trim().length == 0) {
+
+			if (this.code.trim().length == 0) {
 				this.$refs.uToast.show({
 					title: '密码不能为空'
-				})
+				});
 				return;
 			}
-			
-			if(this.reCode.trim().length == 0) {
+
+			if (this.reCode.trim().length == 0) {
 				this.$refs.uToast.show({
 					title: '再次确认密码不能为空'
-				})
-				return
+				});
+				return;
 			}
-			
-			if(this.reCode != this.code) {
+
+			if (this.reCode != this.code) {
 				this.$refs.uToast.show({
 					title: '两次密码输入不一致'
-				})
-				return
+				});
+				return;
 			}
-			
+
 			this.$u.api.register(this.mobile, this.code, this.reCode).then(res => {
-				if (typeof(res)=='string') {
-					let message = res
+				if (typeof res == 'string') {
+					let message = res;
 					this.$refs.uToast.show({
 						title: message
-					})
-					return
+					});
+					return;
 				}
-				
+
 				this.$u.api.login(this.mobile, this.code).then(res => {
+					if (typeof res == 'string') {
+						let message = res;
+						this.$refs.uToast.show({
+							title: message
+						});
+						return;
+					}
+
 					this.$refs.uToast.show({
-						title: "登录成功"
-					})
-				})
-				
-			})
+						title: '登录成功',
+						callback: () =>
+							uni.switchTab({
+								url: '/pages/my/index'
+							})
+					});
+					
+					const temp = {
+						cookie: 'loginUserName='+ this.mobile + ';' + 'loginUserPassword=' + this.code,
+						profile: res
+					};
+					this.storeLogin(temp);
+
+					this.$u.route({
+						type: 'navigateBack',
+						url: 'pages/components/empty/index'
+					});
+				});
+			});
 		}
 	}
 };
