@@ -3,6 +3,7 @@
 		<image class="logo content" src="/static/uview/common/logo.png"></image>
 		<u-cell-item title="体系" index="0" @click="click"></u-cell-item>
 		<u-cell-item title="积分排行榜" index="1" @click="click"></u-cell-item>
+		<u-cell-item title="我的积分" index="2" @click="click"></u-cell-item>
 		<u-cell-item title="" :arrow="false" :border-bottom="false"></u-cell-item>
 		<u-cell-item :title="this.loginStatusText()" class="content" bgColor="#ccc" index="999" @click="click" :arrow="false" :border-bottom="false"></u-cell-item>
 		<u-modal v-model="show" content="是否登出？" :show-cancel-button=true @confirm="sureLogout" ref="uModal" :async-close=true></u-modal>
@@ -43,6 +44,9 @@ export default {
 					break;
 				case '1':
 					this.$u.route('/pages/my/ranking');
+					break;
+				case '2':
+					this.getUserCoinInfo()
 					break;
 				case '999':
 					this.loginOrlogout();
@@ -108,6 +112,11 @@ export default {
 				uni.setStorageSync('username', mobile)
 				uni.setStorageSync('password', code)
 			});
+		},
+		getUserCoinInfo() {
+			this.$u.api.userCoinInfo().then(res => {
+				console.log(res)
+			})
 		}
 	}
 };

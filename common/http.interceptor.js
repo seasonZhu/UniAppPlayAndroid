@@ -7,9 +7,9 @@ const install = (Vue, vm) => {
 		// 设置为true后，就需要在this.$u.http.interceptor.response进行多一次的判断，请打印查看具体值
 		// originalData: true, 
 		// 设置自定义头部content-type
-		// header: {
-		// 	'content-type': 'xxx'
-		// }
+		header: {
+			'cookie': vm.$store.state.userInfo.cookie
+		}
 	});
 	// 请求拦截，配置Token等参数
 	Vue.prototype.$u.http.interceptor.request = (config) => {

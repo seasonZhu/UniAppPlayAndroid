@@ -20,7 +20,6 @@ let postLogin = 'user/login';
 
 let postRegister = 'user/register';
 
-// 登录退出
 let getLogout = 'user/logout/json';
 
 // 收藏站内文章 lg/collect/1165/json
@@ -93,6 +92,9 @@ const install = (Vue, vm) => {
 	// 登出
 	let logout = (params = {}) => vm.$u.get(getLogout, params);
 	
+	// 个人积分信息
+	let userCoinInfo = (params = {}) => vm.$u.get(getUserCoinInfo, params);
+	
 	// 将各个定义的接口名称，统一放进对象挂载到vm.$u.api(因为vm就是this，也即this.$u.api)下
 	vm.$u.api = {
 		banner, 
@@ -110,6 +112,7 @@ const install = (Vue, vm) => {
 		login,
 		register,
 		logout,
+		userCoinInfo,
 	};
 }
 
