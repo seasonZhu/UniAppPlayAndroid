@@ -6,7 +6,8 @@ const install = (Vue, vm) => {
 		// 如果将此值设置为true，拦截回调中将会返回服务端返回的所有数据response，而不是response.data
 		// 设置为true后，就需要在this.$u.http.interceptor.response进行多一次的判断，请打印查看具体值
 		// originalData: true, 
-		// 设置自定义头部content-type
+		
+		// 设置自定义头部content-type,这个请求头仅仅在内置浏览器中才有效,目前在微信小程序中没有用
 		header: {
 			'cookie': vm.$store.state.userInfo.cookie
 		}

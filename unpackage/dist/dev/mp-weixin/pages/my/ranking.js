@@ -177,7 +177,7 @@ var _default =
   },
   // 上拉加载更多
   onReachBottom: function onReachBottom() {
-    console.log("另个一个上拉加载更多");
+    console.log('另个一个上拉加载更多');
     this.page++;
     this.status = 'loading';
     this.getTotalRankingList();
