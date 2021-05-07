@@ -1,11 +1,11 @@
 <template>
 	<view>
 		<!-- /// 接口都调成功了 但是就是界面没出来 -->
-		<scroll-view scroll-y style="height: 100%;width: 100%;" @scrolltolower="onreachBottom">
+<!-- 		<scroll-view scroll-y style="height: 100%;width: 100%;" @scrolltolower="onreachBottom"> -->
 			<view v-for="(model, index) in getProjectList(this.id)" :key="index">
 				<u-cell-item :title="model.title" :label="model.author" :index="index" @click="click"></u-cell-item>
 			</view>
-		</scroll-view>
+<!-- 		</scroll-view> -->
 	</view>
 </template>
 

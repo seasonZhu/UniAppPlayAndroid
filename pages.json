@@ -95,7 +95,16 @@
 		{
 			"path": "pages/web/index",
 			"style": {
-				"navigationBarTitleText": "详细"
+				"navigationBarTitleText": "详细",
+				"titleNView": {
+					"buttons": [{
+						"color": "#fff",
+						"colorPressed": "#fff",
+						"float": "right",
+						"fontSize": "14px",
+						"text": "功能" // 字体图标\u 开头，加上字体图标unicode后面四位
+					}]
+				}
 			}
 		},
 		{
