@@ -57,12 +57,12 @@ export default {
 					profile: res
 				};
 				this.storeLogin(temp);
-				this.saveLoginInfoToLocal()
+				this.saveLoginInfoToLocal();
 			});
 		},
 		saveLoginInfoToLocal() {
-			uni.setStorageSync('username', this.mobile)
-			uni.setStorageSync('password', this.code)
+			uni.setStorageSync('username', this.mobile);
+			uni.setStorageSync('password', this.code);
 		}
 	}
 };

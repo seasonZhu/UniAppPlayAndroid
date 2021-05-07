@@ -101,7 +101,15 @@
 				"navigationBarTitleText": "注册"  
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/my/history",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的积分历史"
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "play android",

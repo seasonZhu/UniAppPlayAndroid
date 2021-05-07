@@ -36,7 +36,6 @@ let getRankingList = 'coin/rank/';
 // 个人积分获取列表
 let getCoinList = 'lg/coin/list/';
 
-// 个人积分
 let getUserCoinInfo = 'lg/coin/userinfo/json';
 
 let getTree = "tree/json";
@@ -94,6 +93,9 @@ const install = (Vue, vm) => {
 	
 	// 个人积分信息
 	let userCoinInfo = (params = {}) => vm.$u.get(getUserCoinInfo, params);
+	
+	// 积分历史列表
+	let myCoinList = (page) => vm.$u.get(getCoinList + page.toString() + '/json');
 	
 	// 将各个定义的接口名称，统一放进对象挂载到vm.$u.api(因为vm就是this，也即this.$u.api)下
 	vm.$u.api = {

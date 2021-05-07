@@ -3,10 +3,10 @@
 		<image class="logo content" src="/static/uview/common/logo.png"></image>
 		<u-cell-item title="体系" index="0" @click="click"></u-cell-item>
 		<u-cell-item title="积分排行榜" index="1" @click="click"></u-cell-item>
-		<u-cell-item title="我的积分" index="2" @click="click"></u-cell-item>
+		<u-cell-item v-if="this.userInfo.hasLogin" title="我的积分历史" index="2" @click="click"></u-cell-item>
 		<u-cell-item title="" :arrow="false" :border-bottom="false"></u-cell-item>
 		<u-cell-item :title="this.loginStatusText()" class="content" bgColor="#ccc" index="999" @click="click" :arrow="false" :border-bottom="false"></u-cell-item>
-		<u-modal v-model="show" content="是否登出？" :show-cancel-button=true @confirm="sureLogout" ref="uModal" :async-close=true></u-modal>
+		<u-modal v-model="show" content="是否登出？" :show-cancel-button="true" @confirm="sureLogout" ref="uModal" :async-close="true"></u-modal>
 		<u-toast ref="uToast" />
 	</view>
 </template>
@@ -23,11 +23,9 @@ export default {
 		...mapState(['userInfo'])
 	},
 	onLoad() {
-		this.autoLogin()
+		this.autoLogin();
 	},
-	onShow() {
-		
-	},
+	onShow() {},
 	methods: {
 		...mapMutations(['storeLogout', 'storeLogin']),
 		loginStatusText() {
@@ -46,7 +44,7 @@ export default {
 					this.$u.route('/pages/my/ranking');
 					break;
 				case '2':
-					this.getUserCoinInfo()
+					this.$u.route('/pages/my/history');
 					break;
 				case '999':
 					this.loginOrlogout();
@@ -64,7 +62,7 @@ export default {
 		},
 		sureLogout() {
 			this.$u.api.logout().then(res => {
-				this.show = false
+				this.show = false;
 				if (typeof res == 'string') {
 					let message = res;
 					this.$refs.uToast.show({
@@ -72,23 +70,23 @@ export default {
 					});
 					return;
 				}
-				this.storeLogout()
-			})
+				this.storeLogout();
+			});
 		},
 		autoLogin() {
-			if(this.userInfo.hasLogin) {
-				return
+			if (this.userInfo.hasLogin) {
+				return;
 			}
-			
-			let mobile = uni.getStorageSync("username")
-			let code = uni.getStorageSync("password")
-			
+
+			let mobile = uni.getStorageSync('username');
+			let code = uni.getStorageSync('password');
+
 			if (mobile.length == 0 || code.length == 0) {
-				return
+				return;
 			}
-			
-			console.log(mobile)
-			console.log(code)
+
+			console.log(mobile);
+			console.log(code);
 			this.$u.api.login(mobile, code).then(res => {
 				if (typeof res == 'string') {
 					let message = res;
@@ -97,26 +95,26 @@ export default {
 					});
 					return;
 				}
-						
+
 				this.$refs.uToast.show({
-					title: '自动登录成功',
+					title: '自动登录成功'
 				});
-						
+
 				const temp = {
 					cookie: 'loginUserName=' + mobile + ';' + 'loginUserPassword=' + code,
 					profile: res
 				};
-				
+
 				// 刷新操作
 				this.storeLogin(temp);
-				uni.setStorageSync('username', mobile)
-				uni.setStorageSync('password', code)
+				uni.setStorageSync('username', mobile);
+				uni.setStorageSync('password', code);
 			});
 		},
 		getUserCoinInfo() {
 			this.$u.api.userCoinInfo().then(res => {
-				console.log(res)
-			})
+				console.log(res);
+			});
 		}
 	}
 };

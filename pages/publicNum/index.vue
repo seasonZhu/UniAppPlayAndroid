@@ -1,26 +1,21 @@
 <template>
 	<view>
-		<view>
-			<u-tabs-swiper ref="uTabs" :list="topics" @change="tabsChange" :is-scroll="true"></u-tabs-swiper>
-		</view>
+		<view><u-tabs-swiper ref="uTabs" :list="topics" @change="tabsChange" :is-scroll="true"></u-tabs-swiper></view>
 		<swiper class="swiper-box" :current="swiperCurrent" @transition="transition" @animationfinish="animationfinish">
-			<swiper-item class="swiper-item" v-for="(item, index) in topics" :key="index">
-			</swiper-item>
+			<swiper-item class="swiper-item" v-for="(item, index) in topics" :key="index"></swiper-item>
 		</swiper>
 	</view>
 </template>
 
 <script>
 export default {
-	components: {
-	    
-	},
+	components: {},
 	data() {
 		return {
 			topics: [],
 			// 因为内部的滑动机制限制，请将tabs组件和swiper组件的current用不同变量赋值
 			current: 0, // tabs组件的current值，表示当前活动的tab选项
-			swiperCurrent: 0, // swiper组件的current值，表示当前那个swiper-item是活动的
+			swiperCurrent: 0 // swiper组件的current值，表示当前那个swiper-item是活动的
 		};
 	},
 	onLoad() {
@@ -50,9 +45,7 @@ export default {
 			this.current = current;
 		},
 		// scroll-view到底部加载更多
-		onreachBottom() {
-			
-		},
+		onreachBottom() {}
 	}
 };
 </script>
@@ -61,9 +54,8 @@ export default {
 .swiper-item {
 	height: 100%;
 }
-	
+
 .swiper-box {
 	flex: 1;
-}	
-	
+}
 </style>

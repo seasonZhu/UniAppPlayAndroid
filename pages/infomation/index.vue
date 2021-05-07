@@ -1,33 +1,31 @@
 <template>
 	<view>
-		<view>
-			<u-tabs-swiper ref="uTabs" :list="topics" @change="tabsChange" :is-scroll="true"></u-tabs-swiper>
-		</view>
+		<view><u-tabs-swiper ref="uTabs" :list="topics" @change="tabsChange" :is-scroll="true"></u-tabs-swiper></view>
 		<swiper class="swiper-box" :current="swiperCurrent" @transition="transition" @animationfinish="animationfinish">
 			<swiper-item class="swiper-item" v-for="(item, index) in topics" :key="index">
-<!-- 				<scroll-view scroll-y style="height: 100%;width: 100%;" @scrolltolower="onreachBottom">
+				<!-- 				<scroll-view scroll-y style="height: 100%;width: 100%;" @scrolltolower="onreachBottom">
 					<view v-for="(model,idx) in list" :key="idx">
 						<u-cell-item :title="model.title" :label="model.author" :index="idx" @click="click"></u-cell-item>
 					</view>
 				</scroll-view> -->
-				<single :item = "item"></single>
+				<single :item="item"></single>
 			</swiper-item>
 		</swiper>
 	</view>
 </template>
 
 <script>
-import single from './single.vue'
+import single from './single.vue';
 export default {
 	components: {
-	    'single': single 
+		single: single
 	},
 	data() {
 		return {
 			topics: [],
 			// 因为内部的滑动机制限制，请将tabs组件和swiper组件的current用不同变量赋值
 			current: 0, // tabs组件的current值，表示当前活动的tab选项
-			swiperCurrent: 0, // swiper组件的current值，表示当前那个swiper-item是活动的
+			swiperCurrent: 0 // swiper组件的current值，表示当前那个swiper-item是活动的
 		};
 	},
 	onLoad() {
@@ -57,9 +55,7 @@ export default {
 			this.current = current;
 		},
 		// scroll-view到底部加载更多
-		onreachBottom() {
-			
-		},
+		onreachBottom() {}
 	}
 };
 </script>
@@ -68,9 +64,8 @@ export default {
 .swiper-item {
 	height: 100%;
 }
-	
+
 .swiper-box {
 	flex: 1;
-}	
-	
+}
 </style>

@@ -81,9 +81,9 @@ export default {
 								url: '/pages/my/index'
 							})
 					});
-					
+
 					const temp = {
-						cookie: 'loginUserName='+ this.mobile + ';' + 'loginUserPassword=' + this.code,
+						cookie: 'loginUserName=' + this.mobile + ';' + 'loginUserPassword=' + this.code,
 						profile: res
 					};
 					this.storeLogin(temp);
