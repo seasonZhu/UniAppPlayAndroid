@@ -54,14 +54,16 @@ export default {
 			msg = msg.replace(/&nbsp;/gi, '');
 			return msg;
 		},
-		openPage(url) {
+		openPage(url, id) {
 			this.$u.route('/pages/web/index', {
-				url: url
+				url: url,
+				id: id
 			});
 		},
 		click(index) {
-			let url = this.list[index].link;
-			this.openPage(url);
+			let url = this.list[index].link
+			let id = this.list[index].id
+			this.openPage(url,id);
 		}
 	}
 };

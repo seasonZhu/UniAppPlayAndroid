@@ -22,6 +22,8 @@ export default {
 	},
 	onLoad(option) {
 		this.params = option;
+		console.log(option.id)
+		console.log(option.url)
 	},
 	onNavigationBarButtonTap(e) {
 		console.log(e.float);

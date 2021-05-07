@@ -2,7 +2,13 @@
 	<view>
 		<u-swiper :list="list" name="imagePath" img-mode="widthFix" height="450" border-radius="0" @click="click"></u-swiper>
 		<view v-for="(item, index) in tops" :key="index">
-			<u-cell-item :title="item.title" :label="item.author" :value="item.zan" :index="index" @click="topCellClick"></u-cell-item>
+			<u-cell-item :title="item.title" :label="item.author" :value="item.zan" :index="index" @click="topCellClick">
+<!-- 				<view class="image" v-if="item.envelopePic != null">
+					<image :src="item.envelopePic" slot="icon" size="32" mode="widthFix"></image>
+				</view>
+				<u-icon slot="icon" size="32" name="search"></u-icon> -->
+<!-- 			如何理解slot,它就是一个()->Widget的闭包,用于自定义某个控件,使得其自定义化更高 -->
+			</u-cell-item>
 		</view>
 		<view v-for="(item, index) in normals" :key="index + tops.length">
 			<u-cell-item :title="item.title" :label="item.author" :value="item.zan" :index="index" @click="normalCellClick"></u-cell-item>
@@ -68,24 +74,27 @@ export default {
 				}
 			});
 		},
-		openPage(url) {
-			console.log('打开详细页面');
+		openPage(url, id) {
 			this.$u.route('/pages/web/index', {
-				url: url
+				url: url,
+				id: id
 			});
 		},
 		click(index) {
-			let url = this.list[index].url;
-			this.openPage(url);
+			let url = this.list[index].link
+			let id = this.list[index].id
+			this.openPage(url,id);
 		},
 		topCellClick(index) {
 			let url = this.tops[index].link;
-			this.openPage(url);
+			let id = this.tops[index].id
+			this.openPage(url,id);
 		},
 		normalCellClick(index) {
 			console.log(index);
 			let url = this.normals[index].link;
-			this.openPage(url);
+			let id = this.normals[index].id
+			this.openPage(url,id);
 		},
 		// 点击组件，触发加载更多事件(status为'loadmore'状态下才触发)
 		loadmore() {
@@ -96,4 +105,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.image {
+	width: 32rpx;
+	height: 32rpx;
+}
+</style>
