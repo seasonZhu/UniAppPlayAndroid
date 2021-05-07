@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "我的收藏",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-cell-item": "/uview-ui/components/u-cell-item/u-cell-item",
+    "u-loadmore": "/uview-ui/components/u-loadmore/u-loadmore"
+  }
+}

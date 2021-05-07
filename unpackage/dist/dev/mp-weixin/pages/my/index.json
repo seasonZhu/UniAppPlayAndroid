@@ -1,6 +1,8 @@
 {
   "navigationBarTitleText": "我的",
   "usingComponents": {
-    "u-cell-item": "/uview-ui/components/u-cell-item/u-cell-item"
+    "u-cell-item": "/uview-ui/components/u-cell-item/u-cell-item",
+    "u-modal": "/uview-ui/components/u-modal/u-modal",
+    "u-toast": "/uview-ui/components/u-toast/u-toast"
   }
 }

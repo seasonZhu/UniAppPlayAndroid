@@ -9,7 +9,11 @@
     "pages/my/tree",
     "pages/my/detail",
     "pages/my/ranking",
-    "pages/web/index"
+    "pages/web/index",
+    "pages/login/index",
+    "pages/login/register",
+    "pages/my/history",
+    "pages/my/collection"
   ],
   "subPackages": [],
   "window": {
@@ -51,5 +55,5 @@
     ]
   },
   "usingComponents": {},
-  "sitemapLocation": "sitemap91.json"
+  "sitemapLocation": "sitemap4.json"
 }

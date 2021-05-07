@@ -33,7 +33,6 @@ let getCollectArticleList = 'lg/collect/list/';
 
 let getRankingList = 'coin/rank/';
 
-// 个人积分获取列表
 let getCoinList = 'lg/coin/list/';
 
 let getUserCoinInfo = 'lg/coin/userinfo/json';
@@ -97,6 +96,9 @@ const install = (Vue, vm) => {
 	// 积分历史列表
 	let myCoinList = (page) => vm.$u.get(getCoinList + page.toString() + '/json');
 	
+	// 个人收藏
+	let collectArticleList = (page) => vm.$u.get(getCollectArticleList + page.toString() + '/json');
+	
 	// 将各个定义的接口名称，统一放进对象挂载到vm.$u.api(因为vm就是this，也即this.$u.api)下
 	vm.$u.api = {
 		banner, 
@@ -115,6 +117,8 @@ const install = (Vue, vm) => {
 		register,
 		logout,
 		userCoinInfo,
+		myCoinList,
+		collectArticleList,
 	};
 }
 

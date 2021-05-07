@@ -4,6 +4,7 @@
 		<u-cell-item title="体系" index="0" @click="click"></u-cell-item>
 		<u-cell-item title="积分排行榜" index="1" @click="click"></u-cell-item>
 		<u-cell-item v-if="this.userInfo.hasLogin" title="我的积分历史" index="2" @click="click"></u-cell-item>
+		<u-cell-item v-if="this.userInfo.hasLogin" title="我的收藏" index="3" @click="click"></u-cell-item>
 		<u-cell-item title="" :arrow="false" :border-bottom="false"></u-cell-item>
 		<u-cell-item :title="this.loginStatusText()" class="content" bgColor="#ccc" index="999" @click="click" :arrow="false" :border-bottom="false"></u-cell-item>
 		<u-modal v-model="show" content="是否登出？" :show-cancel-button="true" @confirm="sureLogout" ref="uModal" :async-close="true"></u-modal>
@@ -45,6 +46,9 @@ export default {
 					break;
 				case '2':
 					this.$u.route('/pages/my/history');
+					break;
+				case '3':
+					this.$u.route('/pages/my/collection');
 					break;
 				case '999':
 					this.loginOrlogout();
