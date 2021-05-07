@@ -26,80 +26,80 @@ export default {
 			normals: [],
 			page: 0,
 			status: 'loadmore'
-		};
+		}
 	},
 	async onLoad() {
-		this.getBanner();
-		this.getTopArticle();
+		this.getBanner()
+		this.getTopArticle()
 	},
 	// 下拉刷新
 	onPullDownRefresh() {
-		console.log('下拉刷新');
-		this.tops = [];
-		this.normals = [];
-		this.page = 0;
-		this.getTopArticle();
+		console.log('下拉刷新')
+		this.tops = []
+		this.normals = []
+		this.page = 0
+		this.getTopArticle()
 	},
 	// 上拉加载更多
 	onReachBottom() {
-		console.log('另个一个上拉加载更多');
-		this.page++;
-		this.status = 'loading';
-		this.getNormalArticle();
+		console.log('另个一个上拉加载更多')
+		this.page++
+		this.status = 'loading'
+		this.getNormalArticle()
 	},
 	onNavigationBarButtonTap(e) {
-		console.log(e.float);
-		this.$u.route('/pages/index/search');
+		console.log(e.float)
+		this.$u.route('/pages/index/search')
 	},
 	methods: {
 		getBanner() {
 			this.$u.api.banner().then(res => {
-				this.list = res;
-			});
+				this.list = res
+			})
 		},
 		getTopArticle() {
 			this.$u.api.top().then(res => {
 				uni.stopPullDownRefresh();
 				this.tops = res;
 				this.getNormalArticle();
-			});
+			})
 		},
 		getNormalArticle() {
 			this.$u.api.normal({ page: this.page }).then(res => {
-				this.normals = this.normals.concat(res.datas);
+				this.normals = this.normals.concat(res.datas)
 				if (res.pageCount == res.curPage) {
-					this.status = 'nomore';
+					this.status = 'nomore'
 				} else {
-					this.status = 'loadmore';
+					this.status = 'loadmore'
 				}
-			});
+			})
 		},
 		openPage(url, id) {
 			this.$u.route('/pages/web/index', {
 				url: url,
 				id: id
-			});
+			})
 		},
 		click(index) {
 			let url = this.list[index].link
 			let id = this.list[index].id
-			this.openPage(url,id);
+			this.openPage(url,id)
 		},
 		topCellClick(index) {
-			let url = this.tops[index].link;
+			let url = this.tops[index].link
 			let id = this.tops[index].id
-			this.openPage(url,id);
+			this.openPage(url,id)
 		},
 		normalCellClick(index) {
-			console.log(index);
-			let url = this.normals[index].link;
+			console.log(index)
+			let url = this.normals[index].link
 			let id = this.normals[index].id
-			this.openPage(url,id);
+			this.openPage(url,id)
 		},
 		// 点击组件，触发加载更多事件(status为'loadmore'状态下才触发)
 		loadmore() {
 			// 这个感觉在App端基本上用不到
-			console.log('加载更多');
+			console.log('加载更多')
 		}
 	}
 };

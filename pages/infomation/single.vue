@@ -14,14 +14,14 @@ export default {
 	data() {
 		return {
 			page: 0,
-			list: []
-		};
+			list: [],
+		}
 	},
 	props: {
 		item: {
 			type: Object,
 			default() {
-				return {};
+				return {}
 			}
 		}
 	},
@@ -32,10 +32,10 @@ export default {
 	},
 	methods: {
 		async getProjectList() {
-			let array = await this.$u.api.projectList({ cid: this.item.id.toString() }, 0);
+			let array = await this.$u.api.projectList({ cid: this.item.id.toString() }, 0)
 			//console.log(array)
-			this.list = this.list.concat(array);
-			return this.list;
+			this.list = this.list.concat(array)
+			return this.list
 		},
 		// scroll-view到底部加载更多
 		onreachBottom() {},
@@ -43,12 +43,12 @@ export default {
 			this.$u.route('/pages/web/index', {
 				url: url,
 				id: id
-			});
+			})
 		},
 		click(index) {
 			let url = this.list[index].link
 			let id = this.list[index].id
-			this.openPage(url,id);
+			this.openPage(url,id)
 		}
 	}
 };

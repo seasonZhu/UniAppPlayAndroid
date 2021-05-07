@@ -24,15 +24,15 @@ export default {
 			if (this.mobile.trim().length == 0) {
 				this.$refs.uToast.show({
 					title: '手机号不能为空'
-				});
-				return;
+				})
+				return
 			}
 
 			if (this.code.trim().length == 0) {
 				this.$refs.uToast.show({
 					title: '密码不能为空'
-				});
-				return;
+				})
+				return
 			}
 
 			this.$u.api.login(this.mobile, this.code).then(res => {
@@ -40,8 +40,8 @@ export default {
 					let message = res;
 					this.$refs.uToast.show({
 						title: message
-					});
-					return;
+					})
+					return
 				}
 
 				this.$refs.uToast.show({
@@ -50,19 +50,19 @@ export default {
 						uni.switchTab({
 							url: '/pages/my/index'
 						})
-				});
+				})
 
 				const temp = {
 					cookie: 'loginUserName=' + this.mobile + ';' + 'loginUserPassword=' + this.code,
 					profile: res
-				};
-				this.storeLogin(temp);
-				this.saveLoginInfoToLocal();
+				}
+				this.storeLogin(temp)
+				this.saveLoginInfoToLocal()
 			});
 		},
 		saveLoginInfoToLocal() {
-			uni.setStorageSync('username', this.mobile);
-			uni.setStorageSync('password', this.code);
+			uni.setStorageSync('username', this.mobile)
+			uni.setStorageSync('password', this.code)
 		}
 	}
 };

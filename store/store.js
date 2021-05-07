@@ -12,7 +12,8 @@ const store = new Vuex.Store({
         },  
     },
     mutations: {
-        storeLogin(state, payload) { // 改变登录状态
+		 // 改变登录状态
+        storeLogin(state, payload) {
             const temp = {
                 hasLogin: true,
                 cookie: payload.cookie,
@@ -26,7 +27,8 @@ const store = new Vuex.Store({
 
         },
 		
-        storeLogout(state) { // 退出登录
+		// 退出登录
+        storeLogout(state) { 
             const temp = {
                 hasLogin: false,
                 cookie: '',

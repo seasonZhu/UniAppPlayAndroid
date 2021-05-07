@@ -32,13 +32,13 @@ export default {
 	computed: {
 		...mapState(['userInfo']),
 		url() {
-			return this.params.url;
+			return this.params.url
 		},
 		list() {
 			if (this.userInfo.hasLogin) {
-				return ['复制链接', '浏览器打开', '微信分享', '刷新', '收藏'];
+				return ['复制链接', '浏览器打开', '微信分享', '刷新', '收藏']
 			} else {
-				return ['复制链接', '浏览器打开', '微信分享', '刷新'];
+				return ['复制链接', '浏览器打开', '微信分享', '刷新']
 			}
 		}
 	},
