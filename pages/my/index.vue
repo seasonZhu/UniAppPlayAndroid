@@ -1,5 +1,5 @@
 <template>
-	<view class="">
+	<view>
 		<image class="logo content" :src="this.userHeadImageName"></image>
 		<u-cell-item v-if="this.userInfo.hasLogin" class="content" :title="this.coinText" :arrow="false" :border-bottom="false"></u-cell-item>
 		<u-cell-item title="体系" index="0" @click="click"></u-cell-item>
@@ -7,7 +7,7 @@
 		<u-cell-item v-if="this.userInfo.hasLogin" title="我的积分历史" index="2" @click="click"></u-cell-item>
 		<u-cell-item v-if="this.userInfo.hasLogin" title="我的收藏" index="3" @click="click"></u-cell-item>
 		<u-cell-item title="" :arrow="false" :border-bottom="false"></u-cell-item>
-		<u-cell-item :title="this.loginStatusText()" class="content" bgColor="#ccc" index="999" @click="click" :arrow="false" :border-bottom="false"></u-cell-item>
+		<u-button class="buttonStyle" shape="square" @click="loginOrlogout">{{this.loginStatusText}}</u-button>
 		<u-modal v-model="show" content="是否登出？" :show-cancel-button="true" @confirm="sureLogout" ref="uModal" :async-close="true"></u-modal>
 	</view>
 </template>
@@ -36,19 +36,22 @@ export default {
 			} else {
 				return '/static/uview/common/logo.png'
 			}
-		}
-	},
-	onLoad() {
-		this.getUserCoinInfo()
-	},
-	methods: {
-		...mapMutations(['storeLogout']),
+		},
 		loginStatusText() {
 			if (this.userInfo.hasLogin) {
 				return '退出登录'
 			} else {
 				return '登录'
 			}
+		},
+	},
+	onLoad() {
+		this.getUserCoinInfo()
+	},
+	methods: {
+		...mapMutations(['storeLogout']),
+		onPullDownRefresh() {
+			this.getUserCoinInfo()
 		},
 		click(index) {
 			switch (index) {
@@ -94,8 +97,11 @@ export default {
 		getUserCoinInfo() {
 			if (this.userInfo.hasLogin) {
 				this.$u.api.userCoinInfo().then(res => {
+					uni.stopPullDownRefresh();
 					this.coinInfo = res
 				})
+			}else {
+				uni.stopPullDownRefresh();
 			}
 		}
 		
@@ -129,5 +135,10 @@ export default {
 .title {
 	font-size: 36rpx;
 	color: #8f8f94;
+}
+
+.buttonStyle {
+	border-width: 0rpx;
+	border-radius: 0rpx;
 }
 </style>
