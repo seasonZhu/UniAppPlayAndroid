@@ -8,7 +8,7 @@
 						<view v-for="(model, idx) in lists[index]" :key="idx">
 							<u-cell-item :title="model.title" :label="model.author" :value="model.zan" :index="idx" @click="click(index, idx)"></u-cell-item>
 						</view>
-						<u-loadmore :status="status" @loadmore="loadmore" />
+						<u-loadmore :status="listStatus[index]" @loadmore="loadmore" />
 					</view>
 				</scroll-view>
 			</swiper-item>
@@ -28,9 +28,9 @@ export default {
 			// 因为内部的滑动机制限制，请将tabs组件和swiper组件的current用不同变量赋值
 			current: 0, // tabs组件的current值，表示当前活动的tab选项
 			swiperCurrent: 0 ,// swiper组件的current值，表示当前那个swiper-item是活动的
-			status: 'loadmore',
 			lists: [[]],
 			pages: [],
+			listStatus: [],
 		};
 	},
 	async onLoad() {
@@ -66,6 +66,15 @@ export default {
 					this.lists[index] = array
 				}
 				
+				if (res.pageCount == res.curPage + 1) {
+					this.listStatus.splice(index, 1, "nomore")
+				} else {
+					this.listStatus.splice(index, 1,"loadmore")
+				}
+				
+				if (res.datas.length == 0) {
+					this.listStatus.splice(index, 1, "nomore")
+				}
 			})
 		},
 		// tabs通知swiper切换
@@ -87,6 +96,11 @@ export default {
 		},
 		// scroll-view到底部加载更多
 		reachBottom() {
+			if (this.listStatus[this.current] == "nomore") {
+				return
+			}
+			
+			this.listStatus.splice(this.current,1,"loading")
 			console.log('上拉加载更多')
 			this.getProjectList(this.current, true)
 		},
