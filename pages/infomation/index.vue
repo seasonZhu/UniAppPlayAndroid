@@ -29,7 +29,8 @@ export default {
 			current: 0, // tabs组件的current值，表示当前活动的tab选项
 			swiperCurrent: 0 ,// swiper组件的current值，表示当前那个swiper-item是活动的
 			status: 'loadmore',
-			lists: [[]]
+			lists: [[]],
+			pages: [],
 		};
 	},
 	async onLoad() {
@@ -39,17 +40,32 @@ export default {
 		async getProjectTopic() {
 			this.topics = await this.$u.api.projectTopic()
 			for (let i = 0; i < this.topics.length; i++) {
+				this.pages[i] = 0
 				await this.getProjectList(i)
 			}
 			this.tabsChange(1)
 			this.tabsChange(0)
 		},
-		async getProjectList(index) {
+		async getProjectList(index, isLoadMore = false) {
 			let model = this.topics[index]
 			let id = model.id
-			let list = await this.$u.api.projectList({ cid: id.toString() }, 0).then(res => {
+			let page 
+			if (isLoadMore) {
+				page = this.pages[index] + 1
+				this.pages[index] = page
+			}else {
+				page = this.pages[index]
+			}
+			
+			let list = await this.$u.api.projectList({ cid: id.toString() }, page).then(res => {
 				let array = [].concat(res.datas)
-				this.lists[index] = array
+				if (isLoadMore) {
+					let lastArray = this.lists[index]
+					this.lists[index] = lastArray.concat(array)
+				}else {
+					this.lists[index] = array
+				}
+				
 			})
 		},
 		// tabs通知swiper切换
@@ -68,14 +84,11 @@ export default {
 			this.$refs.uTabs.setFinishCurrent(current)
 			this.swiperCurrent = current
 			this.current = current
-			this.changePage(current)
 		},
 		// scroll-view到底部加载更多
-		onreachBottom() {
-			
-		},
-		changePage(index) {
-			
+		reachBottom() {
+			console.log('上拉加载更多')
+			this.getProjectList(this.current, true)
 		},
 		openPage(url, id) {
 			console.log("打开详细页面")
