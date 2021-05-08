@@ -2,7 +2,17 @@
 	<view>
 		<view><u-tabs-swiper ref="uTabs" :list="topics" @change="tabsChange" :is-scroll="true"></u-tabs-swiper></view>
 		<swiper class="swiper-box" :current="swiperCurrent" @transition="transition" @animationfinish="animationfinish">
-			<swiper-item class="swiper-item" v-for="(item, index) in topics" :key="index"></swiper-item>
+			<swiper-item class="swiper-item" v-for="(item, index) in topics" :key="index">
+				<scroll-view scroll-y style="height: 100%;width: 100%;" @scrolltolower="reachBottom">
+					<view class="page-box">
+						<view v-for="(model, idx) in getPublicNumList(item)" :key="idx">
+							<!-- <u-cell-item :title="model.title" :label="model.author" :value="model.zan" :index="idx" @click="click"></u-cell-item> -->
+							<u-cell-item title="哈哈"></u-cell-item>
+						</view>
+						<u-loadmore :status="status" @loadmore="loadmore" />
+					</view>
+				</scroll-view>
+			</swiper-item>
 		</swiper>
 	</view>
 </template>
@@ -14,7 +24,10 @@ export default {
 			topics: [],
 			// 因为内部的滑动机制限制，请将tabs组件和swiper组件的current用不同变量赋值
 			current: 0, // tabs组件的current值，表示当前活动的tab选项
-			swiperCurrent: 0 // swiper组件的current值，表示当前那个swiper-item是活动的
+			swiperCurrent: 0, // swiper组件的current值，表示当前那个swiper-item是活动的
+			status: 'loadmore',
+			page: 0,
+			list: [],
 		};
 	},
 	onLoad() {
@@ -43,8 +56,24 @@ export default {
 			this.swiperCurrent = current
 			this.current = current
 		},
+		getPublicNumList(item) {
+			this.$u.api.publicNumList(item.id, 0).then(res => {
+				console.log(res)
+			})
+		},
 		// scroll-view到底部加载更多
-		onreachBottom() {}
+		onreachBottom() {},
+		openPage(url, id) {
+			this.$u.route('/pages/web/index', {
+				url: url,
+				id: id
+			})
+		},
+		click(index) {
+			let url = this.list[index].link
+			let id = this.list[index].id
+			this.openPage(url,id)
+		}
 	}
 };
 </script>

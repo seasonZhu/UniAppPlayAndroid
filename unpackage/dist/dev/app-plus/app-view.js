@@ -3323,6 +3323,10 @@ var components
 try {
   components = {
     uTabsSwiper: __webpack_require__(/*! @/uview-ui/components/u-tabs-swiper/u-tabs-swiper.vue */ 94)
+      .default,
+    uCellItem: __webpack_require__(/*! @/uview-ui/components/u-cell-item/u-cell-item.vue */ 17)
+      .default,
+    uLoadmore: __webpack_require__(/*! @/uview-ui/components/u-loadmore/u-loadmore.vue */ 33)
       .default
   }
 } catch (e) {
@@ -3348,11 +3352,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-uni-view",
-    { attrs: { _i: 0 } },
+    { staticClass: _vm._$g(0, "sc"), attrs: { _i: 0 } },
     [
       _c(
         "v-uni-view",
-        { attrs: { _i: 1 } },
+        { staticClass: _vm._$g(1, "sc"), attrs: { _i: 1 } },
         [
           _c("u-tabs-swiper", {
             ref: "uTabs",
@@ -3388,7 +3392,60 @@ var render = function() {
               staticClass: _vm._$g("4-" + $30, "sc"),
               attrs: { _i: "4-" + $30 }
             },
-            [_c("single", { attrs: { _i: "5-" + $30 } })],
+            [
+              _c(
+                "v-uni-scroll-view",
+                {
+                  staticStyle: { height: "100%", width: "100%" },
+                  attrs: { "scroll-y": true, _i: "5-" + $30 },
+                  on: {
+                    scrolltolower: function($event) {
+                      return _vm.$handleViewEvent($event)
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "v-uni-view",
+                    { attrs: { _i: "6-" + $30 } },
+                    [
+                      _vm._l(_vm._$g(7 + "-" + $30, "f"), function(
+                        model,
+                        idx,
+                        $21,
+                        $31
+                      ) {
+                        return _c(
+                          "v-uni-view",
+                          { key: model, attrs: { _i: "7-" + $30 + "-" + $31 } },
+                          [
+                            _c("u-cell-item", {
+                              attrs: { _i: "8-" + $30 + "-" + $31 },
+                              on: {
+                                click: function($event) {
+                                  return _vm.$handleViewEvent($event)
+                                }
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      }),
+                      _c("u-loadmore", {
+                        attrs: { _i: "9-" + $30 },
+                        on: {
+                          loadmore: function($event) {
+                            return _vm.$handleViewEvent($event)
+                          }
+                        }
+                      })
+                    ],
+                    2
+                  )
+                ],
+                1
+              )
+            ],
             1
           )
         }),
@@ -4095,7 +4152,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 13);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.swiper-item {\n\theight: 100%;\n}\n.swiper-box {\n\t-webkit-box-flex: 1;\n\t-webkit-flex: 1;\n\t        flex: 1;\n}\n", ""]);
+exports.push([module.i, "\n.wrap {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t-webkit-flex-direction: column;\n\t        flex-direction: column;\n\theight: calc(100vh - var(--window-top));\n\twidth: 100%;\n}\n.swiper-box {\n\t-webkit-box-flex: 1;\n\t-webkit-flex: 1;\n\t        flex: 1;\n}\n.swiper-item {\n\theight: 100%;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -4179,6 +4236,10 @@ var components
 try {
   components = {
     uTabsSwiper: __webpack_require__(/*! @/uview-ui/components/u-tabs-swiper/u-tabs-swiper.vue */ 94)
+      .default,
+    uCellItem: __webpack_require__(/*! @/uview-ui/components/u-cell-item/u-cell-item.vue */ 17)
+      .default,
+    uLoadmore: __webpack_require__(/*! @/uview-ui/components/u-loadmore/u-loadmore.vue */ 33)
       .default
   }
 } catch (e) {
@@ -4237,11 +4298,67 @@ var render = function() {
           }
         },
         _vm._l(_vm._$g(4, "f"), function(item, index, $20, $30) {
-          return _c("v-uni-swiper-item", {
-            key: item,
-            staticClass: _vm._$g("4-" + $30, "sc"),
-            attrs: { _i: "4-" + $30 }
-          })
+          return _c(
+            "v-uni-swiper-item",
+            {
+              key: item,
+              staticClass: _vm._$g("4-" + $30, "sc"),
+              attrs: { _i: "4-" + $30 }
+            },
+            [
+              _c(
+                "v-uni-scroll-view",
+                {
+                  staticStyle: { height: "100%", width: "100%" },
+                  attrs: { "scroll-y": true, _i: "5-" + $30 },
+                  on: {
+                    scrolltolower: function($event) {
+                      return _vm.$handleViewEvent($event)
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "v-uni-view",
+                    {
+                      staticClass: _vm._$g("6-" + $30, "sc"),
+                      attrs: { _i: "6-" + $30 }
+                    },
+                    [
+                      _vm._l(_vm._$g(7 + "-" + $30, "f"), function(
+                        model,
+                        idx,
+                        $21,
+                        $31
+                      ) {
+                        return _c(
+                          "v-uni-view",
+                          { key: model, attrs: { _i: "7-" + $30 + "-" + $31 } },
+                          [
+                            _c("u-cell-item", {
+                              attrs: { _i: "8-" + $30 + "-" + $31 }
+                            })
+                          ],
+                          1
+                        )
+                      }),
+                      _c("u-loadmore", {
+                        attrs: { _i: "9-" + $30 },
+                        on: {
+                          loadmore: function($event) {
+                            return _vm.$handleViewEvent($event)
+                          }
+                        }
+                      })
+                    ],
+                    2
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
         }),
         1
       )
@@ -4497,6 +4614,7 @@ var render = function() {
       _c(
         "u-button",
         {
+          staticClass: _vm._$g(8, "sc"),
           attrs: { _i: 8 },
           on: {
             click: function($event) {
@@ -5678,7 +5796,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 13);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.content {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t-webkit-flex-direction: column;\n\t        flex-direction: column;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n}\n.logo {\n\theight: 200rpx;\n\twidth: 200rpx;\n\tmargin-top: 50rpx;\n\tmargin-left: auto;\n\tmargin-right: auto;\n\tmargin-bottom: 50rpx;\n\tborder-radius: 100rpx;\n}\n.text-area {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n}\n.title {\n\tfont-size: 36rpx;\n\tcolor: #8f8f94;\n}\n.button-custom-style {\n\tcolor: #606266;\n\twidth: 400rpx;\n\tborder-width: 0rpx;\n\tborder-radius: 0rpx;\n}\n", ""]);
+exports.push([module.i, "\n.content {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t-webkit-flex-direction: column;\n\t        flex-direction: column;\n\t-webkit-box-align: center;\n\t-webkit-align-items: center;\n\t        align-items: center;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n}\n.logo {\n\theight: 200rpx;\n\twidth: 200rpx;\n\tmargin-top: 50rpx;\n\tmargin-left: auto;\n\tmargin-right: auto;\n\tmargin-bottom: 50rpx;\n\tborder-radius: 100rpx;\n}\n.text-area {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t        justify-content: center;\n}\n.title {\n\tfont-size: 36rpx;\n\tcolor: #8f8f94;\n}\n.buttonStyle {\n\tborder-width: 0rpx;\n\tborder-radius: 0rpx;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
