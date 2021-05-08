@@ -17,10 +17,11 @@
 .logo {
 	height: 200rpx;
 	width: 200rpx;
-	margin-top: 44rpx;
+	margin-top: 50rpx;
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: 50rpx;
+	border-radius: 100rpx;
 }
 .text-area {
 	display: -webkit-box;
@@ -33,5 +34,9 @@
 .title {
 	font-size: 36rpx;
 	color: #8f8f94;
+}
+.buttonStyle {
+	border-width: 0rpx;
+	border-radius: 0rpx;
 }
 

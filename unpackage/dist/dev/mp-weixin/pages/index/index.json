@@ -15,6 +15,7 @@
   "usingComponents": {
     "u-swiper": "/uview-ui/components/u-swiper/u-swiper",
     "u-cell-item": "/uview-ui/components/u-cell-item/u-cell-item",
-    "u-loadmore": "/uview-ui/components/u-loadmore/u-loadmore"
+    "u-loadmore": "/uview-ui/components/u-loadmore/u-loadmore",
+    "u-toast": "/uview-ui/components/u-toast/u-toast"
   }
 }

@@ -2,6 +2,8 @@
   "navigationBarTitleText": "项目",
   "usingComponents": {
     "u-tabs-swiper": "/uview-ui/components/u-tabs-swiper/u-tabs-swiper",
+    "u-cell-item": "/uview-ui/components/u-cell-item/u-cell-item",
+    "u-loadmore": "/uview-ui/components/u-loadmore/u-loadmore",
     "single": "/pages/infomation/single"
   }
 }

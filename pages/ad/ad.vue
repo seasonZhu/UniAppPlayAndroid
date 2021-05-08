@@ -87,7 +87,7 @@
 				
 				// 整个开屏广告不大于8秒
 				this.adTimer = setTimeout(() => {
-					//this.close()
+					this.close()
 				}, this.adShowTime)
 			},
 		}

@@ -8111,7 +8111,8 @@ var store = new _vuex.default.Store({
     } },
 
   mutations: {
-    storeLogin: function storeLogin(state, payload) {// 改变登录状态
+    // 改变登录状态
+    storeLogin: function storeLogin(state, payload) {
       var temp = {
         hasLogin: true,
         cookie: payload.cookie,
@@ -8125,7 +8126,8 @@ var store = new _vuex.default.Store({
 
     },
 
-    storeLogout: function storeLogout(state) {// 退出登录
+    // 退出登录
+    storeLogout: function storeLogout(state) {
       var temp = {
         hasLogin: false,
         cookie: '',
@@ -11699,10 +11701,12 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 var install = function install(Vue, vm) {
   Vue.prototype.$u.http.setConfig({
     baseUrl: 'https://www.wanandroid.com/',
+
     // 如果将此值设置为true，拦截回调中将会返回服务端返回的所有数据response，而不是response.data
     // 设置为true后，就需要在this.$u.http.interceptor.response进行多一次的判断，请打印查看具体值
     // originalData: true, 
-    // 设置自定义头部content-type
+
+    // 设置自定义头部content-type,这个请求头仅仅在内置浏览器中才有效,目前在微信小程序中没有用
     header: {
       'cookie': vm.$store.state.userInfo.cookie } });
 
@@ -11780,7 +11784,6 @@ var postCollectArticle = 'lg/collect/';
 // 取消收藏站内文章 lg/uncollect_originId/1165/json
 var postUnCollectArticle = 'lg/uncollect_originId/';
 
-// 收藏文章列表
 var getCollectArticleList = 'lg/collect/list/';
 
 var getRankingList = 'coin/rank/';
@@ -11822,7 +11825,7 @@ var install = function install(Vue, vm) {
   var publicNumTopic = function publicNumTopic() {var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};return vm.$u.get(getPubilicNumber, params);};
 
   // 公众号文章列表
-  var publicNumList = function publicNumList() {var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};var page = arguments.length > 1 ? arguments[1] : undefined;return vm.$u.get(getPubilicNumberList + page.toString() + "/json", params);};
+  var publicNumList = function publicNumList(id, page) {return vm.$u.get(getPubilicNumberList + id.toString() + "/" + page.toString() + "/json");};
 
   // 体系
   var tree = function tree() {var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};var page = arguments.length > 1 ? arguments[1] : undefined;return vm.$u.get(getTree, params);};
