@@ -69,13 +69,13 @@ const install = (Vue, vm) => {
 	let publicNumTopic = (params = {}) => vm.$u.get(getPubilicNumber, params);
 	
 	// 公众号文章列表
-	let publicNumList = (params = {}, page) => vm.$u.get(getPubilicNumberList+ page.toString() + "/json", params);
+	let publicNumList = (id, page) => vm.$u.get(getPubilicNumberList + id.toString() + "/" + page.toString() + "/json");
 	
 	// 体系
 	let tree = (params = {}, page) => vm.$u.get(getTree, params);
 	
 	// 体系详细
-	let treeDetail = (id, page) => vm.$u.get(getTreeDetailList  + page.toString() + '/json' + "?cid=" + id);
+	let treeDetail = (id, page) => vm.$u.get(getTreeDetailList + page.toString() + '/json' + "?cid=" + id);
 	
 	// 总积分排名
 	let totalRankingList = (page) => vm.$u.get(getRankingList + page.toString() + '/json');

@@ -4265,11 +4265,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-uni-view",
-    { attrs: { _i: 0 } },
+    { staticClass: _vm._$g(0, "sc"), attrs: { _i: 0 } },
     [
       _c(
         "v-uni-view",
-        { attrs: { _i: 1 } },
+        { staticClass: _vm._$g(1, "sc"), attrs: { _i: 1 } },
         [
           _c("u-tabs-swiper", {
             ref: "uTabs",
@@ -4320,10 +4320,7 @@ var render = function() {
                 [
                   _c(
                     "v-uni-view",
-                    {
-                      staticClass: _vm._$g("6-" + $30, "sc"),
-                      attrs: { _i: "6-" + $30 }
-                    },
+                    { attrs: { _i: "6-" + $30 } },
                     [
                       _vm._l(_vm._$g(7 + "-" + $30, "f"), function(
                         model,
@@ -4336,7 +4333,12 @@ var render = function() {
                           { key: model, attrs: { _i: "7-" + $30 + "-" + $31 } },
                           [
                             _c("u-cell-item", {
-                              attrs: { _i: "8-" + $30 + "-" + $31 }
+                              attrs: { _i: "8-" + $30 + "-" + $31 },
+                              on: {
+                                click: function($event) {
+                                  return _vm.$handleViewEvent($event)
+                                }
+                              }
                             })
                           ],
                           1
@@ -4454,7 +4456,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 13);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.swiper-item {\n\theight: 100%;\n}\n.swiper-box {\n\t-webkit-box-flex: 1;\n\t-webkit-flex: 1;\n\t        flex: 1;\n}\n", ""]);
+exports.push([module.i, "\n.wrap {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t-webkit-flex-direction: column;\n\t        flex-direction: column;\n\theight: calc(100vh - var(--window-top));\n\twidth: 100%;\n}\n.swiper-box {\n\t-webkit-box-flex: 1;\n\t-webkit-flex: 1;\n\t        flex: 1;\n}\n.swiper-item {\n\theight: 100%;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
