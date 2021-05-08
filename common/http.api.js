@@ -28,7 +28,6 @@ let postCollectArticle = 'lg/collect/';
 // 取消收藏站内文章 lg/uncollect_originId/1165/json
 let postUnCollectArticle = 'lg/uncollect_originId/';
 
-// 收藏文章列表
 let getCollectArticleList = 'lg/collect/list/';
 
 let getRankingList = 'coin/rank/';

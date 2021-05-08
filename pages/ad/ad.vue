@@ -56,7 +56,7 @@
 				// 整个开屏广告不大于8秒
 				this.adTimer = setTimeout(() => {
 					this.close()
-				}, this.adShowTime);
+				}, this.adShowTime)
 			},
 			// 关闭广告页
 			close() {
@@ -65,7 +65,7 @@
 				// 进入到首页
 				uni.switchTab({
 				    url: '/pages/index/index'
-				});
+				})
 			},
 			// mock的广告页面
 			mockAd () {
@@ -88,7 +88,7 @@
 				// 整个开屏广告不大于8秒
 				this.adTimer = setTimeout(() => {
 					//this.close()
-				}, this.adShowTime);
+				}, this.adShowTime)
 			},
 		}
 	}

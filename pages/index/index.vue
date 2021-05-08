@@ -14,10 +14,12 @@
 			<u-cell-item :title="item.title" :label="item.author" :value="item.zan" :index="index" @click="normalCellClick"></u-cell-item>
 		</view>
 		<u-loadmore :status="status" @loadmore="loadmore" />
+		<u-toast ref="uToast" />
 	</view>
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex';
 export default {
 	data() {
 		return {
@@ -31,6 +33,10 @@ export default {
 	async onLoad() {
 		this.getBanner()
 		this.getTopArticle()
+		this.autoLogin()
+	},
+	computed: {
+		...mapState(['userInfo'])
 	},
 	// 下拉刷新
 	onPullDownRefresh() {
@@ -52,6 +58,7 @@ export default {
 		this.$u.route('/pages/index/search')
 	},
 	methods: {
+		...mapMutations(['storeLogin']),
 		getBanner() {
 			this.$u.api.banner().then(res => {
 				this.list = res
@@ -100,7 +107,45 @@ export default {
 		loadmore() {
 			// 这个感觉在App端基本上用不到
 			console.log('加载更多')
-		}
+		},
+		autoLogin() {
+			if (this.userInfo.hasLogin) {
+				return;
+			}
+		
+			let mobile = uni.getStorageSync('username')
+			let code = uni.getStorageSync('password')
+		
+			if (mobile.length == 0 || code.length == 0) {
+				return
+			}
+		
+			console.log(mobile)
+			console.log(code)
+			this.$u.api.login(mobile, code).then(res => {
+				if (typeof res == 'string') {
+					let message = res
+					this.$refs.uToast.show({
+						title: message
+					});
+					return
+				}
+		
+				this.$refs.uToast.show({
+					title: '自动登录成功'
+				})
+		
+				const temp = {
+					cookie: 'loginUserName=' + mobile + ';' + 'loginUserPassword=' + code,
+					profile: res
+				}
+		
+				// 刷新操作
+				this.storeLogin(temp);
+				uni.setStorageSync('username', mobile)
+				uni.setStorageSync('password', code)
+			});
+		},
 	}
 };
 </script>

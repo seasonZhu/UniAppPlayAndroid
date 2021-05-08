@@ -1,6 +1,7 @@
 <template>
 	<view class="">
-		<image class="logo content" src="/static/uview/common/logo.png"></image>
+		<image class="logo content" :src="this.userHeadImageName"></image>
+		<u-cell-item v-if="this.userInfo.hasLogin" class="content" :title="this.coinText" :arrow="false" :border-bottom="false"></u-cell-item>
 		<u-cell-item title="体系" index="0" @click="click"></u-cell-item>
 		<u-cell-item title="积分排行榜" index="1" @click="click"></u-cell-item>
 		<u-cell-item v-if="this.userInfo.hasLogin" title="我的积分历史" index="2" @click="click"></u-cell-item>
@@ -8,7 +9,6 @@
 		<u-cell-item title="" :arrow="false" :border-bottom="false"></u-cell-item>
 		<u-cell-item :title="this.loginStatusText()" class="content" bgColor="#ccc" index="999" @click="click" :arrow="false" :border-bottom="false"></u-cell-item>
 		<u-modal v-model="show" content="是否登出？" :show-cancel-button="true" @confirm="sureLogout" ref="uModal" :async-close="true"></u-modal>
-		<u-toast ref="uToast" />
 	</view>
 </template>
 
@@ -17,41 +17,55 @@ import { mapState, mapMutations } from 'vuex';
 export default {
 	data() {
 		return {
-			show: false
+			show: false,
+			coinInfo: {
+				coinCount: '--',
+				level: '--',
+				rank: '--',
+			},
 		};
 	},
 	computed: {
-		...mapState(['userInfo'])
+		...mapState(['userInfo']),
+		coinText() {
+			return '排名:  ' + this.coinInfo.rank + '  等级:  ' + this.coinInfo.level + '  积分:  ' + this.coinInfo.coinCount
+		},
+		userHeadImageName() {
+			if (this.userInfo.hasLogin) {
+				return '/static/user/saber.jpg'
+			} else {
+				return '/static/uview/common/logo.png'
+			}
+		}
 	},
 	onLoad() {
-		this.autoLogin();
+		this.getUserCoinInfo()
 	},
-	onShow() {},
 	methods: {
-		...mapMutations(['storeLogout', 'storeLogin']),
+		...mapMutations(['storeLogout']),
 		loginStatusText() {
 			if (this.userInfo.hasLogin) {
-				return '退出登录';
+				return '退出登录'
 			} else {
-				return '登录';
+				return '登录'
 			}
 		},
 		click(index) {
 			switch (index) {
 				case '0':
-					this.$u.route('/pages/my/tree');
+					this.$u.route('/pages/my/tree')
 					break;
 				case '1':
-					this.$u.route('/pages/my/ranking');
+					this.$u.route('/pages/my/ranking')
 					break;
 				case '2':
-					this.$u.route('/pages/my/history');
+					this.$u.route('/pages/my/history')
 					break;
 				case '3':
-					this.$u.route('/pages/my/collection');
+					this.$u.route('/pages/my/collection')
 					break;
 				case '999':
-					this.loginOrlogout();
+					this.loginOrlogout()
 					break;
 				default:
 					break;
@@ -59,67 +73,32 @@ export default {
 		},
 		loginOrlogout() {
 			if (this.userInfo.hasLogin) {
-				this.show = true;
+				this.show = true
 			} else {
-				this.$u.route('/pages/login/index');
+				this.$u.route('/pages/login/index')
 			}
 		},
 		sureLogout() {
 			this.$u.api.logout().then(res => {
 				this.show = false;
 				if (typeof res == 'string') {
-					let message = res;
+					let message = res
 					this.$refs.uToast.show({
 						title: message
 					});
-					return;
+					return
 				}
-				this.storeLogout();
-			});
-		},
-		autoLogin() {
-			if (this.userInfo.hasLogin) {
-				return;
-			}
-
-			let mobile = uni.getStorageSync('username');
-			let code = uni.getStorageSync('password');
-
-			if (mobile.length == 0 || code.length == 0) {
-				return;
-			}
-
-			console.log(mobile);
-			console.log(code);
-			this.$u.api.login(mobile, code).then(res => {
-				if (typeof res == 'string') {
-					let message = res;
-					this.$refs.uToast.show({
-						title: message
-					});
-					return;
-				}
-
-				this.$refs.uToast.show({
-					title: '自动登录成功'
-				});
-
-				const temp = {
-					cookie: 'loginUserName=' + mobile + ';' + 'loginUserPassword=' + code,
-					profile: res
-				};
-
-				// 刷新操作
-				this.storeLogin(temp);
-				uni.setStorageSync('username', mobile);
-				uni.setStorageSync('password', code);
+				this.storeLogout()
 			});
 		},
 		getUserCoinInfo() {
-			this.$u.api.userCoinInfo().then(res => {
-				console.log(res);
-			});
+			if (this.userInfo.hasLogin) {
+				this.$u.api.userCoinInfo().then(res => {
+					this.coinInfo = res
+				})
+			}
 		}
+		
 	}
 };
 </script>
@@ -135,10 +114,11 @@ export default {
 .logo {
 	height: 200rpx;
 	width: 200rpx;
-	margin-top: 44rpx;
+	margin-top: 50rpx;
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: 50rpx;
+	border-radius: 100rpx;
 }
 
 .text-area {
