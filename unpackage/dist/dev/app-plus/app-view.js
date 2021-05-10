@@ -3419,20 +3419,42 @@ var render = function() {
                           "v-uni-view",
                           { key: model, attrs: { _i: "7-" + $30 + "-" + $31 } },
                           [
-                            _c("u-cell-item", {
-                              attrs: { _i: "8-" + $30 + "-" + $31 },
-                              on: {
-                                click: function($event) {
-                                  return _vm.$handleViewEvent($event)
+                            _c(
+                              "u-cell-item",
+                              {
+                                attrs: { _i: "8-" + $30 + "-" + $31 },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.$handleViewEvent($event)
+                                  }
                                 }
-                              }
-                            })
+                              },
+                              [
+                                _c("v-uni-image", {
+                                  staticClass: _vm._$g(
+                                    "9-" + $30 + "-" + $31,
+                                    "sc"
+                                  ),
+                                  attrs: {
+                                    slot: "icon",
+                                    src: _vm._$g(
+                                      "9-" + $30 + "-" + $31,
+                                      "a-src"
+                                    ),
+                                    mode: "aspectFit",
+                                    _i: "9-" + $30 + "-" + $31
+                                  },
+                                  slot: "icon"
+                                })
+                              ],
+                              1
+                            )
                           ],
                           1
                         )
                       }),
                       _c("u-loadmore", {
-                        attrs: { _i: "9-" + $30 },
+                        attrs: { _i: "10-" + $30 },
                         on: {
                           loadmore: function($event) {
                             return _vm.$handleViewEvent($event)
@@ -4152,7 +4174,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 13);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.wrap {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t-webkit-flex-direction: column;\n\t        flex-direction: column;\n\theight: calc(100vh - var(--window-top));\n\twidth: 100%;\n}\n.swiper-box {\n\t-webkit-box-flex: 1;\n\t-webkit-flex: 1;\n\t        flex: 1;\n}\n.swiper-item {\n\theight: 100%;\n}\n", ""]);
+exports.push([module.i, "\n.wrap {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t-webkit-flex-direction: column;\n\t        flex-direction: column;\n\theight: calc(100vh - var(--window-top));\n\twidth: 100%;\n}\n.swiper-box {\n\t-webkit-box-flex: 1;\n\t-webkit-flex: 1;\n\t        flex: 1;\n}\n.swiper-item {\n\theight: 100%;\n}\n.imageContainer {\n\twidth: 44rpx;\n\theight: 88rpx;\n\tmargin-right: 20rpx;\n\twill-change: transform;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
