@@ -1,4 +1,5 @@
 <template>
+	<!-- 在HTML里面使用JavaScript函数不用加this -->
 	<view class="wrap">
 		<view class="u-tabs-box"><u-tabs-swiper ref="uTabs" :list="topics" @change="tabsChange" :is-scroll="true"></u-tabs-swiper></view>
 		<swiper class="swiper-box" :current="swiperCurrent" @transition="transition" @animationfinish="animationfinish">
@@ -7,7 +8,7 @@
 					<view class="">
 						<view v-for="(model, idx) in lists[index]" :key="idx">
 							<u-cell-item :title="model.title" :label="model.author" :value="model.zan" :index="idx" @click="click(index, idx)">
-								<image  class="imageContainer" slot="icon" :src='getImage(model)' mode="aspectFit"></image>
+								<image class="imageContainer" slot="icon" :src='getImage(model)' mode="aspectFit"></image>
 							</u-cell-item>
 						</view>
 						<u-loadmore :status="listStatus[index]" @loadmore="loadmore" />
