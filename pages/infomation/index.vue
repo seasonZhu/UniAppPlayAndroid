@@ -6,7 +6,9 @@
 				<scroll-view scroll-y style="height: 100%;width: 100%;" @scrolltolower="reachBottom">
 					<view class="">
 						<view v-for="(model, idx) in lists[index]" :key="idx">
-							<u-cell-item :title="model.title" :label="model.author" :value="model.zan" :index="idx" @click="click(index, idx)"></u-cell-item>
+							<u-cell-item :title="model.title" :label="model.author" :value="model.zan" :index="idx" @click="click(index, idx)">
+								<image  class="imageContainer" slot="icon" :src='getImage(model)' mode="aspectFit"></image>
+							</u-cell-item>
 						</view>
 						<u-loadmore :status="listStatus[index]" @loadmore="loadmore" />
 					</view>
@@ -133,6 +135,13 @@ export default {
 			let id = this.lists[index][idx].id
 			this.openPage(url, id)
 		},
+		getImage(model) {
+			if (model.envelopePic == "") {
+				return '/static/user/placeholder.png'
+			}else {
+				return model.envelopePic
+			}
+		}
 	}
 };
 </script>
@@ -149,5 +158,11 @@ export default {
 }
 .swiper-item {
 	height: 100%;
+}
+.imageContainer {
+	width: 44rpx;
+	height: 88rpx;
+	margin-right: 20rpx;
+	will-change: transform;
 }
 </style>
