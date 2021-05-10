@@ -45,6 +45,15 @@ export default {
 			}
 		},
 	},
+	watch: {
+		// 通过KVC监听this.userInfo.hasLogin
+		'userInfo.hasLogin'(newValue, oldValue) {
+			console.log("监听器起作用了")
+			if (newValue == true) {
+				this.getUserCoinInfo()
+			}
+		}
+	},
 	onLoad() {
 		this.getUserCoinInfo()
 	},
