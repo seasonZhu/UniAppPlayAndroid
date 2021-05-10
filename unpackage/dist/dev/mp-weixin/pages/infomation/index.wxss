@@ -18,4 +18,10 @@
 .swiper-item {
 	height: 100%;
 }
+.imageContainer {
+	width: 44rpx;
+	height: 88rpx;
+	margin-right: 20rpx;
+	will-change: transform;
+}
 

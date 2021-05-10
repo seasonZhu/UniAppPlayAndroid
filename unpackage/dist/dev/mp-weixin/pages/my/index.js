@@ -206,6 +206,15 @@ var _vuex = __webpack_require__(/*! vuex */ 12);function ownKeys(object, enumera
       }
     } }),
 
+  watch: {
+    // 通过KVC监听this.userInfo.hasLogin
+    'userInfo.hasLogin': function userInfoHasLogin(newValue, oldValue) {
+      console.log("监听器起作用了");
+      if (newValue == true) {
+        this.getUserCoinInfo();
+      }
+    } },
+
   onLoad: function onLoad() {
     this.getUserCoinInfo();
   },

@@ -126,6 +126,33 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l1 = _vm.__map(_vm.topics, function(item, index) {
+    var $orig = _vm.__get_orig(item)
+
+    var l0 = _vm.__map(_vm.lists[index], function(model, idx) {
+      var $orig = _vm.__get_orig(model)
+
+      var m0 = _vm.getImage(model)
+      return {
+        $orig: $orig,
+        m0: m0
+      }
+    })
+
+    return {
+      $orig: $orig,
+      l0: l0
+    }
+  })
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l1: l1
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -179,6 +206,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+
+
+
 {
   components: {
     single: single },
@@ -187,9 +217,11 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     return {
       topics: [],
       // 因为内部的滑动机制限制，请将tabs组件和swiper组件的current用不同变量赋值
-      current: 0, // tabs组件的current值，表示当前活动的tab选项
-      swiperCurrent: 0, // swiper组件的current值，表示当前那个swiper-item是活动的
-      lists: [[]],
+      // tabs组件的current值，表示当前活动的tab选项
+      current: 0,
+      // swiper组件的current值，表示当前那个swiper-item是活动的
+      swiperCurrent: 0,
+      lists: [],
       pages: [],
       listStatus: [] };
 
@@ -200,43 +232,57 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   methods: {
     getProjectTopic: function getProjectTopic() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var i;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:_context2.next = 2;return (
                   _this2.$u.api.projectTopic());case 2:_this2.topics = _context2.sent;
-                i = 0;case 4:if (!(i < _this2.topics.length)) {_context2.next = 11;break;}
-                _this2.pages[i] = 0;_context2.next = 8;return (
-                  _this2.getProjectList(i));case 8:i++;_context2.next = 4;break;case 11:
+                // 优化考虑用高阶map函数
+                for (i = 0; i < _this2.topics.length; i++) {
+                  _this2.pages[i] = 0;
+                }if (!(
+                _this2.topics.length > 0)) {_context2.next = 7;break;}_context2.next = 7;return (
+                  _this2.getProjectList(0));case 7:case "end":return _context2.stop();}}}, _callee2);}))();
 
-                _this2.tabsChange(1);
-                _this2.tabsChange(0);case 13:case "end":return _context2.stop();}}}, _callee2);}))();
     },
-    getProjectList: function getProjectList(index) {var _arguments = arguments,_this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var isLoadMore, model, id, page, list;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:isLoadMore = _arguments.length > 1 && _arguments[1] !== undefined ? _arguments[1] : false;
+    getProjectList: function getProjectList(index) {var _arguments = arguments,_this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var isLoadMore, some, status, model, id, page, list;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:isLoadMore = _arguments.length > 1 && _arguments[1] !== undefined ? _arguments[1] : false;
+
+                // 如果index所在的数组有值，并且下拉状态不是nomore，那么就进行列表请求
+                some = _this3.lists[index];
+                status = _this3.listStatus[index];if (!(
+                some != undefined && status == "nomore")) {_context3.next = 5;break;}return _context3.abrupt("return");case 5:
+
+
+
+                // 获取请求id
                 model = _this3.topics[index];
                 id = model.id;
+
+                // 获取页数
 
                 if (isLoadMore) {
                   page = _this3.pages[index] + 1;
                   _this3.pages[index] = page;
                 } else {
                   page = _this3.pages[index];
-                }_context3.next = 6;return (
+                }
 
-                  _this3.$u.api.projectList({ cid: id.toString() }, page).then(function (res) {
-                    var array = [].concat(res.datas);
-                    if (isLoadMore) {
-                      var lastArray = _this3.lists[index];
-                      _this3.lists[index] = lastArray.concat(array);
-                    } else {
-                      _this3.lists[index] = array;
-                    }
+                // 进行请求
+                _context3.next = 10;return _this3.$u.api.projectList({ cid: id.toString() }, page).then(function (res) {
+                  var array = [].concat(res.datas);
+                  if (isLoadMore) {
+                    var lastArray = _this3.lists[index];
+                    _this3.lists[index] = lastArray.concat(array);
+                  } else {
+                    _this3.lists[index] = array;
+                  }
 
-                    if (res.pageCount == res.curPage + 1) {
-                      _this3.listStatus.splice(index, 1, "nomore");
-                    } else {
-                      _this3.listStatus.splice(index, 1, "loadmore");
-                    }
+                  // 虽然页面的加载数据优化好了，但是这样对于仅有一页，底部的状态文字会出现异常，我个人还是偏向于抽出这部分逻辑成为一个单页面，目前还是尝试
+                  if (res.pageCount == res.curPage + 1) {
+                    _this3.listStatus.splice(index, 1, "nomore");
+                  } else {
+                    _this3.listStatus.splice(index, 1, "loadmore");
+                  }
 
-                    if (res.datas.length == 0) {
-                      _this3.listStatus.splice(index, 1, "nomore");
-                    }
-                  }));case 6:list = _context3.sent;case 7:case "end":return _context3.stop();}}}, _callee3);}))();
+                  if (res.datas.length == 0) {
+                    _this3.listStatus.splice(index, 1, "nomore");
+                  }
+                });case 10:list = _context3.sent;case 11:case "end":return _context3.stop();}}}, _callee3);}))();
     },
     // tabs通知swiper切换
     tabsChange: function tabsChange(index) {
@@ -254,6 +300,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
       this.$refs.uTabs.setFinishCurrent(current);
       this.swiperCurrent = current;
       this.current = current;
+      this.getProjectList(current);
     },
     // scroll-view到底部加载更多
     reachBottom: function reachBottom() {
@@ -276,6 +323,13 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
       var url = this.lists[index][idx].link;
       var id = this.lists[index][idx].id;
       this.openPage(url, id);
+    },
+    getImage: function getImage(model) {
+      if (model.envelopePic == "") {
+        return '/static/user/placeholder.png';
+      } else {
+        return model.envelopePic;
+      }
     } } };exports.default = _default;
 
 /***/ }),
