@@ -35,8 +35,23 @@
 	font-size: 36rpx;
 	color: #8f8f94;
 }
-.buttonStyle {
-	border-width: 0rpx;
-	border-radius: 0rpx;
+.loginOrlogoutStyle {
+	margin-top: 100rpx;
+	height: 88rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	background-color: #2979FF;
+	color: #FFFFFF;
 }
 

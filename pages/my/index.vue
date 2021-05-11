@@ -1,12 +1,12 @@
 <template>
 	<view>
-		<image class="logo content" :src="this.userHeadImageName" @tap="selectImage" ></image>
-		<u-cell-item v-if="this.userInfo.hasLogin" class="content" :title="this.coinText" :arrow="false" :border-bottom="false"></u-cell-item>
+		<image class="logo content" :src="userHeadImageName" @tap="selectImage" ></image>
+		<u-cell-item v-if="userInfo.hasLogin" class="content" :title="coinText" :arrow="false" :border-bottom="false"></u-cell-item>
 		<u-cell-item title="体系" index="0" @click="click"></u-cell-item>
 		<u-cell-item title="积分排行榜" index="1" @click="click"></u-cell-item>
-		<u-cell-item v-if="this.userInfo.hasLogin" title="我的积分历史" index="2" @click="click"></u-cell-item>
-		<u-cell-item v-if="this.userInfo.hasLogin" title="我的收藏" index="3" @click="click"></u-cell-item>
-		<text class="loginOrlogoutStyle" @tap="loginOrlogout">{{this.loginStatusText}}</text>
+		<u-cell-item v-if="userInfo.hasLogin" title="我的积分历史" index="2" @click="click"></u-cell-item>
+		<u-cell-item v-if="userInfo.hasLogin" title="我的收藏" index="3" @click="click"></u-cell-item>
+		<text class="loginOrlogoutStyle" @tap="loginOrlogout">{{loginStatusText}}</text>
 		<u-modal v-model="show" content="是否登出？" :show-cancel-button="true" @confirm="sureLogout" ref="uModal" :async-close="true"></u-modal>
 	</view>
 </template>
