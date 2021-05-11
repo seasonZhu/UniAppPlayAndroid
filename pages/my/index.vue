@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<image class="logo content" :src="userHeadImageName" @tap="selectImage" ></image>
-		<u-cell-item v-if="userInfo.hasLogin" class="content" :title="coinText" :arrow="false" :border-bottom="false"></u-cell-item>
+		<text class="myCoioStyle" v-if="userInfo.hasLogin">{{coinText}}</text>
 		<u-cell-item title="体系" index="0" @click="click"></u-cell-item>
 		<u-cell-item title="积分排行榜" index="1" @click="click"></u-cell-item>
 		<u-cell-item v-if="userInfo.hasLogin" title="我的积分历史" index="2" @click="click"></u-cell-item>
@@ -156,5 +156,12 @@ export default {
 	justify-content: center;
 	background-color: #2979FF;
 	color: #FFFFFF;
+}
+.myCoioStyle {
+	height: 88rpx;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
 }
 </style>

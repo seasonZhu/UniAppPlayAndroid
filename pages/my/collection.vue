@@ -10,6 +10,7 @@
 			@touchend="drawEnd"
 			:style="'right:' + item.right + 'px'"
 		>
+			<!-- > 这里在微信小程序箭头显示会有点问题 -->
 			<u-cell-item :title="item.title" :index="index" @click="click"></u-cell-item>
 			<view class="remove" @click="delData(item)">取消收藏</view>
 <!-- 			<view class="edit" @click="editData(item)">编 辑</view> -->
