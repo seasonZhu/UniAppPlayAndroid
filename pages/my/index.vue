@@ -1,13 +1,12 @@
 <template>
 	<view>
-		<image class="logo content" :src="this.userHeadImageName"></image>
+		<image class="logo content" :src="this.userHeadImageName" @tap="selectImage" ></image>
 		<u-cell-item v-if="this.userInfo.hasLogin" class="content" :title="this.coinText" :arrow="false" :border-bottom="false"></u-cell-item>
 		<u-cell-item title="体系" index="0" @click="click"></u-cell-item>
 		<u-cell-item title="积分排行榜" index="1" @click="click"></u-cell-item>
 		<u-cell-item v-if="this.userInfo.hasLogin" title="我的积分历史" index="2" @click="click"></u-cell-item>
 		<u-cell-item v-if="this.userInfo.hasLogin" title="我的收藏" index="3" @click="click"></u-cell-item>
-		<u-cell-item title="" :arrow="false" :border-bottom="false"></u-cell-item>
-		<u-button class="buttonStyle" shape="square" @click="loginOrlogout">{{this.loginStatusText}}</u-button>
+		<text class="loginOrlogoutStyle" @tap="loginOrlogout">{{this.loginStatusText}}</text>
 		<u-modal v-model="show" content="是否登出？" :show-cancel-button="true" @confirm="sureLogout" ref="uModal" :async-close="true"></u-modal>
 	</view>
 </template>
@@ -46,7 +45,7 @@ export default {
 		},
 	},
 	watch: {
-		// 通过KVC监听this.userInfo.hasLogin
+		// 通过KVC监听this.userInfo.hasLogin 哈哈
 		'userInfo.hasLogin'(newValue, oldValue) {
 			console.log("监听器起作用了")
 			if (newValue == true) {
@@ -112,8 +111,10 @@ export default {
 			}else {
 				uni.stopPullDownRefresh();
 			}
+		},
+		selectImage() {
+			console.log("点击了图片")
 		}
-		
 	}
 };
 </script>
@@ -146,8 +147,14 @@ export default {
 	color: #8f8f94;
 }
 
-.buttonStyle {
-	border-width: 0rpx;
-	border-radius: 0rpx;
+.loginOrlogoutStyle {
+	margin-top: 100rpx;
+	height: 88rpx;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	background-color: #2979FF;
+	color: #FFFFFF;
 }
 </style>
