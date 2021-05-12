@@ -75,16 +75,17 @@ export default {
 				}
 			})
 		},
-		openPage(url, id) {
+		openPage(url, id, isFromBanner = false) {
 			this.$u.route('/pages/web/index', {
 				url: url,
-				id: id
+				id: id,
+				isFromBanner: isFromBanner
 			})
 		},
 		click(index) {
 			let url = this.list[index].url
 			let id = this.list[index].id
-			this.openPage(url,id)
+			this.openPage(url,id,true)
 		},
 		topCellClick(index) {
 			let url = this.tops[index].link

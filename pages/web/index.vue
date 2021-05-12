@@ -58,7 +58,7 @@ export default {
 			}
 		},
 		list() {
-			if (this.userInfo.hasLogin) {
+			if (this.userInfo.hasLogin && !this.params.isFromBanner) {
 				let text = this.hasCollected ? '取消收藏' : '收藏';
 				let array = ['复制链接', '浏览器打开', '微信分享', '刷新']
 				array.push(text)
