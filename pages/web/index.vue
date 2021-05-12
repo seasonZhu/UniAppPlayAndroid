@@ -17,7 +17,8 @@ export default {
 	data() {
 		return {
 			params: {},
-			show: false
+			show: false,
+			staticList: ['复制链接', '浏览器打开', '微信分享', '刷新']
 		};
 	},
 	onLoad(option) {
@@ -34,11 +35,30 @@ export default {
 		url() {
 			return this.params.url
 		},
+		collectIds() {
+			return this.userInfo.profile.collectIds
+		},
+		id() {
+			return Number(this.params.id)
+		},
+		hasCollected() {
+			// 这个地方的判断有问题，先打的this.params.id后打的array，导致result为false
+			let array = this.collectIds
+			let id = this.id
+			console.log(array)
+			console.log(id)
+			let result = array.includes(this.id)
+			console.log(result)
+			return result
+		},
 		list() {
 			if (this.userInfo.hasLogin) {
-				return ['复制链接', '浏览器打开', '微信分享', '刷新', '收藏']
+				let text = this.hasCollected ? '取消收藏' : '收藏';
+				let array = this.staticList
+				array.push(text)
+				return array
 			} else {
-				return ['复制链接', '浏览器打开', '微信分享', '刷新']
+				return this.staticList
 			}
 		}
 	},

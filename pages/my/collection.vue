@@ -1,19 +1,7 @@
 <template>
 	<view class="">
-		<view
-			v-for="(item, index) in list"
-			:key="index"
-			:data-index="index"
-			class="order-item"
-			@touchstart="drawStart"
-			@touchmove="drawMove"
-			@touchend="drawEnd"
-			:style="'right:' + item.right + 'px'"
-		>
-			<!-- > 这里在微信小程序箭头显示会有点问题 -->
+		<view v-for="(item,index) in list" :key="index">
 			<u-cell-item :title="item.title" :index="index" @click="click"></u-cell-item>
-			<view class="remove" @click="delData(item)">取消收藏</view>
-<!-- 			<view class="edit" @click="editData(item)">编 辑</view> -->
 		</view>
 		<u-loadmore :status="status" @loadmore="loadmore" />
 	</view>
@@ -59,7 +47,7 @@ export default {
 		},
 		click(index) {
 			let url = this.list[index].link
-			let id = this.list[index].id
+			let id = this.list[index].originId
 			this.openPage(url,id);
 		},
 		drawStart(e) {
@@ -163,3 +151,22 @@ export default {
 	font-size: 16px;
 }
 </style>
+
+/*
+这段代码在App端、微信小程序端会有问题，所以不写了
+		<view
+			v-for="(item, index) in list"
+			:key="index"
+			:data-index="index"
+			class="order-item"
+			@touchstart="drawStart"
+			@touchmove="drawMove"
+			@touchend="drawEnd"
+			:style="'right:' + item.right + 'px'"
+		>
+			<!-- > 这里在微信小程序箭头显示会有点问题 -->
+			<u-cell-item :title="item.title" :index="index" @click="click"></u-cell-item>
+			<view class="remove" @click="delData(item)">取消收藏</view>
+			<view class="edit" @click="editData(item)">编 辑</view>
+		</view>
+*/
