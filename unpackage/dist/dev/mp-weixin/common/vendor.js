@@ -11700,7 +11700,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 // 同时，我们也可以在此使用getApp().globalData，如果你把token放在getApp().globalData的话，也是可以使用的
 var install = function install(Vue, vm) {
   Vue.prototype.$u.http.setConfig({
-    baseUrl: 'https://www.wanandroid.com/',
+    baseUrl: 'https://www.wanandroid.com',
 
     // 如果将此值设置为true，拦截回调中将会返回服务端返回的所有数据response，而不是response.data
     // 设置为true后，就需要在this.$u.http.interceptor.response进行多一次的判断，请打印查看具体值
@@ -11717,6 +11717,10 @@ var install = function install(Vue, vm) {
 
     // 通过在请求拦截器，进行请求头的设置，可以在各个平台兼容
     config.header.cookie = vm.$store.state.userInfo.cookie;
+
+    // config.header.Origin = "https://juejin.cn/"
+
+    //Origin: http://api.bob.com
 
     // 方式一，存放在vuex的token，假设使用了uView封装的vuex方式，见：https://uviewui.com/components/globalVariable.html
     // config.header.token = vm.token;
@@ -11781,10 +11785,8 @@ var postRegister = 'user/register';
 
 var getLogout = 'user/logout/json';
 
-// 收藏站内文章 lg/collect/1165/json
 var postCollectArticle = 'lg/collect/';
 
-// 取消收藏站内文章 lg/uncollect_originId/1165/json
 var postUnCollectArticle = 'lg/uncollect_originId/';
 
 var getCollectArticleList = 'lg/collect/list/';
@@ -11857,6 +11859,12 @@ var install = function install(Vue, vm) {
   // 个人收藏
   var collectArticleList = function collectArticleList(page) {return vm.$u.get(getCollectArticleList + page.toString() + '/json');};
 
+  // 收藏操作
+  var actionCollected = function actionCollected(id) {return vm.$u.post(postCollectArticle + id.toString() + '/json');};
+
+  // 取消收藏操作
+  var actionUnCollected = function actionUnCollected(id) {return vm.$u.post(postUnCollectArticle + id.toString() + '/json');};
+
   // 将各个定义的接口名称，统一放进对象挂载到vm.$u.api(因为vm就是this，也即this.$u.api)下
   vm.$u.api = {
     banner: banner,
@@ -11876,7 +11884,9 @@ var install = function install(Vue, vm) {
     logout: logout,
     userCoinInfo: userCoinInfo,
     myCoinList: myCoinList,
-    collectArticleList: collectArticleList };
+    collectArticleList: collectArticleList,
+    actionCollected: actionCollected,
+    actionUnCollected: actionUnCollected };
 
 };var _default =
 

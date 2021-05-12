@@ -159,7 +159,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -178,7 +178,8 @@ var _vuex = __webpack_require__(/*! vuex */ 12);function ownKeys(object, enumera
   data: function data() {
     return {
       params: {},
-      show: false };
+      show: false,
+      staticList: ['复制链接', '浏览器打开', '微信分享', '刷新'] };
 
   },
   onLoad: function onLoad(option) {
@@ -188,6 +189,7 @@ var _vuex = __webpack_require__(/*! vuex */ 12);function ownKeys(object, enumera
   },
   onNavigationBarButtonTap: function onNavigationBarButtonTap(e) {
     console.log(e.float);
+    // 注意在App端，这个弹窗是无法弹出来的，iOS和Android的表现形式一致，涉及Modal的只有类UIAlertController可以使用
     this.show = true;
   },
   computed: _objectSpread(_objectSpread({},
@@ -195,19 +197,106 @@ var _vuex = __webpack_require__(/*! vuex */ 12);function ownKeys(object, enumera
     url: function url() {
       return this.params.url;
     },
+    collectIds: function collectIds() {
+      return this.userInfo.profile.collectIds;
+    },
+    id: function id() {
+      return Number(this.params.id);
+    },
+    hasCollected: {
+      get: function get() {
+        // 这个地方的判断有问题，先打的this.params.id后打的array，导致result为false
+        // 数组里面是Number类型，id是String类型，需要把id转换一下
+        var array = this.collectIds;
+        var id = this.id;
+        console.log(array);
+        console.log(id);
+        var result = array.includes(this.id);
+        console.log(result);
+        return result;
+      },
+      set: function set(newValue) {
+
+      } },
+
     list: function list() {
-      if (this.userInfo.hasLogin) {
-        return ['复制链接', '浏览器打开', '微信分享', '刷新', '收藏'];
+      if (this.userInfo.hasLogin && !this.params.isFromBanner) {
+        var text = this.hasCollected ? '取消收藏' : '收藏';
+        var array = ['复制链接', '浏览器打开', '微信分享', '刷新'];
+        array.push(text);
+        return array;
       } else {
-        return ['复制链接', '浏览器打开', '微信分享', '刷新'];
+        return this.staticList;
       }
     } }),
 
-  methods: {
-    click: function click(item) {
+  methods: _objectSpread(_objectSpread({},
+  (0, _vuex.mapMutations)(['storeLogin'])), {}, {
+    click: function click(index) {
       this.show = false;
-      console.log(item);
-    } } };exports.default = _default;
+      console.log(index);
+      switch (index) {
+        case 4:
+          this.actionCollectedOrUnCollected();
+          break;
+        default:
+          break;}
+
+    },
+    actionCollectedOrUnCollected: function actionCollectedOrUnCollected() {var _this = this;
+      if (this.hasCollected) {
+        this.$u.api.actionUnCollected(this.id).
+        then(function (res) {
+          console.log(res);
+          if (res == undefined) {
+            _this.autoLogin();
+          }
+        });
+      } else {
+        this.$u.api.actionCollected(this.id).
+        then(function (res) {
+          console.log(res);
+          if (res == undefined) {
+            _this.autoLogin();
+          }
+        });
+      }
+    },
+    /// 因为账号信息中保存着收藏的信息，做完收藏或者取消收藏的操作后，调用一次登录信息，刷新个人信息，可以便于整个vuex层的数据保持最新，
+    /// 这个和我用Flutter的实现不一样，Flutter中我是对collectIds自行进行增删，但是vuex中对于state里面的操作我不太会
+    autoLogin: function autoLogin() {var _this2 = this;
+      if (!this.userInfo.hasLogin) {
+        return;
+      }
+
+      var mobile = uni.getStorageSync('username');
+      var code = uni.getStorageSync('password');
+
+      if (mobile.length == 0 || code.length == 0) {
+        return;
+      }
+
+      this.$u.api.login(mobile, code).then(function (res) {
+        if (typeof res == 'string') {
+          var message = res;
+          _this2.$refs.uToast.show({
+            title: message });
+
+          return;
+        }
+
+        var temp = {
+          cookie: 'loginUserName=' + mobile + ';' + 'loginUserPassword=' + code,
+          profile: res };
+
+
+        // 刷新操作
+        _this2.storeLogin(temp);
+        uni.setStorageSync('username', mobile);
+        uni.setStorageSync('password', code);
+      });
+    } }) };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

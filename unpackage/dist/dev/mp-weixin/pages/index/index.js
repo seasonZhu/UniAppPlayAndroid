@@ -239,16 +239,17 @@ var _vuex = __webpack_require__(/*! vuex */ 12);function _interopRequireDefault(
         }
       });
     },
-    openPage: function openPage(url, id) {
+    openPage: function openPage(url, id) {var isFromBanner = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
       this.$u.route('/pages/web/index', {
         url: url,
-        id: id });
+        id: id,
+        isFromBanner: isFromBanner });
 
     },
     click: function click(index) {
       var url = this.list[index].url;
       var id = this.list[index].id;
-      this.openPage(url, id);
+      this.openPage(url, id, true);
     },
     topCellClick: function topCellClick(index) {
       var url = this.tops[index].link;

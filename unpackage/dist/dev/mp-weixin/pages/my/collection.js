@@ -156,28 +156,17 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
+
+
+
+
+
+var _vuex = __webpack_require__(/*! vuex */ 12);function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
 {
   data: function data() {
     return {
@@ -196,12 +185,24 @@ var _default =
     this.status = 'loading';
     this.getCollectArticleList();
   },
+  computed: _objectSpread({},
+  (0, _vuex.mapState)(['userInfo'])),
+
+  watch: {
+    'userInfo.profile.collectIds': function userInfoProfileCollectIds() {
+      this.getCollectArticleList(true);
+    } },
+
   methods: {
-    getCollectArticleList: function getCollectArticleList() {var _this = this;
+    getCollectArticleList: function getCollectArticleList() {var _this = this;var fromWatch = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
       this.$u.api.collectArticleList(this.page).then(function (res) {
         console.log(res);
         uni.stopPullDownRefresh();
-        _this.list = _this.list.concat(res.datas);
+        if (fromWatch) {
+          _this.list = res.datas;
+        } else {
+          _this.list = _this.list.concat(res.datas);
+        }
         if (res.pageCount == res.curPage) {
           _this.status = 'nomore';
         } else {
@@ -217,7 +218,7 @@ var _default =
     },
     click: function click(index) {
       var url = this.list[index].link;
-      var id = this.list[index].id;
+      var id = this.list[index].originId;
       this.openPage(url, id);
     },
     drawStart: function drawStart(e) {

@@ -189,7 +189,7 @@ var _vuex = __webpack_require__(/*! vuex */ 12);function ownKeys(object, enumera
     },
     userHeadImageName: function userHeadImageName() {
       if (this.userInfo.hasLogin) {
-        return '/static/user/saber.jpg';
+        return '/static/user/placeholder.png';
       } else {
         return '/static/uview/common/logo.png';
       }
