@@ -98,6 +98,12 @@ const install = (Vue, vm) => {
 	// 个人收藏
 	let collectArticleList = (page) => vm.$u.get(getCollectArticleList + page.toString() + '/json');
 	
+	// 收藏操作
+	let actionCollected = (id) => vm.$u.post(postCollectArticle + id.toString() + '/json');
+	
+	// 取消收藏操作
+	let actionUnCollected = (id) => vm.$u.post(postUnCollectArticle + id.toString() + '/json');
+	
 	// 将各个定义的接口名称，统一放进对象挂载到vm.$u.api(因为vm就是this，也即this.$u.api)下
 	vm.$u.api = {
 		banner, 
@@ -118,6 +124,8 @@ const install = (Vue, vm) => {
 		userCoinInfo,
 		myCoinList,
 		collectArticleList,
+		actionCollected,
+		actionUnCollected,
 	};
 }
 

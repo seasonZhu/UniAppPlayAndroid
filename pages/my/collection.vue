@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
 	data() {
 		return {
@@ -26,16 +27,28 @@ export default {
 		this.status = 'loading';
 		this.getCollectArticleList();
 	},
+	computed: {
+		...mapState(['userInfo']),
+	},
+	watch: {
+		'userInfo.profile.collectIds'() {
+			this.getCollectArticleList(true)
+		}
+	},
 	methods: {
-		getCollectArticleList() {
+		getCollectArticleList(fromWatch = false) {
 			this.$u.api.collectArticleList(this.page).then(res => {
 				console.log(res);
-				uni.stopPullDownRefresh();
-				this.list = this.list.concat(res.datas);
+				uni.stopPullDownRefresh()
+				if (fromWatch) {
+					this.list = res.datas
+				}else {
+					this.list = this.list.concat(res.datas)
+				}
 				if (res.pageCount == res.curPage) {
-					this.status = 'nomore';
+					this.status = 'nomore'
 				} else {
-					this.status = 'loadmore';
+					this.status = 'loadmore'
 				}
 			});
 		},
@@ -51,9 +64,9 @@ export default {
 			this.openPage(url,id);
 		},
 		drawStart(e) {
-			console.log('开始触发');
-			var touch = e.touches[0];
-			this.startX = touch.clientX;
+			console.log('开始触发')
+			var touch = e.touches[0]
+			this.startX = touch.clientX
 		},
 		//触摸滑动
 		drawMove(e) {
