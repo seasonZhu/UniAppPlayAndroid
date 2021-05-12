@@ -75,13 +75,13 @@ export default {
 			console.log(index)
 			switch (index) {
 				case 4:
-					this.actionCollectOrUnCollect()
+					this.actionCollectedOrUnCollected()
 					break;
 				default:
 					break;
 			}
 		},
-		actionCollectOrUnCollect() {
+		actionCollectedOrUnCollected() {
 			if (this.hasCollected) {
 				this.$u.api.actionUnCollected(this.id)
 				.then(res => {
