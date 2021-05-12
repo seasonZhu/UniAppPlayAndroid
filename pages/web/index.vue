@@ -1,6 +1,5 @@
 <template>
 	<view>
-		<web-view :src="url"></web-view>
 		<u-popup v-model="show" mode="bottom">
 			<view v-for="(item, index) in list" :key="index">
 				<u-grid :col="1">
@@ -8,6 +7,7 @@
 				</u-grid>
 			</view>
 		</u-popup>
+		<web-view :src="url"></web-view>
 	</view>
 </template>
 
@@ -28,6 +28,7 @@ export default {
 	},
 	onNavigationBarButtonTap(e) {
 		console.log(e.float);
+		// 注意在App端，这个弹窗是无法弹出来的，iOS和Android的表现形式一致，涉及Modal的只有类UIAlertController可以使用
 		this.show = true;
 	},
 	computed: {

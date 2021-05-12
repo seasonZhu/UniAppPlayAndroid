@@ -22,10 +22,8 @@ let postRegister = 'user/register';
 
 let getLogout = 'user/logout/json';
 
-// 收藏站内文章 lg/collect/1165/json
 let postCollectArticle = 'lg/collect/';
 
-// 取消收藏站内文章 lg/uncollect_originId/1165/json
 let postUnCollectArticle = 'lg/uncollect_originId/';
 
 let getCollectArticleList = 'lg/collect/list/';
