@@ -1,7 +1,8 @@
 <template>
 	<view class="">
 		<view v-for="(item, index) in list" :key="index">
-			<u-cell-item :title="item.desc" :index="index" :arrow="false"></u-cell-item>
+<!-- 			<u-cell-item :title="item.desc" :index="index" :arrow="false"></u-cell-item> -->
+			<history-cell :item="item"></history-cell>
 		</view>
 		<u-loadmore :status="status" @loadmore="loadmore" />
 	</view>

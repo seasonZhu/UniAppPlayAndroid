@@ -42,6 +42,12 @@ const install = (Vue, vm) => {
 	// 响应拦截，判断状态码是否通过
 	Vue.prototype.$u.http.interceptor.response = (res) => {
 		console.log(res)
+		/*
+		简单来说： == 代表相同， ===代表严格相同, 为啥这么说呢， 
+		
+		这么理解： 当进行双等号比较时候： 先检查两个操作数数据类型，如果相同， 则进行===比较， 如果不同， 则愿意为你进行一次类型转换， 转换成相同类型后再进行比较， 
+		而===比较时， 如果类型不同，直接就是false.
+		*/
 		if(res.errorCode == 0) {
 			// 如果把originalData设置为了true，这里return回什么，this.$u.post的then回调中就会得到什么
 			return res.data;  

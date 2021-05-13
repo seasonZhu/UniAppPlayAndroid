@@ -1,3 +1,11 @@
+/*
+let 声明的变量只在 let 命令所在的代码块内有效。
+
+const 声明一个只读的常量，一旦声明，常量的值就不能改变。
+
+使用 var 关键字声明的变量不具备块级作用域的特性，它在 {} 外依然能被访问到。
+*/
+
 let getBanner = 'banner/json';
 
 let topArticle = 'article/top/json'
