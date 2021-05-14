@@ -2,10 +2,13 @@
 	<view>
 		<u-swiper :list="list" name="imagePath" img-mode="widthFix" height="450" border-radius="0" @click="click"></u-swiper>
 		<view v-for="(item, index) in tops" :key="index">
-			<u-cell-item :title="item.title" :label="item.author" :value="item.zan" :index="index" @click="topCellClick"></u-cell-item>
+			<u-cell-item :title="item.title" :label="item.author" :value="item.zan" :index="index" @click="topCellClick">
+<!-- 				<image :class="{ 'imageContainer': item.envelopePic != ""}" slot="icon" :src='getImage(item)' mode="aspectFit"></image> -->
+			</u-cell-item>
 		</view>
 		<view v-for="(item, index) in normals" :key="index + tops.length">
-			<u-cell-item :title="item.title" :label="item.author" :value="item.zan" :index="index" @click="normalCellClick"></u-cell-item>
+			<u-cell-item :title="item.title" :label="item.author" :value="item.zan" :index="index" @click="normalCellClick">
+			</u-cell-item>
 		</view>
 		<u-loadmore :status="status" @loadmore="loadmore" />
 		<u-toast ref="uToast" />
@@ -141,13 +144,22 @@ export default {
 				uni.setStorageSync('password', code)
 			});
 		},
+		getImage(model) {
+			if (model.envelopePic == "") {
+				return '/static/user/placeholder.png'
+			}else {
+				return model.envelopePic
+			}
+		},
 	}
 };
 </script>
 
 <style>
-.image {
-	width: 32rpx;
-	height: 32rpx;
+.imageContainer {
+	width: 44rpx;
+	height: 88rpx;
+	margin-right: 20rpx;
+	will-change: transform;
 }
 </style>

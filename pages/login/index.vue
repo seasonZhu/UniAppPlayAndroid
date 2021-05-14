@@ -2,7 +2,10 @@
 	<view class="padding">
 		<u-field v-model="mobile" label="手机号" placeholder="请填写手机号"></u-field>
 		<u-field v-model="code" label="密码" placeholder="请填写密码" :password="true"></u-field>
-		<view class="register"><navigator hover-class="none" url="/pages/login/register">还没有注册？</navigator></view>
+		<view class="register">
+			<space></space>
+			<navigator hover-class="none" url="/pages/login/register">还没有注册？</navigator>
+		</view>
 		<u-gap height="40"></u-gap>
 		<u-button type="primary" @click="login">点击登录</u-button>
 		<u-toast ref="uToast" />
@@ -76,5 +79,10 @@ export default {
 .register {
 	margin-top: 20rpx;
 	margin-right: 32rpx;
+	
+	display: flex;
+	flex-direction: row; // 横向布局
+	align-items: center; // 交叉轴
+	justify-content: flex-start; // 主轴
 }
 </style>

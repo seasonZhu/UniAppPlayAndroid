@@ -1,6 +1,10 @@
 <template>
-	<view class="flex-wrap">
-		<view class="wrap" v-for="(item, index) in list" :key="index"><u-tag :text="item.name" :index="item.name" @click="click" /></view>
+	<view class="">
+		<view class="flex-wrap">
+			<view class="wrap" v-for="(item, index) in list" :key="index">
+				<u-tag :text="item.name" :index="item.name" @click="click" />
+			</view>
+		</view>
 		<u-toast ref="uToast" />
 	</view>
 </template>

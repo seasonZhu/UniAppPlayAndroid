@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<image class="logo content" :src="userHeadImageName" mode="widthFix" @tap="selectImage" ></image>
+		<image class="header" :src="userHeadImageName" mode="widthFix" @tap="selectImage" ></image>
 		<text class="myCoioStyle" v-if="userInfo.hasLogin">{{coinText}}</text>
 		<u-cell-item title="体系" index="0" @click="click"></u-cell-item>
 		<u-cell-item title="积分排行榜" index="1" @click="click"></u-cell-item>
@@ -31,7 +31,7 @@ export default {
 		},
 		userHeadImageName() {
 			if (this.userInfo.hasLogin) {
-				return '/static/user/placeholder.png'
+				return '/static/user/saber.jpg'
 			} else {
 				return '/static/uview/common/logo.png'
 			}
@@ -120,14 +120,11 @@ export default {
 </script>
 
 <style>
-.content {
+.header {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-}
-
-.logo {
 	height: 200rpx;
 	width: 200rpx;
 	margin-top: 50rpx;
