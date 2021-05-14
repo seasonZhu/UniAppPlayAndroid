@@ -47,13 +47,6 @@ export default {
 				}
 			});
 		},
-		// 去HTML标签
-		removeHtmlTag(title) {
-			var msg = title.replace(/<\/?[^>]*>/g, '') //去除HTML Tag
-			msg = msg.replace(/[|]*\n/, '') //去除行尾空格
-			msg = msg.replace(/&nbsp;/gi, '')
-			return msg;
-		},
 		formatTitle(title) {
 			return this.$pubFuc.removeHtmlTag(title)
 		},
