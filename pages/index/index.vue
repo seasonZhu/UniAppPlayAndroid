@@ -2,12 +2,12 @@
 	<view>
 		<u-swiper :list="list" name="imagePath" img-mode="widthFix" height="450" border-radius="0" @click="click"></u-swiper>
 		<view v-for="(item, index) in tops" :key="index">
-			<u-cell-item :title="item.title" :label="item.author" :value="item.zan" :index="index" @click="topCellClick">
+			<u-cell-item :title="formatTitle(item.title)" :label="item.author" :value="item.zan" :index="index" @click="topCellClick">
 <!-- 				<image :class="{ 'imageContainer': item.envelopePic != ""}" slot="icon" :src='getImage(item)' mode="aspectFit"></image> -->
 			</u-cell-item>
 		</view>
 		<view v-for="(item, index) in normals" :key="index + tops.length">
-			<u-cell-item :title="item.title" :label="item.author" :value="item.zan" :index="index" @click="normalCellClick">
+			<u-cell-item :title="formatTitle(item.title)" :label="item.author" :value="item.zan" :index="index" @click="normalCellClick">
 			</u-cell-item>
 		</view>
 		<u-loadmore :status="status" @loadmore="loadmore" />
@@ -150,6 +150,9 @@ export default {
 			}else {
 				return model.envelopePic
 			}
+		},
+		formatTitle(title) {
+			return this.$pubFuc.removeHtmlTag(title)
 		},
 	}
 };

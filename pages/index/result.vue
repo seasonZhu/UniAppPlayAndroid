@@ -1,7 +1,7 @@
 <template>
 	<view class="">
 		<view v-for="(item, index) in list" :key="index">
-			<u-cell-item :title="removeHtmlTag(item.title)" :label="item.author" :value="item.zan" :index="index" @click="click"></u-cell-item>
+			<u-cell-item :title="formatTitle(item.title)" :label="item.author" :value="item.zan" :index="index" @click="click"></u-cell-item>
 		</view>
 		<u-loadmore :status="status" @loadmore="loadmore" />
 	</view>
@@ -54,6 +54,9 @@ export default {
 			msg = msg.replace(/&nbsp;/gi, '')
 			return msg;
 		},
+		formatTitle(title) {
+			return this.$pubFuc.removeHtmlTag(title)
+		},
 		openPage(url, id) {
 			this.$u.route('/pages/web/index', {
 				url: url,
@@ -69,4 +72,6 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+	
+</style>

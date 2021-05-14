@@ -3,7 +3,9 @@
 		<view v-for="(item, index) in list" :key="index">
 			<u-cell-group :title="item.name" :border="false">
 				<view class="flex-wrap">
-					<view class="wrap" v-for="(child, idx) in item.children" :key="idx"><u-tag :text="child.name" :index="idx" @click="tagClick(index, idx)" /></view>
+					<view class="wrap" v-for="(child, idx) in item.children" :key="idx">
+						<u-tag :text="child.name" :index="idx" @click="tagClick(index, idx)" />
+					</view>
 				</view>
 				<u-divider half-width="100%"></u-divider>
 			</u-cell-group>
@@ -37,7 +39,12 @@ export default {
 		},
 		openPage(model) {
 			console.log('单个体系的详细页面');
-			this.$u.route('/pages/my/detail', { id: model.id, name: model.name, order: model.order, parentChapterId: model.parentChapterId });
+			this.$u.route('/pages/my/detail', { 
+				id: model.id, 
+				name: model.name, 
+				order: model.order, 
+				parentChapterId: model.parentChapterId,
+			});
 		}
 	}
 };

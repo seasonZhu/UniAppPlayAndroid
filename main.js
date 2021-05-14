@@ -12,6 +12,10 @@ App.mpType = 'app'
 import uView from 'uview-ui';
 Vue.use(uView);
 
+//公共js
+import PubFuc from'./common/public.func.js'
+Vue.prototype.$pubFuc = PubFuc
+
 const app = new Vue({
     ...App
 })
