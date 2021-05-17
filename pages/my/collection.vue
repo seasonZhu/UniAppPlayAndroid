@@ -72,28 +72,10 @@ export default {
 			});
 		},
 		cellClick(index) {
+			return
 			let url = this.list[index].link;
 			let id = this.list[index].originId;
 			this.openPage(url, id);
-		},
-		onClick(index) {
-			console.log(index)
-			let id = this.list[index].originId
-			console.log(id)
-			this.unCollected(id)
-			// uni.showModal({
-			//     title: '提示',
-			//     content: '是否取消收藏',
-			//     success: function (res) {
-			//         if (res.confirm) {
-			//             let id = this.list[index].originId
-			// 			console.log(id)
-			// 			// this.unCollected(id)
-			//         } else if (res.cancel) {
-			//             console.log('用户点击取消');
-			//         }
-			//     }
-			// });
 		},
 		swipeChange(e, index) {
 			// console.log('当前状态：' + index)
@@ -145,6 +127,25 @@ export default {
 				
 				this.getCollectArticleList(true)
 			});
+		},
+		onClick(index) {
+			console.log(index)
+			let id = this.list[index].originId
+			console.log(id)
+			this.unCollected(id)
+			// uni.showModal({
+			//     title: '提示',
+			//     content: '是否取消收藏',
+			//     success(res) {
+			//         if (res.confirm) {
+			// 			// 我不是很明白，为啥在这里就找不到这个函数了呢
+			// 			let id = this.list[index].originId
+			// 			this.unCollected(id)
+			//         } else if (res.cancel) {
+			//             console.log('用户点击取消');
+			//         }
+			//     }
+			// });
 		},
 	}
 };
