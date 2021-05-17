@@ -72,7 +72,6 @@ export default {
 			});
 		},
 		cellClick(index) {
-			return
 			let url = this.list[index].link;
 			let id = this.list[index].originId;
 			this.openPage(url, id);
