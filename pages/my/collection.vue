@@ -175,7 +175,7 @@ export default {
 			@touchstart="drawStart"
 			@touchmove="drawMove"
 			@touchend="drawEnd"
-			:style="'right:' + item.right + 'px'"
+			:style="'right:' + item.right + 'rpx'"
 		>
 			<!-- > 这里在微信小程序箭头显示会有点问题 -->
 			<u-cell-item :title="item.title" :index="index" @click="click"></u-cell-item>

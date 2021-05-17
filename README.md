@@ -29,8 +29,9 @@
 
 5.尤其是chrome，接口基本上就是不通的。
 
-这个问题基本上知道，其实是由于跨域请求导致，本地的http://localhost:8080需要跳转调用https://www.wanandroid.com,浏览器认为不安全，所以被拦截了
+这个问题基本上知道，其实是由于跨域请求导致，`本地的http://localhost:8080需要跳转调用https://www.wanandroid.com,浏览器认为不安全，所以被拦截了`
 
+```
 Refused to set unsafe header "cookie"
 
 Access to XMLHttpRequest at 'https://www.wanandroid.com//coin/rank/1/json' from origin 'http://localhost:8080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
@@ -38,8 +39,9 @@ Access to XMLHttpRequest at 'https://www.wanandroid.com//coin/rank/1/json' from 
 GET https://www.wanandroid.com//coin/rank/1/json net::ERR_FAILED
 
 http://localhost:8080/#/pages/my/ranking/:1 Uncaught (in promise) {errMsg: "request:fail"}
+```
 
-6.收藏页面的侧滑在App端显示是有问题的。
+6.收藏页面的侧滑删除有问题。特别是App端，目前还没有找到解决方案，感觉触摸事件和css要合起来才能完成。
 
 7.web页面的功能按钮在iOS端和Android端都无法弹出。微信小程序无法弹出是因为右侧被微信占用了。
 
