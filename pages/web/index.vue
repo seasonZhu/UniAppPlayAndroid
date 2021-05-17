@@ -18,13 +18,14 @@ export default {
 		return {
 			params: {},
 			show: false,
-			staticList: ['复制链接', '浏览器打开', '微信分享', '刷新']
+			staticList: ['复制链接', '浏览器打开', '微信分享', '刷新'],
 		};
 	},
 	onLoad(option) {
 		this.params = option;
 		console.log(option.id)
 		console.log(option.url)
+		console.log(option.isFromBanner)
 	},
 	onNavigationBarButtonTap(e) {
 		console.log(e.float);
@@ -59,7 +60,7 @@ export default {
 			}
 		},
 		list() {
-			if (this.userInfo.hasLogin && !this.params.isFromBanner) {
+			if (this.userInfo.hasLogin) {
 				let text = this.hasCollected ? '取消收藏' : '收藏';
 				let array = ['复制链接', '浏览器打开', '微信分享', '刷新']
 				array.push(text)
