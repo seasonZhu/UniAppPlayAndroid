@@ -25,7 +25,6 @@ export default {
 		this.params = option;
 		console.log(option.id)
 		console.log(option.url)
-		console.log(option.isFromBanner)
 	},
 	onNavigationBarButtonTap(e) {
 		console.log(e.float);

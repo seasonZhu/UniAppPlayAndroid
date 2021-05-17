@@ -110,6 +110,15 @@
 			}
 		},
 		{
+		    "path" : "pages/web/banner-web",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "专治轮播图点击的url",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
 			"path": "pages/login/index",
 			"style": {
 				"navigationBarTitleText": "登录"  

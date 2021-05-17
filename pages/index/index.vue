@@ -78,17 +78,19 @@ export default {
 				}
 			})
 		},
-		openPage(url, id, isFromBanner = false) {
+		openPage(url, id) {
 			this.$u.route('/pages/web/index', {
 				url: url,
 				id: id,
-				isFromBanner: isFromBanner
 			})
 		},
 		click(index) {
 			let url = this.list[index].url
 			let id = this.list[index].id
-			this.openPage(url,id,true)
+			this.$u.route('/pages/web/banner-web', {
+				url: url,
+				id: id,
+			})
 		},
 		topCellClick(index) {
 			let url = this.tops[index].link
