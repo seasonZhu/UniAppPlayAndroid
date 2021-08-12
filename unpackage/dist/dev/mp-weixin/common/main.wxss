@@ -12,7 +12,8 @@ image {
 }
 view,
 text {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .u-font-xs {
   font-size: 22rpx;
@@ -3125,7 +3126,8 @@ page {
   left: 0;
   top: 0;
   pointer-events: none;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   -webkit-transform-origin: 0 0;
   transform-origin: 0 0;
   width: 199.8%;

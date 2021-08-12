@@ -2,6 +2,7 @@
   "navigationBarTitleText": "登录",
   "usingComponents": {
     "u-field": "/uview-ui/components/u-field/u-field",
+    "space": "/components/space/space",
     "u-gap": "/uview-ui/components/u-gap/u-gap",
     "u-button": "/uview-ui/components/u-button/u-button",
     "u-toast": "/uview-ui/components/u-toast/u-toast"

@@ -1,5 +1,6 @@
 .u-grid-item.data-v-54899586 {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   background: #fff;
 
   display: -webkit-box;

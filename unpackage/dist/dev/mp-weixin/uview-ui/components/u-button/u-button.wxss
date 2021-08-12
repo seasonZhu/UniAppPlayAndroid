@@ -27,7 +27,8 @@
   cursor: pointer;
   padding: 0 40rpx;
   z-index: 1;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   -webkit-transition: all 0.15s;
   transition: all 0.15s;
 }
@@ -108,7 +109,8 @@
   content: ' ';
   position: absolute;
   pointer-events: none;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   -webkit-transform-origin: 0 0;
   transform-origin: 0 0;
   left: 0;

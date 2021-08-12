@@ -12,7 +12,8 @@
   -webkit-align-items: center;
           align-items: center;
   position: relative;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   width: 100%;
   padding: 26rpx 32rpx;
   font-size: 28rpx;
@@ -51,7 +52,8 @@
 }
 .u-cell-border.data-v-65423b64:after {
   position: absolute;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   content: ' ';
   pointer-events: none;
   border-bottom: 1px solid #e4e7ed;

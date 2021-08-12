@@ -1,6 +1,8 @@
 
-.image {
-	width: 32rpx;
-	height: 32rpx;
+.imageContainer {
+	width: 44rpx;
+	height: 88rpx;
+	margin-right: 20rpx;
+	will-change: transform;
 }
 

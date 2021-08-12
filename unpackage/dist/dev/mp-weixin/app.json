@@ -10,6 +10,7 @@
     "pages/my/detail",
     "pages/my/ranking",
     "pages/web/index",
+    "pages/web/banner-web",
     "pages/login/index",
     "pages/login/register",
     "pages/my/history",
@@ -56,5 +57,5 @@
   },
   "permission": {},
   "usingComponents": {},
-  "sitemapLocation": "sitemap42.json"
+  "sitemapLocation": "sitemap.json"
 }

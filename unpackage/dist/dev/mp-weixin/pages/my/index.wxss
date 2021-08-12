@@ -1,5 +1,5 @@
 
-.content {
+.header {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -13,8 +13,6 @@
 	-webkit-box-pack: center;
 	-webkit-justify-content: center;
 	        justify-content: center;
-}
-.logo {
 	height: 200rpx;
 	width: 200rpx;
 	margin-top: 50rpx;

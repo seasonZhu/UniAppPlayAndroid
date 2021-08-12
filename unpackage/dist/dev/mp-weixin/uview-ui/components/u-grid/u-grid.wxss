@@ -1,7 +1,8 @@
 .u-grid.data-v-a7b3bc80 {
   width: 100%;
   position: relative;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   overflow: hidden;
 }
 

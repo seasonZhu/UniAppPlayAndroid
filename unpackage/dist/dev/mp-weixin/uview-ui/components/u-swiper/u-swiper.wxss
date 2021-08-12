@@ -82,7 +82,8 @@
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
   overflow: hidden;
-  box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
   position: relative;
 }
 .u-swiper-title.data-v-a5b2d580 {

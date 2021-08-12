@@ -1,6 +1,7 @@
 view.data-v-9c8ef540,
 scroll-view.data-v-9c8ef540 {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .u-tabs.data-v-9c8ef540 {
   width: 100%;
