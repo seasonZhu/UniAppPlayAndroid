@@ -146,7 +146,23 @@
                 "enablePullDownRefresh": false
             }
             
+        }	    
+		,{
+            "path" : "pages/my/callNativeMethod",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "调用原生方法"
+            }
+            
         }
+		,{
+		    "path" : "pages/my/nativeMapComponent",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "调用原生页面"
+		    }
+		    
+		}
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",

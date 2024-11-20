@@ -1,0 +1,15 @@
+<template>
+	<div>
+		<testmap style="width:100%;height:600px"></testmap>
+	</div>
+</template>
+
+<script>
+	export default {
+		
+	}
+</script>
+
+<style>
+
+</style>
