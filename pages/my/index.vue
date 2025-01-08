@@ -8,6 +8,7 @@
 		<u-cell-item v-if="userInfo.hasLogin" title="我的收藏" index="3" @click="click"></u-cell-item>
 		<u-cell-item title="调用原生方法" index="4" @click="click"></u-cell-item>
 		<u-cell-item title="调用原生页面" index="5" @click="click"></u-cell-item>
+		<u-cell-item title="通过uinCloud检查更新" index="6" @click="click"></u-cell-item>
 		<text class="loginOrlogoutStyle" @tap="loginOrlogout">{{loginStatusText}}</text>
 		<u-modal v-model="show" content="是否登出？" :show-cancel-button="true" @confirm="sureLogout" ref="uModal" :async-close="true"></u-modal>
 	</view>
@@ -15,6 +16,7 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex';
+import checkUpdate from '@/uni_modules/uni-upgrade-center-app/utils/check-update'
 export default {
 	data() {
 		return {
@@ -55,6 +57,9 @@ export default {
 			}
 		}
 	},
+	onReady() {
+		checkUpdate()
+	},
 	onLoad() {
 		this.getUserCoinInfo()
 	},
@@ -82,6 +87,9 @@ export default {
 					break;
 				case '5':
 					this.$u.route('/pages/my/nativeMapComponent')
+					break;
+				case '6':
+					checkUpdate()
 					break;
 				case '999':
 					this.loginOrlogout()

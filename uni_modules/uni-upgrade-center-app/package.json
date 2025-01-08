@@ -1,0 +1,87 @@
+{
+  "id": "uni-upgrade-center-app",
+  "displayName": "升级中心 uni-upgrade-center - App",
+  "version": "0.9.4",
+  "description": "uni升级中心 - 客户端检查更新",
+  "keywords": [
+    "uniCloud",
+    "update",
+    "升级",
+    "wgt"
+],
+  "repository": "https://gitee.com/dcloud/uni-upgrade-center/tree/master/uni_modules/uni-upgrade-center-app",
+  "engines": {
+    "HBuilderX": "^4.31"
+  },
+"dcloudext": {
+    "sale": {
+      "regular": {
+        "price": "0.00"
+      },
+      "sourcecode": {
+        "price": "0.00"
+      }
+    },
+    "contact": {
+      "qq": ""
+    },
+    "declaration": {
+      "ads": "无",
+      "data": "插件不采集任何数据",
+      "permissions": "无"
+    },
+    "npmurl": "",
+    "type": "unicloud-template-page"
+  },
+  "uni_modules": {
+    "dependencies": [
+      "uts-progressNotification",
+      "uts-openSchema"
+    ],
+    "encrypt": [],
+    "platforms": {
+      "cloud": {
+        "tcb": "y",
+        "aliyun": "y",
+        "alipay": "y"
+      },
+      "client": {
+        "App": {
+            "app-vue": "y",
+            "app-nvue": "y",
+            "app-harmony": "u",
+            "app-uvue": "y"
+        },
+        "H5-mobile": {
+          "Safari": "n",
+          "Android Browser": "n",
+          "微信浏览器(Android)": "n",
+          "QQ浏览器(Android)": "n"
+        },
+        "H5-pc": {
+          "Chrome": "n",
+          "IE": "n",
+          "Edge": "n",
+          "Firefox": "n",
+          "Safari": "n"
+        },
+        "小程序": {
+          "微信": "n",
+          "阿里": "n",
+          "百度": "n",
+          "字节跳动": "n",
+        "QQ": "n",
+        "京东": "n"
+        },
+        "快应用": {
+          "华为": "n",
+          "联盟": "n"
+        },
+        "Vue": {
+            "vue2": "y",
+            "vue3": "y"
+        }
+      }
+    }
+  }
+}
