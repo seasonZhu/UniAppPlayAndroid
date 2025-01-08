@@ -11,6 +11,8 @@ const install = (Vue, vm) => {
 		// 设置自定义头部content-type,这个请求头仅仅在内置浏览器中才有效,所以这个方法并不是通用的方案
 		header: {
 			// 'cookie': vm.$store.state.userInfo.cookie
+			'Access-Control-Allow-Origin': 'https://www.wanandroid.com',
+			'Access-Control-Allow-Credentials': true,
 		}
 	});
 	// 请求拦截，配置Token等参数

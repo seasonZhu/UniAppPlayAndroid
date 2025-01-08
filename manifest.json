@@ -1,5 +1,5 @@
 {
-    "name" : "Tabbar",
+    "name" : "wandroid",
     "appid" : "__UNI__98AF8A0",
     "description" : "",
     "versionName" : "1.0.0",
@@ -78,5 +78,27 @@
     },
     "uniStatistics" : {
         "enable" : false
+    },
+    "vueVersion" : "2",
+    "h5" : {
+        "devServer" : {
+			"host" : "localhost",
+            "port" : 8081,
+            "disableHostCheck" : true,
+            "proxy" : {
+                "/api" : {
+                    "target" : "https://www.wanandroid.com",
+                    "changeOrigin" : true,
+                    "secure" : true
+                }
+            }
+        },
+        "optimization" : {
+            "treeShaking" : {
+                "enable" : true
+            }
+        }
     }
 }
+//"pathRewrite": {"^/api":"/api"}
+
