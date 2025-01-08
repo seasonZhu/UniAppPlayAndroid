@@ -1,9 +1,9 @@
 <template>
 	<view>
-		<button type="primary" @click="testAsyncFunc">testAsyncFunc</button>
-		<button type="primary" @click="testSyncFunc">testSyncFunc</button>
-		<button type="primary" @click="uniAppSendMessageToNative">uniAppSendMessageToNative</button>
-		<button type="primary" @click="closeUniApp">closeUniApp</button>
+		<button type="primary" class="buttonStyle" @click="testAsyncFunc">testAsyncFunc</button>
+		<button type="primary" class="buttonStyle" @click="testSyncFunc">testSyncFunc</button>
+		<button type="primary" class="buttonStyle" @click="uniAppSendMessageToNative">uniAppSendMessageToNative</button>
+		<button type="primary" class="buttonStyle" @click="closeUniApp">closeUniApp</button>
 	</view>
 </template>
 
@@ -63,3 +63,18 @@
 	}
 </script>
 
+<style>
+.buttonStyle {
+	margin-top: 20rpx;
+	margin-left: 20rpx;
+	margin-right: 20rpx;
+	height: 88rpx;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	background-color: #2979FF;
+	color: #FFFFFF;
+}
+
+</style>
