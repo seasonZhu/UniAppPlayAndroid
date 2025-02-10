@@ -50,3 +50,23 @@ http://localhost:8080/#/pages/my/ranking/:1 Uncaught (in promise) {errMsg: "requ
 目前使用官方的组件已经解决了该问题，不过点击事件的通过element来关联模型的思路还是有问题。另外点击取消收藏后的Alert里面调用该页面的函数有问题，所以Alert页面没有写。
 
 9.轮播图点击进入web页面独立用了一个vue文件，之前不管怎么改，都有异常。
+
+## Swift版wanandroid客户端
+
+[项目地址](https://github.com/seasonZhu/RxStudy)
+
+## Flutter版wanandroid客户端
+
+[项目地址](https://github.com/seasonZhu/GetXStudy)
+
+## HarmonyOS版wanandroid客户端
+
+[项目地址](https://github.com/seasonZhu/HarmonyStudy)
+
+## uni-app版wanandroid客户端
+
+[项目地址](https://github.com/seasonZhu/UniAppPlayAndroid)
+
+## 我的掘金主页
+
+[我的主页](https://juejin.cn/user/4353721778057997)
