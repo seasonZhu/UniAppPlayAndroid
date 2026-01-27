@@ -1,0 +1,48 @@
+# 依赖包
+node_modules/
+package-lock.json
+
+# 构建产物
+unpackage/
+dist/
+.hbuilderx/
+
+# 日志文件
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 编辑器配置
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# 操作系统文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# 临时文件
+*.tmp
+*.temp
+*.cache
+
+# uni-app 特定
+unpackage/
+.hbuilderx/
+
+# 微信小程序
+miniprogram_npm/
+
+# 环境配置
+.env.local
+.env.*.local

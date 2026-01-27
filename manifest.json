@@ -49,8 +49,15 @@
             },
             /* ios打包配置 */
             "ios" : {},
+            /* HarmonyOS打包配置 */
+            "harmonyos" : {
+                "abilities" : []
+            },
             /* SDK配置 */
-            "sdkConfigs" : {}
+            "sdkConfigs" : {
+                "maps" : {},
+                "geolocation" : {}
+            }
         }
     },
     /* 快应用特有相关 */
@@ -79,7 +86,7 @@
     "uniStatistics" : {
         "enable" : false
     },
-    "vueVersion" : "2",
+    "vueVersion" : "3",
     "h5" : {
         "devServer" : {
             "host" : "localhost",

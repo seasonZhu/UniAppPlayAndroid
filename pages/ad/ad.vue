@@ -94,7 +94,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style>
 .ad-page{
 	position:fixed;
 	top:0;
@@ -103,60 +103,69 @@
 	left:0;
 	background: #da2d1f;
 	z-index: 1000;
-	.top-logo{
-		position:absolute;
-		top: 423rpx;
-		left:50%;
-		width:450rpx;
-		height:93rpx;
-		transform: translateX(-50%);
-	}
-	.bot-logo{
-		position:absolute;
-		bottom: 40rpx;
-		left:50%;
-		width:220rpx;
-		height:43rpx;
-		transform: translateX(-50%);
-	}
-	.ad{
-		position:absolute;
-		width:100%;
-		height:100%;
-		z-index: 2;
-		background: #fff;
-	}
-	.logo-bg{
-		opacity: 1;
-		transition: opacity 0.3s;
-		&.active{
-			opacity: 0;
-			display: none;
-		}
-	}
-	.ad-bg{
-		opacity: 0;
-		transition: opacity 0.3s;
-		&.active{
-			opacity: 1;
-			display: block;
-		}
-	}
-	.ad-logo{
-		position:absolute;
-		left:0;
-		bottom:0;
-		width:100%;
-		height: 168rpx;
-		background: #fff;
-		z-index: 3;
-		.img{
-			display: block;
-			width:258rpx;
-			height:86rpx;
-			margin: 40rpx auto 0;
-		}
-	}
+}
+
+.ad-page .top-logo{
+	position:absolute;
+	top: 423rpx;
+	left:50%;
+	width:450rpx;
+	height:93rpx;
+	transform: translateX(-50%);
+}
+
+.ad-page .bot-logo{
+	position:absolute;
+	bottom: 40rpx;
+	left:50%;
+	width:220rpx;
+	height:43rpx;
+	transform: translateX(-50%);
+}
+
+.ad-page .ad{
+	position:absolute;
+	width:100%;
+	height:100%;
+	z-index: 2;
+	background: #fff;
+}
+
+.ad-page .logo-bg{
+	opacity: 1;
+	transition: opacity 0.3s;
+}
+
+.ad-page .logo-bg.active{
+	opacity: 0;
+	display: none;
+}
+
+.ad-page .ad-bg{
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+
+.ad-page .ad-bg.active{
+	opacity: 1;
+	display: block;
+}
+
+.ad-page .ad-logo{
+	position:absolute;
+	left:0;
+	bottom:0;
+	width:100%;
+	height: 168rpx;
+	background: #fff;
+	z-index: 3;
+}
+
+.ad-page .ad-logo .img{
+	display: block;
+	width:258rpx;
+	height:86rpx;
+	margin: 40rpx auto 0;
 }
 .close {
 	position: absolute;

@@ -1,148 +1,364 @@
 <template>
 	<view>
-		<u-popup v-model="show" mode="bottom">
-			<view v-for="(item, index) in list" :key="index">
-				<u-grid :col="1">
-					<u-grid-item @click="click(index)"><view class="grid-text">{{item}}</view></u-grid-item>
-				</u-grid>
+		<!-- 自定义底部弹窗 -->
+		<view class="popup-mask" v-if="show" @click="show = false">
+			<view class="popup-content" @click.stop>
+				<view class="popup-item" v-for="(item, index) in list" :key="index" @click="click(index)">
+					<text class="popup-text">{{ item }}</text>
+				</view>
 			</view>
-		</u-popup>
-		<web-view :src="url"></web-view>
+		</view>
+		<!-- #ifdef APP-PLUS -->
+		<web-view :src="decodedUrl"></web-view>
+		<!-- #endif -->
+		<!-- #ifndef APP-PLUS -->
+		<web-view :src="decodedUrl" :update-title="false"></web-view>
+		<!-- #endif -->
 	</view>
 </template>
 
-<script>
-import { mapState, mapMutations } from 'vuex';
-export default {
-	data() {
-		return {
-			params: {},
-			show: false,
-			staticList: ['复制链接', '浏览器打开', '微信分享', '刷新'],
-		};
-	},
-	onLoad(option) {
-		this.params = option;
-		console.log(option.id)
-		console.log(option.url)
-	},
-	onNavigationBarButtonTap(e) {
-		console.log(e.float);
-		// 注意在App端，这个弹窗是无法弹出来的，iOS和Android的表现形式一致，涉及Modal的只有类UIAlertController可以使用
-		this.show = true;
-	},
-	computed: {
-		...mapState(['userInfo']),
-		url() {
-			return this.params.url
-		},
-		collectIds() {
-			return this.userInfo.profile.collectIds
-		},
-		id() {
-			return Number(this.params.id)
-		},
-		hasCollected: {
-			get() {
-				// 这个地方的判断有问题，先打的this.params.id后打的array，导致result为false
-				// 数组里面是Number类型，id是String类型，需要把id转换一下
-				let array = this.collectIds
-				let id = this.id
-				console.log(array)
-				console.log(id)
-				let result = array.includes(this.id)
-				console.log(result)
-				return result
-			},
-			set(newValue) {
-				
-			}
-		},
-		list() {
-			if (this.userInfo.hasLogin) {
-				let text = this.hasCollected ? '取消收藏' : '收藏';
-				let array = ['复制链接', '浏览器打开', '微信分享', '刷新']
-				array.push(text)
-				return array
+<script setup>
+import { ref, computed } from 'vue'
+import { onLoad, onNavigationBarButtonTap, onUnload } from '@dcloudio/uni-app'
+import { useUserStore } from '@/stores/user.js'
+import { api } from '@/config/http.js'
+
+// Store
+const userStore = useUserStore()
+const { storeLogin } = userStore
+
+// 数据
+const params = ref({})
+const show = ref(false)
+const staticList = ['复制链接', '浏览器打开', '微信分享', '刷新']
+const marqueeTimer = ref(null) // 走马灯定时器
+const originalTitle = ref('') // 原始标题
+
+/**
+ * 计算标题的显示宽度（中文字符按2个字符计算）
+ * @param {String} title - 标题文本
+ * @returns {Number} 计算后的宽度值
+ */
+const calculateTitleWidth = (title) => {
+	if (!title) return 0
+	let width = 0
+	for (let i = 0; i < title.length; i++) {
+		const char = title.charAt(i)
+		// 中文字符、中文标点符号按2个宽度计算
+		if (/[\u4e00-\u9fa5\u3000-\u303f\uff00-\uffef]/.test(char)) {
+			width += 2
+		} else {
+			// 英文、数字、符号按1个宽度计算
+			width += 1
+		}
+	}
+	return width
+}
+
+/**
+ * 启动标题走马灯效果
+ * @param {String} title - 完整标题
+ */
+const startTitleMarquee = (title) => {
+	originalTitle.value = title
+
+	if (!title) {
+		uni.setNavigationBarTitle({ title: '详细' })
+		return
+	}
+
+	// 计算标题宽度，相当于25个英文字符的宽度（约50个字符宽度）
+	const titleWidth = calculateTitleWidth(title)
+	const maxDisplayWidth = 26 // 增加到26个英文字符宽度
+
+	// 标题宽度较小时直接显示
+	if (titleWidth <= maxDisplayWidth) {
+		uni.setNavigationBarTitle({ title: title })
+		return
+	}
+
+	// 需要跑马灯效果
+	let displayIndex = 0
+
+	/**
+	 * 执行走马灯滚动
+	 */
+	const marquee = () => {
+		let displayTitle = ''
+		let currentWidth = 0
+		let i = displayIndex
+
+		// 从当前索引开始，累积字符直到达到最大显示宽度
+		while (currentWidth < maxDisplayWidth && i < title.length) {
+			const char = title.charAt(i)
+			// 中文字符按2个宽度计算
+			if (/[\u4e00-\u9fa5\u3000-\u303f\uff00-\uffef]/.test(char)) {
+				currentWidth += 2
 			} else {
-				return this.staticList
+				currentWidth += 1
+			}
+			displayTitle += char
+			i++
+		}
+
+		// 如果剩余字符不足，从开头补充
+		if (currentWidth < maxDisplayWidth) {
+			let j = 0
+			while (currentWidth < maxDisplayWidth && j < displayIndex) {
+				const char = title.charAt(j)
+				if (/[\u4e00-\u9fa5\u3000-\u303f\uff00-\uffef]/.test(char)) {
+					currentWidth += 2
+				} else {
+					currentWidth += 1
+				}
+				displayTitle += char
+				j++
 			}
 		}
-	},
-	methods: {
-		...mapMutations(['storeLogin']),
-		click(index) {
-			this.show = false
-			console.log(index)
-			switch (index) {
-				case 4:
-					this.actionCollectedOrUnCollected()
-					break;
-				default:
-					break;
-			}
-		},
-		actionCollectedOrUnCollected() {
-			if (this.hasCollected) {
-				this.$u.api.actionUnCollected(this.id)
-				.then(res => {
-					console.log(res)
-					if (res == undefined) {
-						this.autoLogin()
-					}
-				})
-			}else {
-				this.$u.api.actionCollected(this.id)
-				.then(res => {
-					console.log(res)
-					if (res == undefined) {
-						this.autoLogin()
-					}
-				})
-			}
-		},
-		/// 因为账号信息中保存着收藏的信息，做完收藏或者取消收藏的操作后，调用一次登录信息，刷新个人信息，可以便于整个vuex层的数据保持最新，
-		/// 这个和我用Flutter的实现不一样，Flutter中我是对collectIds自行进行增删，但是vuex中对于state里面的操作我不太会
-		autoLogin() {
-			if (!this.userInfo.hasLogin) {
-				return;
-			}
-					
-			let mobile = uni.getStorageSync('username')
-			let code = uni.getStorageSync('password')
-					
-			if (mobile.length == 0 || code.length == 0) {
-				return
-			}
-					
-			this.$u.api.login(mobile, code).then(res => {
-				if (typeof res == 'string') {
-					let message = res
-					this.$refs.uToast.show({
-						title: message
-					});
-					return
-				}
-										
-				const temp = {
-					cookie: 'loginUserName=' + mobile + ';' + 'loginUserPassword=' + code,
-					profile: res
-				}
-					
-				// 刷新操作
-				this.storeLogin(temp);
-				uni.setStorageSync('username', mobile)
-				uni.setStorageSync('password', code)
-			});
-		},
+
+		// 添加省略号提示，表示滚动效果
+		if (titleWidth > maxDisplayWidth) {
+			displayTitle = displayTitle.slice(0, -1) + '…'
+		}
+
+		uni.setNavigationBarTitle({ title: displayTitle })
+
+		// 更新下一次显示的起始位置
+		displayIndex = (displayIndex + 1) % title.length
 	}
-};
+
+	// 立即执行一次
+	marquee()
+
+	// 启动定时器，每500ms滚动一次
+	marqueeTimer.value = setInterval(marquee, 500)
+}
+
+/**
+ * 停止标题走马灯
+ */
+const stopTitleMarquee = () => {
+	if (marqueeTimer.value) {
+		clearInterval(marqueeTimer.value)
+		marqueeTimer.value = null
+	}
+	// 恢复原始标题
+	if (originalTitle.value) {
+		uni.setNavigationBarTitle({ title: originalTitle.value })
+	}
+}
+
+// 计算属性
+const userInfo = computed(() => userStore.userInfo)
+
+// 解码URL - 解决重复编码问题
+const decodedUrl = computed(() => {
+	const rawUrl = params.value.url || ''
+	console.log('原始URL参数:', rawUrl)
+	// URL已经被encodeURIComponent编码，需要解码
+	const decoded = decodeURIComponent(rawUrl)
+	console.log('解码后URL:', decoded)
+	return decoded
+})
+
+const collectIds = computed(() => {
+	return userInfo.value.profile && userInfo.value.profile.collectIds || []
+})
+
+const id = computed(() => {
+	return Number(params.value.id)
+})
+
+const hasCollected = computed(() => {
+	let array = collectIds.value
+	let articleId = id.value
+	return array.includes(articleId)
+})
+
+const list = computed(() => {
+	if (userInfo.value.hasLogin) {
+		let text = hasCollected.value ? '取消收藏' : '收藏'
+		let array = ['复制链接', '浏览器打开', '微信分享', '刷新']
+		array.push(text)
+		return array
+	} else {
+		return staticList
+	}
+})
+
+// 方法
+const click = (index) => {
+	show.value = false
+	console.log(index)
+	switch (index) {
+		case 0:
+			// 复制链接
+			copyUrl()
+			break
+		case 1:
+			// 浏览器打开
+			openInBrowser()
+			break
+		case 4:
+			actionCollectedOrUnCollected()
+			break
+		default:
+			break
+	}
+}
+
+// 复制链接
+const copyUrl = () => {
+	const url = decodedUrl.value
+	uni.setClipboardData({
+		data: url,
+		success: () => {
+			uni.showToast({
+				title: '链接已复制',
+				icon: 'success'
+			})
+		}
+	})
+}
+
+// 浏览器打开
+const openInBrowser = () => {
+	// plus.runtime.openURL 在App环境可用
+	// #ifdef APP-PLUS
+	plus.runtime.openURL(decodedUrl.value)
+	// #endif
+	// #ifndef APP-PLUS
+	uni.showModal({
+		title: '提示',
+		content: 'H5环境不支持直接打开外部浏览器',
+		showCancel: false
+	})
+	// #endif
+}
+
+const actionCollectedOrUnCollected = async () => {
+	try {
+		if (hasCollected.value) {
+			await api.actionUnCollected(id.value)
+		} else {
+			await api.actionCollected(id.value)
+		}
+		// 刷新用户信息
+		await autoLogin()
+	} catch (error) {
+		console.error('收藏操作失败', error)
+		if (error === undefined) {
+			await autoLogin()
+		}
+	}
+}
+
+const autoLogin = async () => {
+	if (!userInfo.value.hasLogin) {
+		return
+	}
+
+	const mobile = uni.getStorageSync('username')
+	const code = uni.getStorageSync('password')
+
+	if (mobile.length === 0 || code.length === 0) {
+		return
+	}
+
+	try {
+		const res = await api.login(mobile, code)
+		if (typeof res === 'string') {
+			uni.showToast({
+				title: res,
+				icon: 'none'
+			})
+			return
+		}
+
+		const temp = {
+			cookie: 'loginUserName=' + mobile + ';' + 'loginUserPassword=' + code,
+			profile: res
+		}
+
+		storeLogin(temp)
+		uni.setStorageSync('username', mobile)
+		uni.setStorageSync('password', code)
+	} catch (error) {
+		console.error('自动登录失败', error)
+	}
+}
+
+// 生命周期
+onLoad((option) => {
+	params.value = option || {}
+	console.log('WebView参数:', option)
+	console.log('文章ID:', option && option.id)
+	console.log('URL参数:', option && option.url)
+
+	// 获取标题参数并解码
+	const encodedTitle = option && option.title
+	if (encodedTitle) {
+		const decodedTitle = decodeURIComponent(encodedTitle)
+		console.log('解码后标题:', decodedTitle)
+		startTitleMarquee(decodedTitle)
+	}
+})
+
+onNavigationBarButtonTap((e) => {
+	console.log(e && e.float)
+	show.value = true
+})
+
+// 页面卸载时清除定时器
+onUnload(() => {
+	stopTitleMarquee()
+})
 </script>
 
-<style>
-.grid-text {
-	font-size: 28rpx;
-	margin-top: 4rpx;
-	color: $u-type-info;
+<script>
+export default {
+	options: {
+		styleIsolation: 'shared'
+	}
+}
+</script>
+
+<style scoped>
+.popup-mask {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	z-index: 9999;
+}
+
+.popup-content {
+	background-color: #fff;
+	border-radius: 24rpx 24rpx 0 0;
+	padding-bottom: env(safe-area-inset-bottom);
+}
+
+.popup-item {
+	padding: 32rpx;
+	text-align: center;
+	border-bottom: 1rpx solid #e5e5e5;
+}
+
+.popup-item:last-child {
+	border-bottom: none;
+}
+
+.popup-item:active {
+	background-color: #f5f5f5;
+}
+
+.popup-text {
+	font-size: 32rpx;
+	color: #333;
 }
 </style>

@@ -1,0 +1,60 @@
+{
+  "name": "wandroid",
+  "version": "1.0.0",
+  "description": "WanAndroid UniApp Client - Vue 3 Edition",
+  "main": "main.js",
+  "scripts": {
+    "dev:app": "uni -p app",
+    "dev:app-android": "uni -p app-android",
+    "dev:app-ios": "uni -p app-ios",
+    "dev:h5": "uni",
+    "dev:mp-weixin": "uni -p mp-weixin",
+    "build:app": "uni build -p app",
+    "build:app-android": "uni build -p app-android",
+    "build:app-ios": "uni build -p app-ios",
+    "build:h5": "uni build",
+    "build:mp-weixin": "uni build -p mp-weixin",
+    "wgt:android": "uni build -p app-android --wgt",
+    "wgt:ios": "uni build -p app-ios --wgt"
+  },
+  "keywords": [
+    "uniapp",
+    "vue3",
+    "wanandroid"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@dcloudio/uni-app": "3.0.0-alpha-4080720251125001",
+    "@dcloudio/uni-app-plus": "3.0.0-alpha-4080720251125001",
+    "@dcloudio/uni-components": "3.0.0-alpha-4080720251125001",
+    "@dcloudio/uni-h5": "3.0.0-alpha-4080720251125001",
+    "@dcloudio/uni-mp-alipay": "3.0.0-alpha-4080720251125001",
+    "@dcloudio/uni-mp-baidu": "3.0.0-alpha-4080720251125001",
+    "@dcloudio/uni-mp-jd": "3.0.0-alpha-4080720251125001",
+    "@dcloudio/uni-mp-kuaishou": "3.0.0-alpha-4080720251125001",
+    "@dcloudio/uni-mp-lark": "3.0.0-alpha-4080720251125001",
+    "@dcloudio/uni-mp-qq": "3.0.0-alpha-4080720251125001",
+    "@dcloudio/uni-mp-toutiao": "3.0.0-alpha-4080720251125001",
+    "@dcloudio/uni-mp-weixin": "3.0.0-alpha-4080720251125001",
+    "@dcloudio/uni-mp-xhs": "3.0.0-alpha-4080720251125001",
+    "@dcloudio/uni-quickapp-webview": "3.0.0-alpha-4080720251125001",
+    "pinia": "^2.1.7",
+    "uview-plus": "^3.2.15",
+    "vue": "^3.4.21",
+    "vue-i18n": "^9.9.1"
+  },
+  "devDependencies": {
+    "@dcloudio/types": "^3.4.8",
+    "@dcloudio/uni-automator": "3.0.0-alpha-4080720251125001",
+    "@dcloudio/uni-cli-shared": "3.0.0-alpha-4080720251125001",
+    "@dcloudio/vite-plugin-uni": "3.0.0-alpha-4080720251125001",
+    "@vue/runtime-core": "^3.4.21",
+    "sass": "^1.77.0",
+    "sass-loader": "^13.3.2",
+    "vite": "5.2.8"
+  },
+  "uni-app": {
+    "scripts": {}
+  }
+}

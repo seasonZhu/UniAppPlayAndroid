@@ -1,81 +1,120 @@
 <template>
-	<view class="">
+	<view class="container">
 		<view class="flex-wrap">
 			<view class="wrap" v-for="(item, index) in list" :key="index">
-				<u-tag :text="item.name" :index="item.name" @click="click" />
+				<view class="tag" @click="click(item.name)">{{ item.name }}</view>
 			</view>
 		</view>
-		<u-toast ref="uToast" />
 	</view>
 </template>
 
-<script>
-export default {
-	data() {
-		return {
-			searchWord: '',
-			list: []
-		}
-	},
-	onLoad() {
-		this.getHotKey()
-	},
-	onNavigationBarSearchInputChanged: function(e) {
-		console.log(e)
-		this.searchWord = e.text
-	},
-	onNavigationBarSearchInputConfirmed: function(e) {
-		console.log(e.text)
-		this.openPage(e.text)
-		if (e.text.length == 0) {
-			this.showToast()
-			return
-		}
-		this.openPage(this.searchWord)
-	},
-	onNavigationBarButtonTap(e) {
-		console.log(e.float)
-		console.log(this.searchWord)
-		if (this.searchWord.length == 0) {
-			this.showToast();
-			return
-		}
-		this.openPage(this.searchWord)
-	},
-	methods: {
-		getHotKey() {
-			this.$u.api.hotKey().then(res => {
-				this.list = res
-				console.log(res)
-			})
-		},
-		click(keyword) {
-			this.openPage(keyword)
-		},
-		openPage(keyword) {
-			this.$u.route('/pages/index/result', {
-				keyword: keyword
-			})
-		},
-		showToast() {
-			this.$refs.uToast.show({
-				title: '请输入关键词'
-			})
-		}
+<script setup>
+import { ref } from 'vue'
+import { onLoad, onNavigationBarSearchInputChanged, onNavigationBarSearchInputConfirmed, onNavigationBarButtonTap } from '@dcloudio/uni-app'
+import { api } from '@/config/http.js'
+
+// 数据
+const searchWord = ref('')
+const list = ref([])
+
+// 获取热词
+const getHotKey = async () => {
+	try {
+		const result = await api.hotKey()
+		list.value = (result && result.data) || []
+		console.log(list.value)
+	} catch (error) {
+		console.error('获取热词失败:', error)
+		list.value = []
 	}
-};
+}
+
+// 点击热词
+const click = (keyword) => {
+	openPage(keyword)
+}
+
+// 打开搜索结果页
+const openPage = (keyword) => {
+	uni.navigateTo({
+		url: '/pages/index/result?keyword=' + keyword
+	})
+}
+
+// 显示提示
+const showToast = () => {
+	uni.showToast({
+		title: '请输入关键词',
+		icon: 'none'
+	})
+}
+
+// 搜索输入变化
+onNavigationBarSearchInputChanged((e) => {
+	console.log(e)
+	searchWord.value = e.text
+})
+
+// 搜索确认
+onNavigationBarSearchInputConfirmed((e) => {
+	console.log(e.text)
+	if (e.text.length === 0) {
+		showToast()
+		return
+	}
+	openPage(searchWord.value)
+})
+
+// 导航栏按钮点击
+onNavigationBarButtonTap((e) => {
+	console.log(e && e.float)
+	console.log(searchWord.value)
+	if (searchWord.value.length === 0) {
+		showToast()
+		return
+	}
+	openPage(searchWord.value)
+})
+
+// 生命周期
+onLoad(() => {
+	getHotKey()
+})
 </script>
 
-<style scoped lang="scss">
+<script>
+export default {
+	options: {
+		styleIsolation: 'shared'
+	}
+}
+</script>
+
+<style scoped>
+.container {
+	background-color: #f5f5f5;
+	min-height: 100vh;
+}
+
 .flex-wrap {
 	display: flex;
-	display: -webkit-flex;
 	flex-wrap: wrap;
-	width: auto;
-	height: auto;
 	margin: 16rpx;
 }
+
 .wrap {
 	margin: 10rpx;
+}
+
+.tag {
+	padding: 12rpx 24rpx;
+	background-color: #fff;
+	border-radius: 8rpx;
+	font-size: 28rpx;
+	color: #333;
+}
+
+.tag:active {
+	background-color: #e0e0e0;
 }
 </style>

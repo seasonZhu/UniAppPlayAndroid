@@ -4,12 +4,10 @@
 	</div>
 </template>
 
-<script>
-	export default {
-		
-	}
+<script setup>
+// nvue 原生地图组件页面
+// 此页面使用原生渲染，主要用于性能要求高的场景
 </script>
 
 <style>
-
 </style>

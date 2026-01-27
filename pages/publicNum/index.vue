@@ -1,14 +1,67 @@
 <template>
-	<view class="wrap">
-		<view class="u-tabs-box"><u-tabs-swiper ref="uTabs" :list="topics" @change="tabsChange" :is-scroll="true"></u-tabs-swiper></view>
-		<swiper class="swiper-box" :current="swiperCurrent" @transition="transition" @animationfinish="animationfinish">
-			<swiper-item class="swiper-item" v-for="(item, index) in topics" :key="index">
-				<scroll-view scroll-y style="height: 100%;width: 100%;" @scrolltolower="reachBottom">
-					<view class="">
-						<view v-for="(model, idx) in lists[index]" :key="idx">
-							<u-cell-item :title="model.title" :label="model.author" :value="model.zan" :index="idx" @click="click(index, idx)"></u-cell-item>
+	<view class="container">
+		<!-- 顶部tab栏 -->
+		<scroll-view class="tabs-container" scroll-x scroll-with-animation>
+			<view class="tabs">
+				<view
+					v-for="(tab, index) in topics"
+					:key="index"
+					class="tab-item"
+					:class="{ active: current === index }"
+					@click="onTabClick(index)"
+				>
+					<text class="tab-text">{{ tab.name }}</text>
+					<view v-if="current === index" class="tab-indicator"></view>
+				</view>
+			</view>
+		</scroll-view>
+
+		<!-- 内容区域 -->
+		<swiper class="content-swiper" :current="current" @change="onSwiperChange">
+			<swiper-item v-for="(tab, index) in topics" :key="index" class="swiper-item">
+				<scroll-view
+					class="scroll-content"
+					scroll-y
+					@scrolltolower="onReachBottom"
+					:refresher-enabled="true"
+					:refresher-triggered="refreshing[index] || false"
+					@refresherrefresh="onRefresh(index)"
+					@refresherrestore="onRestore(index)"
+					refresher-background="#f5f5f5"
+				>
+					<!-- 文章列表 -->
+					<view v-if="lists[index] && lists[index].length > 0" class="list">
+						<view
+							v-for="(item, idx) in lists[index]"
+							:key="idx"
+							class="article-item"
+							@click="onArticleClick(index, idx)"
+						>
+							<view class="article-header">
+								<view class="article-info">
+									<text class="article-title">{{ item.title }}</text>
+									<view class="article-meta">
+										<text class="author">{{ item.author || item.shareUser || '匿名' }}</text>
+										<text class="time">{{ item.niceDate }}</text>
+									</view>
+								</view>
+							</view>
+							<view v-if="item.desc" class="article-desc">{{ item.desc }}</view>
 						</view>
-						<u-loadmore :status="listStatus[index]" @loadmore="loadmore" />
+					</view>
+
+					<!-- 加载状态 -->
+					<view v-if="!isFirstLoad[index] && lists[index] && lists[index].length > 0" class="loadmore">
+						<text v-if="listStatus[index] === 'loading'">加载中...</text>
+						<text v-else-if="listStatus[index] === 'nomore'">没有更多了</text>
+						<text v-else-if="listStatus[index] === 'loadmore'" @click="loadMore">点击加载更多</text>
+					</view>
+
+					<!-- 空状态 -->
+					<view v-if="!isFirstLoad[index] && (!lists[index] || lists[index].length === 0)" class="empty-state" @click="onRefresh(index)">
+						<view class="empty-icon">📭</view>
+						<text class="empty-text">暂无数据</text>
+						<text class="empty-tip">点击屏幕重新加载</text>
 					</view>
 				</scroll-view>
 			</swiper-item>
@@ -16,119 +69,341 @@
 	</view>
 </template>
 
-<script>
-export default {
-	data() {
-		return {
-			topics: [],
-			// 因为内部的滑动机制限制，请将tabs组件和swiper组件的current用不同变量赋值
-			current: 0, // tabs组件的current值，表示当前活动的tab选项
-			swiperCurrent: 0 ,// swiper组件的current值，表示当前那个swiper-item是活动的
-			lists: [[]],
-			pages: [],
-			listStatus: [],
-		};
-	},
-	async onLoad() {
-		await this.getProjectTopic();
-	},
-	methods: {
-		async getProjectTopic() {
-			this.topics = await this.$u.api.publicNumTopic()
-			console.log(this.topics)
-			for (let i = 0; i < this.topics.length; i++) {
-				this.pages[i] = 0
-				await this.getProjectList(i)
+<script setup>
+import { ref } from 'vue'
+import { onLoad } from '@dcloudio/uni-app'
+import { api } from '@/config/http.js'
+
+// 数据
+const topics = ref([])
+const current = ref(0)
+const lists = ref([])
+const pages = ref([])
+const listStatus = ref([])
+const refreshing = ref([]) // 每个tab的刷新状态
+const isFirstLoad = ref([]) // 每个tab的首次加载状态
+
+// 获取公众号分类
+const getPublicNumTopic = async () => {
+	try {
+		const result = await api.publicNumTopic()
+		topics.value = (result && result.data) || []
+
+		// 初始化每个tab的数据
+		for (let i = 0; i < topics.value.length; i++) {
+			pages.value[i] = 0
+			lists.value[i] = []
+			listStatus.value[i] = 'loadmore'
+			refreshing.value[i] = false
+			isFirstLoad.value[i] = true
+		}
+
+		// 加载前两个tab的数据（原代码行为）
+		if (topics.value.length > 0) {
+			await getPublicNumList(0)
+			if (topics.value.length > 1) {
+				await getPublicNumList(1)
 			}
-			this.tabsChange(1)
-			this.tabsChange(0)
-		},
-		async getProjectList(index, isLoadMore = false) {
-			let model = this.topics[index]
-			let id = model.id
-			let page 
-			if (isLoadMore) {
-				page = this.pages[index] + 1
-				this.pages[index] = page
-			}else {
-				page = this.pages[index]
-			}
-			console.log(id)
-			await this.$u.api.publicNumList(id, page).then(res => {
-				console.log(res)
-				let array = [].concat(res.datas)
-				if (isLoadMore) {
-					let lastArray = this.lists[index]
-					this.lists[index] = lastArray.concat(array)
-				}else {
-					this.lists[index] = array
-				}
-				
-				if (res.pageCount == res.curPage + 1) {
-					this.listStatus.splice(index, 1, "nomore")
-				} else {
-					this.listStatus.splice(index, 1,"loadmore")
-				}
-				
-				if (res.datas.length == 0) {
-					this.listStatus.splice(index, 1, "nomore")
-				}
-			})
-		},
-		// tabs通知swiper切换
-		tabsChange(index) {
-			this.swiperCurrent = index
-		},
-		// swiper-item左右移动，通知tabs的滑块跟随移动
-		transition(e) {
-			let dx = e.detail.dx;
-			this.$refs.uTabs.setDx(dx)
-		},
-		// 由于swiper的内部机制问题，快速切换swiper不会触发dx的连续变化，需要在结束时重置状态
-		// swiper滑动结束，分别设置tabs和swiper的状态
-		animationfinish(e) {
-			let current = e.detail.current;
-			this.$refs.uTabs.setFinishCurrent(current)
-			this.swiperCurrent = current
-			this.current = current
-		},
-		// scroll-view到底部加载更多
-		reachBottom() {
-			if (this.listStatus[this.current] == "nomore") {
-				return
-			}
-			
-			this.listStatus.splice(this.current,1,"loading")
-			console.log('上拉加载更多')
-			this.getProjectList(this.current, true)
-		},
-		openPage(url, id) {
-			console.log("打开详细页面")
-			this.$u.route('/pages/web/index', {
-				"url": url,
-				"id": id
-			});
-		},
-		click(index, idx) {
-			let url = this.lists[index][idx].link
-			let id = this.lists[index][idx].id
-			this.openPage(url, id)
-		},
+		}
+	} catch (error) {
+		console.error('获取公众号分类失败:', error)
+		uni.stopPullDownRefresh()
 	}
-};
+}
+
+// 获取公众号文章列表
+const getPublicNumList = async (index, isLoadMore = false) => {
+	const status = listStatus.value[index]
+	if (status === 'nomore' || status === 'loading') {
+		return
+	}
+
+	const model = topics.value[index]
+	if (!model) return
+
+	const id = model.id
+	let page
+	if (isLoadMore) {
+		page = pages.value[index] + 1
+		pages.value[index] = page
+	} else {
+		page = pages.value[index]
+	}
+
+	try {
+		listStatus.value[index] = 'loading'
+		const result = await api.publicNumList(id, page)
+		const dataList = (result && result.data && result.data.datas) || []
+
+		if (isLoadMore) {
+			lists.value[index] = lists.value[index].concat(dataList)
+		} else {
+			lists.value[index] = dataList
+		}
+
+		// 更新状态
+		if (result && result.data && result.data.curPage >= result.data.pageCount - 1) {
+			listStatus.value[index] = 'nomore'
+		} else if (dataList.length === 0) {
+			listStatus.value[index] = 'nomore'
+		} else {
+			listStatus.value[index] = 'loadmore'
+		}
+	} catch (error) {
+		console.error('获取公众号文章列表失败:', error)
+		listStatus.value[index] = 'loadmore'
+	} finally {
+		// 结束刷新
+		refreshing.value[index] = false
+		// 首次加载完成
+		isFirstLoad.value[index] = false
+	}
+}
+
+// 下拉刷新
+const onRefresh = (index) => {
+	refreshing.value[index] = true
+	isFirstLoad.value[index] = false
+	pages.value[index] = 0
+	getPublicNumList(index)
+}
+
+// 刷新恢复
+const onRestore = (index) => {
+	refreshing.value[index] = false
+}
+
+// 点击tab
+const onTabClick = (index) => {
+	current.value = index
+	// 如果该tab还没有数据，则加载
+	if (!lists.value[index] || lists.value[index].length === 0) {
+		getPublicNumList(index)
+	}
+}
+
+// swiper切换
+const onSwiperChange = (e) => {
+	const index = e.detail.current
+	current.value = index
+	// 如果该tab还没有数据，则加载
+	if (!lists.value[index] || lists.value[index].length === 0) {
+		getPublicNumList(index)
+	}
+}
+
+// 上拉加载
+const onReachBottom = () => {
+	const index = current.value
+	if (listStatus.value[index] !== 'nomore' && listStatus.value[index] !== 'loading') {
+		getPublicNumList(index, true)
+	}
+}
+
+// 加载更多
+const loadMore = () => {
+	const index = current.value
+	getPublicNumList(index, true)
+}
+
+// 打开文章详情
+const openPage = (url, id, title) => {
+	const titleParam = title ? '&title=' + encodeURIComponent(title) : ''
+	uni.navigateTo({
+		url: '/pages/web/index?url=' + encodeURIComponent(url) + '&id=' + id + titleParam
+	})
+}
+
+// 点击文章
+const onArticleClick = (index, idx) => {
+	const item = lists.value[index][idx]
+	if (item && item.link) {
+		openPage(item.link, item.id, item.title)
+	}
+}
+
+// 生命周期
+onLoad(() => {
+	getPublicNumTopic()
+})
 </script>
 
-<style>
-.wrap {
+<script>
+export default {
+	options: {
+		styleIsolation: 'shared'
+	}
+}
+</script>
+
+<style scoped>
+.container {
 	display: flex;
 	flex-direction: column;
-	height: calc(100vh - var(--window-top));
-	width: 100%;
+	height: 100vh;
+	background-color: #f5f5f5;
 }
-.swiper-box {
+
+/* Tab栏 */
+.tabs-container {
+	background-color: #fff;
+	border-bottom: 1rpx solid #eee;
+	white-space: nowrap;
+}
+
+.tabs {
+	display: flex;
+	flex-direction: row;
+	padding: 0 20rpx;
+}
+
+.tab-item {
+	position: relative;
+	padding: 30rpx 20rpx;
+	display: inline-flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	writing-mode: horizontal-tb;
+}
+
+.tab-text {
+	font-size: 28rpx;
+	color: #666;
+	white-space: nowrap;
+	display: block;
+}
+
+.tab-item.active .tab-text {
+	color: #2979FF;
+	font-weight: bold;
+}
+
+.tab-indicator {
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 40rpx;
+	height: 4rpx;
+	background-color: #2979FF;
+	border-radius: 2rpx;
+}
+
+/* 内容区域 */
+.content-swiper {
 	flex: 1;
+	height: 0;
 }
+
 .swiper-item {
 	height: 100%;
+}
+
+.scroll-content {
+	height: 100%;
+}
+
+/* 文章列表 */
+.list {
+	background-color: #fff;
+}
+
+.article-item {
+	padding: 30rpx;
+	border-bottom: 1rpx solid #f0f0f0;
+}
+
+.article-item:last-child {
+	border-bottom: none;
+}
+
+.article-header {
+	display: flex;
+	flex-direction: column;
+}
+
+.article-info {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+}
+
+.article-title {
+	font-size: 30rpx;
+	color: #333;
+	line-height: 1.5;
+	margin-bottom: 10rpx;
+	font-weight: 500;
+}
+
+.article-meta {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 10rpx;
+}
+
+.author {
+	font-size: 24rpx;
+	color: #999;
+}
+
+.time {
+	font-size: 24rpx;
+	color: #999;
+}
+
+.article-desc {
+	font-size: 26rpx;
+	color: #666;
+	line-height: 1.6;
+	margin-top: 20rpx;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+}
+
+/* 加载状态 */
+.loadmore {
+	padding: 30rpx;
+	text-align: center;
+	background-color: #fff;
+}
+
+.loadmore text {
+	font-size: 28rpx;
+	color: #999;
+}
+
+/* 空状态 */
+.empty-state {
+	padding: 200rpx 40rpx;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+
+.empty-icon {
+	font-size: 120rpx;
+	margin-bottom: 30rpx;
+	opacity: 0.5;
+}
+
+.empty-text {
+	font-size: 28rpx;
+	color: #666;
+	margin-bottom: 16rpx;
+	font-weight: 500;
+}
+
+.empty-tip {
+	font-size: 24rpx;
+	color: #999;
 }
 </style>
