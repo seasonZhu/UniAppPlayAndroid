@@ -53,9 +53,7 @@ const uniAppSendMessageToNative = () => {
 
 // 关闭 uniApp
 const closeUniApp = () => {
-	// #ifdef APP-PLUS
 	plus.runtime.quit()
-	// #endif
 }
 
 // 生命周期
