@@ -155,7 +155,7 @@ const onBannerClick = (index) => {
 	const item = list.value[index]
 	if (item && item.url) {
 		uni.navigateTo({
-			url: '/pages/web/banner-web?url=' + encodeURIComponent(item.url) + '&id=' + item.id
+			url: '/pages/web/banner-web?url=' + encodeURIComponent(item.url) + '&id=' + item.id + '&title=' + encodeURIComponent(item.title || '')
 		})
 	}
 }
@@ -173,9 +173,8 @@ const onNormalClick = (item, index) => {
 // 打开文章
 const openArticle = (item) => {
 	if (item && item.link) {
-		const titleParam = item.title ? '&title=' + encodeURIComponent(item.title) : ''
 		uni.navigateTo({
-			url: '/pages/web/index?url=' + encodeURIComponent(item.link) + '&id=' + item.id + titleParam
+			url: '/pages/web/index?url=' + encodeURIComponent(item.link) + '&id=' + item.id + '&title=' + encodeURIComponent(item.title || '')
 		})
 	}
 }

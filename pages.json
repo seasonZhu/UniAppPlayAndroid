@@ -113,12 +113,7 @@
 		    "path" : "pages/web/banner-web",
 		    "style" : {
 		        "navigationBarTitleText": "专治轮播图点击的url",
-		        "enablePullDownRefresh": false,
-		        // #ifdef APP-PLUS
-		        "app-plus": {
-		            "bounce": "none"
-		        }
-		        // #endif
+		        "enablePullDownRefresh": false
 		    }
 		},
 		{

@@ -1,14 +1,46 @@
 # HarmonyOS Next 部署指南
 
-## 问题说明
+## ⚠️ 重要说明
 
-在 HarmonyOS Next 系统下运行时可能遇到 WebView 权限错误：
-```
-Error message:Parameter Error. The type of "permissionList" must be Array<Permissions>.
-Error code:401
+**当前 uni-app HarmonyOS 运行时存在已知 bug：**
+- 运行时版本：`@dcloudio/uni-app-runtime@2.3.14`
+- 错误：`Parameter Error. The type of "permissionList" must be Array<Permissions>.`
+- 位置：`WebView.ets:57:19`
+
+**这是 uni-app 官方运行时的 bug，暂时无法通过代码修复。**
+
+## 临时解决方案
+
+### 方案：使用条件编译，HarmonyOS 平台显示占位页面
+
+当应用运行在 HarmonyOS 平台时，WebView 页面会显示友好提示，引导用户在外部浏览器中打开链接：
+
+```vue
+<template>
+  <view>
+    <!-- #ifndef APP-HARMONYOS -->
+    <web-view :src="decodedUrl"></web-view>
+    <!-- #endif -->
+    <!-- #ifdef APP-HARMONYOS -->
+    <view class="harmonyos-webview-placeholder">
+      <view class="placeholder-content">
+        <text class="placeholder-icon">📱</text>
+        <text class="placeholder-title">HarmonyOS WebView</text>
+        <text class="placeholder-desc">点击下方按钮在浏览器中打开</text>
+        <button class="open-btn" @click="openInBrowser">在浏览器中打开</button>
+      </view>
+    </view>
+    <!-- #endif -->
+  </view>
+</template>
 ```
 
-## 解决方案
+**效果：**
+- ✅ Android/iOS：正常使用 WebView
+- ✅ HarmonyOS：显示占位页面，点击按钮跳转到外部浏览器
+- ✅ 不会崩溃
+
+## 根本解决方案（待官方修复）
 
 ### 1. manifest.json 配置
 
@@ -22,6 +54,20 @@ Error code:401
       "ios": {},
       "harmonyos": {
         "abilities": []
+      }
+    }
+  },
+  "app-harmonyos": {
+    "distribute": {
+      "harmonyos": {
+        "permissions": [
+          {
+            "name": "ohos.permission.INTERNET"
+          },
+          {
+            "name": "ohos.permission.GET_NETWORK_INFO"
+          }
+        ]
       }
     }
   }

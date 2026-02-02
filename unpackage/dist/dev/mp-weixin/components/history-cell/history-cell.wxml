@@ -1,1 +1,0 @@
-<view data-event-opts="{{[['tap',[['click',['$0'],['item']]]]]}}" class="history-row u-border-bottom" bindtap="__e"><view class="time">{{timeFormat}}</view><view class="reason">{{item.reason}}</view><space vue-id="1afbe022-1" bind:__l="__l"></space><view class="coin">{{item.coinCount+'分'}}</view></view>

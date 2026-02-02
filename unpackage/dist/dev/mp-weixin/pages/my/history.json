@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "我的积分历史",
-  "usingComponents": {
-    "history-cell": "/components/history-cell/history-cell",
-    "u-loadmore": "/uview-ui/components/u-loadmore/u-loadmore"
-  }
-}

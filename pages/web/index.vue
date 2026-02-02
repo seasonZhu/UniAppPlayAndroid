@@ -8,12 +8,7 @@
 				</view>
 			</view>
 		</view>
-		<!-- #ifdef APP-PLUS -->
 		<web-view :src="decodedUrl"></web-view>
-		<!-- #endif -->
-		<!-- #ifndef APP-PLUS -->
-		<web-view :src="decodedUrl" :update-title="false"></web-view>
-		<!-- #endif -->
 	</view>
 </template>
 

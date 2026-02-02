@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "搜索结果",
-  "usingComponents": {
-    "u-cell-item": "/uview-ui/components/u-cell-item/u-cell-item",
-    "u-loadmore": "/uview-ui/components/u-loadmore/u-loadmore"
-  }
-}
