@@ -26,6 +26,10 @@
 			<text class="cell-title">调用原生页面</text>
 			<text class="cell-arrow">›</text>
 		</view>
+		<view class="cell-item" @click="click(6)">
+			<text class="cell-title">调用HarmonyOS Next原生页面</text>
+			<text class="cell-arrow">›</text>
+		</view>
 		<!-- 暂时移除 uniCloud 检查更新功能，待升级插件后再启用 -->
 		<text class="loginOrlogoutStyle" @tap="loginOrlogout">{{ loginStatusText }}</text>
 
@@ -118,6 +122,9 @@ const click = (index) => {
 			break
 		case 5:
 			uni.navigateTo({ url: '/pages/my/nativeMapComponent' })
+			break
+		case 6:
+			uni.navigateTo({ url: '/pages/my/harmonyOSNextComponent' })
 			break
 		default:
 			break

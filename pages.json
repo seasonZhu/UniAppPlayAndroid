@@ -161,6 +161,14 @@
 		    }
 
 		}
+		,{
+		    "path" : "pages/my/harmonyOSNextComponent",
+		    "style" :
+		    {
+		        "navigationBarTitleText": "原生组件演示",
+		        "enablePullDownRefresh": false
+		    }
+		}
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
